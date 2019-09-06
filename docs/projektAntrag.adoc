@@ -4,7 +4,6 @@ Niklas Liechti <nliechti@nliechti.ch>
 :author: Niklas Liechti
 :subtitle: Kubernetes Clusterservice
 :ntitle: {subtitle}
-:imagesdir: ./images
 :class: ITSE 17a
 :pdf-stylesdir: /Users/nliechti/bin/ives_theme/resources/themes
 :pdf-fontsdir: /Users/nliechti/bin/ives_theme/resources/fonts
@@ -29,8 +28,6 @@ Natürlich möchte ich bei dieser Arbeit hauptsächlich Kubernetes besser kennen
 Bei Gelegenheit werde ich vielleicht auch noch die Azure Pipelines anschauen, die seit der Übername
 von Microsoft scheinbar recht gut in Github integriert wurden.
 
-== Projektinformation
-
 == Kontaktangaben
 
 *Adresse* +
@@ -43,8 +40,6 @@ nliechti@nliechti.ch
 
 *Telefon* +
 Mobile: +41 77 432 64 45
-
-<<<
 
 == Antrag
 
@@ -78,8 +73,6 @@ Um den Schülern ein möglichst reales Scenario vorzugeben, muss zuerst ein Usec
 
 *Aufwand*
 *Mittel*: Einen sinnvollen Usecase zu finden der nicht zu simple sind, kann einige Zeit in anspruch nehmen.
-
-<<<
  
 === Deploy Demoservice auf TBZ Kubernetes und lokal
 
@@ -98,6 +91,8 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 *Aufwand*
 
 *Klein - Mittel*: Um den Effekt sinnvoll vorzuführen, braucht es ein kleines Tooling, welches gebaut werden muss. 
+
+<<<
 
 == Ziele
 
@@ -120,8 +115,6 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 * Docker
 * Kubernetes
 
-<<<
-
 == Milestones
 
 [frame="topbot", cols="2", grid="rows"]
@@ -135,6 +128,14 @@ h| Milestone h| Datum
 | Abgabe Arbeit | 22.11.2019
 
 |===
+
+<<<
+
+=== Zeitplan
+
+.Zeitplan
+[#img-zeitplan]
+image::zeitplan.png[Zeitplan]
 
 == Bescheinigung
 Hiermit bescheinigung Auftraggeber und Auftragnehmer seite, dass die VA den anforderungen Entspricht und in diesem Rahmen durgeführt werden kann.
