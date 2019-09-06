@@ -1,0 +1,131 @@
+= Projektantrag VA : Subtitle
+Niklas Liechti <nliechti@nliechti.ch>
+:doctype: pdf
+:author: Niklas Liechti
+:subtitle: Kubernetes Clusterservice
+:ntitle: {subtitle}
+:imagesdir: ./images
+:class: ITSE 17a
+:pdf-stylesdir: /Users/nliechti/bin/ives_theme/resources/themes
+:pdf-fontsdir: /Users/nliechti/bin/ives_theme/resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Inhaltsverzeichnis
+
+
+
+== Einleitung
+
+Die Vertifungsarbeit soll das bereits gelernte im Lehrgang vertiefen.
+Dazu kommen bei meiner Arbeit noch Themen des Vertiefungsfaches Betriebssystem-Technik (V-BT).
+Bisher hatte ich mit meinem gewählten Thema (Clusterservices mit Kuberneties) nur sehr kleine Berührungspunkte.
+Docker hingegen kenne ich schon eine Weile und habe im Geschäft auch immer wieder Berührungspunkte.
+
+== Projektinformation
+
+== Kontaktangaben
+
+*Adresse* +
+Niklas Liechti +
+Meienbergstrasse 5 +
+8645 Jona
+
+*Email* +
+nliechti@nliechti.ch
+
+*Telefon* +
+Mobile: +41 77 432 64 45
+
+<<<
+
+== Antrag
+
+=== Projektauftrag
+
+Die Vorgabe für das Projekt ist das entwickeln eines Usecases für einen Clusterservice auf Kubernetes basierend.
+Es solle ein deploybare umgebung entstehen, die das deployen und betreiben eines Custerservices für schüler veranschaulicht.
+Die Umgebung soll in der Cloud, auf der TBZ Umgebung und auf einem Laptop laufen.
+
+=== Ausgangsaleg / Bisherige Erfahrung
+
+Beruflich hatte ich bereits einen sehr kleinen Berührungspunkt mit Kunbernetes, genauer mit der GKE (Google Kubernetes Engine) in der GCP (Google Cloud Platform).
+Dieser ausflug war aber nur ein sehr beschränkter POC auf 3-4 Tage.
+
+Da ich Software Engineer bin habe ich auch das nötige wissen und können um wenn nötig eine eigene kleine Demo Applikation zu bauen.
+
+
+== Anforderungen
+
+=== Setup lokale Kubernetes Umgebung
+
+Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernetes Umgebung aufgesetzt werden, was ich noch nie gemacht habe. 
+
+*Aufwand*
+
+*Klein*: Der Aufwand sollte sich hier im Ramen halten, da ich nicht der erste bin der so etwas machen möchte.
+
+=== Konzeption und Bau eines Demoservices
+
+Um den Schülern ein möglichst reales Scenario vorzugeben, muss zuerst ein Usecase erarbeitet werden. Womöglich muss dafür eine eigene kleine Demo App geschrieben werden. Es soll ein möglichst realer case sein, der gut aufzeigt, was die vor- und womöglich auch nachteile von Kubernetes sind.
+
+*Aufwand*
+*Mittel*: Einen sinvollen Usecase zu finden der nicht zu simple sind, kann einige Zeit in anspruch nehmen.
+
+=== Deploy Demoservice auf TBZ Kubernetes und lokal
+
+Nach dem Konzipieren eines möglchst sinnvollen Demoservices muss dieser noch sinnvoll zusammengesteckt werden. 
+
+*Aufwand*
+
+*Gross*: Dies sollte der gösste Teil der Arbeit sein, da es doch viel Feinarbeit braucht, bis alles reibungslos läuft.
+
+=== Messungen / Vorführung
+
+Um den Usecase vorführen zu können, wäre ein kleines Script sehr hilfreich, welches die Vorteile des Deployments direkt aufzeigen kann.
+
+Z.B sobal last auf das System kommt, scalet es hoch um alle Anfragen bearbeiten zu können.
+
+*Aufwand*
+
+*Klein - Mittel*: Um den Effekt sinnvoll vorzuführen, braucht es ein kleines Tooling, welches gebaut werden muss. 
+
+== Ziele
+
+=== Muss Ziele
+
+* Das System muss auf der Kubernetes Infrastruktur des TBZ laufen
+* Das System muss auf einer Lokalen Installation laufen
+* Das System muss die Vorteile eines Kubernetes Deployments aufzeigen
+* Das System muss unter Last automatisch hochskalieren
+
+
+=== Kann Ziele
+* 
+
+== Tools
+
+* Git / Github
+* Asciidoc für dokumentation
+* Docker
+* Kubernetes
+
+<<<
+
+== Bescheinigung
+Hiermit bescheinigung Auftraggeber und Auftragnehmer seite, dass die VA den anforderungen Entspricht und in diesem Ramen durgeführt werden kann.
+
+[frame="none", grid="none", cols="2"]
+|===
+a| Auftraggeber +
+Marcel Bamert +
+ +
+ +
+_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}
+| Auftragnehmer / Projektleiter +
+Niklas Liechti +
+ +
+ +
+_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}
+|===
