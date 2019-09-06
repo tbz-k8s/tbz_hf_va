@@ -1,4 +1,4 @@
-= Projektantrag VA : Subtitle
+= Projektantrag VA
 Niklas Liechti <nliechti@nliechti.ch>
 :doctype: pdf
 :author: Niklas Liechti
@@ -14,7 +14,7 @@ Niklas Liechti <nliechti@nliechti.ch>
 :toc:
 :toc-title: Inhaltsverzeichnis
 
-
+<<<
 
 == Einleitung
 
@@ -22,6 +22,10 @@ Die Vertifungsarbeit soll das bereits gelernte im Lehrgang vertiefen.
 Dazu kommen bei meiner Arbeit noch Themen des Vertiefungsfaches Betriebssystem-Technik (V-BT).
 Bisher hatte ich mit meinem gewählten Thema (Clusterservices mit Kuberneties) nur sehr kleine Berührungspunkte.
 Docker hingegen kenne ich schon eine Weile und habe im Geschäft auch immer wieder Berührungspunkte.
+
+Natürlich möchte ich bei dieser Arbeit hauptsächlich Kubernetes besser kennen lernen.
+Bei Gelegenheit werde ich vielleicht auch noch die Azure Pipelines anschauen, die seit der Übername
+von Microsoft scheinbar recht gut in Github integriert wurden.
 
 == Projektinformation
 
@@ -73,6 +77,8 @@ Um den Schülern ein möglichst reales Scenario vorzugeben, muss zuerst ein Usec
 *Aufwand*
 *Mittel*: Einen sinvollen Usecase zu finden der nicht zu simple sind, kann einige Zeit in anspruch nehmen.
 
+<<<
+ 
 === Deploy Demoservice auf TBZ Kubernetes und lokal
 
 Nach dem Konzipieren eines möglchst sinnvollen Demoservices muss dieser noch sinnvoll zusammengesteckt werden. 
