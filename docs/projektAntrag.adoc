@@ -99,10 +99,11 @@ Z.B sobal last auf das System kommt, scalet es hoch um alle Anfragen bearbeiten 
 * Das System muss auf einer Lokalen Installation laufen
 * Das System muss die Vorteile eines Kubernetes Deployments aufzeigen
 * Das System muss unter Last automatisch hochskalieren
+* Das System muss mindestens 3 Services beinhalten
 
 
 === Kann Ziele
-* 
+* Es soll die möglichkein der Visualisierung der Services angeschaut werden.
 
 == Tools
 
@@ -112,6 +113,20 @@ Z.B sobal last auf das System kommt, scalet es hoch um alle Anfragen bearbeiten 
 * Kubernetes
 
 <<<
+
+== Milestones
+
+[frame="topbot", cols="2", grid="rows"]
+|===
+h| Milestone h| Datum
+| Projektantrag | 06.09.2019
+| Projektauftrag | 11.09.2019
+| Situationsbericht 1 | 13.09.2019
+| Situationsbericht 2 | 04.10.2019
+| Situationsbericht 3 | 01.11.2019
+| Abgabe Arbeit | 22.11.2019
+
+|===
 
 == Bescheinigung
 Hiermit bescheinigung Auftraggeber und Auftragnehmer seite, dass die VA den anforderungen Entspricht und in diesem Ramen durgeführt werden kann.
