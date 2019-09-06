@@ -13,6 +13,7 @@ Niklas Liechti <nliechti@nliechti.ch>
 :sectnums:
 :toc:
 :toc-title: Inhaltsverzeichnis
+:title-page:
 
 <<<
 
