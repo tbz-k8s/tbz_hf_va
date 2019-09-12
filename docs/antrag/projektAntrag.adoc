@@ -111,9 +111,10 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 == Tools
 
 * Git / Github (https://github.com/nliechti/tbz_hf_va)
-* Asciidoc für dokumentation
+* Asciidoc für Projektdokumentation
+* Markdown für Softwaredokumentation
 * Docker
-* Kubernetes
+* Kubernetes (1.14.1)
 
 == Milestones
 
