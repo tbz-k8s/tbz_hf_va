@@ -19,7 +19,7 @@ Da Kubernetes schon fast zu einem Industriestandard geworden ist sollte bereits 
 ## Tools
 
 Die Umsetzung der Applikation werde ich voraussichtlich mit Java / Spring Boot (möglicherweise auch mit [Ktor](https://ktor.io/)) und Vue.js machen.
-Java kenne ich bereits gut und Vue.js wollte ich schon seit einer Weile mal für ein Projekt einsetzen, daher wohl eine gut kombo.
+Java kenne ich bereits gut und Vue.js wollte ich schon seit einer Weile mal für ein Projekt einsetzen, daher wohl eine gute kombo.
 
 ## Applikation
 
