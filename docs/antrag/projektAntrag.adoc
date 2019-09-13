@@ -19,7 +19,7 @@ Niklas Liechti <nliechti@nliechti.ch>
 == Einleitung
 
 Die Vertiefungsarbeit soll das bereits gelernte im Lehrgang vertiefen.
-Dazu kommen bei meiner Arbeit noch Themen des Vertiefu ngsfaches Betriebssystem-Technik (V-BT).
+Dazu kommen bei meiner Arbeit noch Themen des Vertiefungsfaches Betriebssystem-Technik (V-BT).
 Bisher hatte ich mit meinem gewählten Thema (Clusterservices mit Kubernetes) nur sehr kleine Berührungspunkte.
 
 Docker hingegen kenne ich schon eine Weile und habe im Geschäft auch immer wieder Berührungspunkte.
@@ -46,15 +46,18 @@ Mobile: +41 77 432 64 45
 === Projektauftrag
 
 Die Vorgabe für das Projekt ist das entwickeln eines Usecases für einen Clusterservice auf Kubernetes basierend.
-Es solle ein deploybare umgebung entstehen, die das deployen und betreiben eines Custerservices für schüler veranschaulicht.
-Die Umgebung soll in der Cloud, auf der TBZ Umgebung und auf einem Laptop laufen.
+Nach dem Initialen Gespräch wurde die Aufgabenstellung sehr konkretisiert. +
+Es soll nun um ein kleines Management System für die Kubernetes Cluster des TBZ werden.
+
+Die Platform ist ausdrücklich nur für Lehrer, um die neu angeschafften Kubernetes Cluster für den Unterricht nutzen zu können.
+Es soll einfach eine mehrzahl von Services zu übungszwecken deployt werden können.
 
 === Ausgangsaleg / Bisherige Erfahrung
 
 Beruflich hatte ich bereits einen sehr kleinen Berührungspunkt mit Kubernetes, genauer mit der GKE (Google Kubernetes Engine) in der GCP (Google Cloud Platform).
 Dieser ausflug war aber nur ein sehr beschränkter POC auf 3-4 Tage.
 
-Da ich Software Engineer bin habe ich auch das nötige wissen und können um wenn nötig eine eigene kleine Demo Applikation zu bauen.
+Da ich Software Engineer bin habe ich auch das nötige wissen und können um diese Applikation zu bauen.
 
 
 == Anforderungen
@@ -67,9 +70,13 @@ Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernet
 
 *Klein*: Der Aufwand sollte sich hier im Rahmen halten, da ich nicht der erste bin der so etwas machen möchte.
 
-=== Konzeption und Bau eines Demoservices
+=== Konzeption Applikation / Aufteilen in Tickets
 
-Um den Schülern ein möglichst reales Scenario vorzugeben, muss zuerst ein Usecase erarbeitet werden. Womöglich muss dafür eine eigene kleine Demo App geschrieben werden. Es soll ein möglichst realer Case sein, der gut aufzeigt, was die vor- und womöglich auch nachteile von Kubernetes sind.
+Die grobe Architektur 
+
+.Architektur
+[#img-architektur]
+image::architektur.png[Architektur]
 
 *Aufwand*
 *Mittel*: Einen sinnvollen Usecase zu finden der nicht zu simple sind, kann einige Zeit in anspruch nehmen.
@@ -98,11 +105,13 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 
 === Muss Ziele
 
-* Das System muss auf der Kubernetes Infrastruktur des TBZ laufen
-* Das System muss auf einer Lokalen Installation laufen
-* Das System muss die Vorteile eines Kubernetes Deployments aufzeigen
-* Das System muss unter Last automatisch hochskalieren
-* Das System muss mindestens 3 Services beinhalten
+. Die Applikation muss auf der Kubernetes Infrastruktur des TBZ laufen
+. Die Applikation muss auf einer Lokalen Installation laufen
+. Die Applikation muss per WebUI bedienbar sein
+. Services
+.. Es soll ein Service von Helm deploybar sein
+.. Die Anzahl Replikation muss einstellbar sein
+.. Die Daten müssen auf dem Cluster persistiert werden können 
 
 
 === Kann Ziele
