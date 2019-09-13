@@ -14,7 +14,7 @@ Ich denke das Erstellen der Applikation selber sollte nicht all zu viele Problem
 meiner Meinung nach die vielen Umsysteme, die angesprochen werden müssen.
 
 Wobei die bisherige Erfahrung welche ich mit Kubernetes gemacht habe waren durchaus positiv, von der Dokumentationsseite her.
-Da Kubernetes schon fast zu einem Industriestandard geworden ist sollte bereits genug tooling vorhanden sein.
+Da Kubernetes schon fast zu einem Industriestandard geworden ist, sollte bereits genug tooling vorhanden sein.
 
 ## Tools
 
