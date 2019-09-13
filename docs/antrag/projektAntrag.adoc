@@ -72,32 +72,33 @@ Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernet
 
 === Konzeption Applikation / Aufteilen in Tickets
 
-Die grobe Architektur 
+Die grobe Architektur wurde im initialen Kickoff besprochen. Diese muss aber in einer "Vorstudie" verfeinert werden.
+Die exakten Tools und frameworks müssen definierte werden.
 
 .Architektur
 [#img-architektur]
 image::architektur.png[Architektur]
 
 *Aufwand*
-*Mittel*: Einen sinnvollen Usecase zu finden der nicht zu simple sind, kann einige Zeit in anspruch nehmen.
+*Mittel*: Die Architektur festzulegen und Feedback einzuholen wird meist unterschätzt. Es ist aber ein essenzieller Bestandteil des Projekts.
  
-=== Deploy Demoservice auf TBZ Kubernetes und lokal
+=== Entwickeln der Applikation
 
-Nach dem Konzipieren eines möglichst sinnvollen Demoservices muss dieser noch sinnvoll zusammengesteckt werden. 
-
-*Aufwand*
-
-*Gross*: Dies sollte der grösste Teil der Arbeit sein, da es doch viel Feinarbeit braucht, bis alles reibungslos läuft.
-
-=== Messungen / Vorführung
-
-Um den Usecase vorführen zu können, wäre ein kleines Script sehr hilfreich, welches die Vorteile des Deployments direkt aufzeigen kann.
-
-Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten zu können.
+Dies ist natürlich der Hauptteil der Arbeit, da es um die effektive Umsetzung geht. Der Umfang der Applikation ist nicht gigantisch, muss aber mit vielen
+Umsystemen kommunizieren und funktionieren.
 
 *Aufwand*
 
-*Klein - Mittel*: Um den Effekt sinnvoll vorzuführen, braucht es ein kleines Tooling, welches gebaut werden muss. 
+*Gross*: Das umsetzten und Integrieren in die Umgebung brauch voraussichtlich am meisten Zeit.
+
+=== Testen auf TBZ Infrastruktur
+
+Um die Applikation einsetzen zu können muss sie natürlich auf der Tbz Infrastruktur getestet werden.
+Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger Aufwand sein, kann aber trotzdem noch arbeit machen.
+
+*Aufwand*
+
+*Klein - Mittel*: Sollte kein all zu grosser Aufwand sein, es können aber doch dinge schief gehen.
 
 <<<
 
@@ -109,13 +110,20 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 . Die Applikation muss auf einer Lokalen Installation laufen
 . Die Applikation muss per WebUI bedienbar sein
 . Services
-.. Es soll ein Service von Helm deploybar sein
+.. Es soll ein Service von Helm deploybar machen
 .. Die Anzahl Replikation muss einstellbar sein
-.. Die Daten müssen auf dem Cluster persistiert werden können 
+.. Die Daten müssen auf dem Cluster persistiert werden können
+.. Die Deployte Appliation muss enfernt werden können
+
 
 
 === Kann Ziele
-* Es soll die möglichkein der Visualisierung der Services angeschaut werden.
+
+. Das Löschen von Applikation und Daten ist getrennt möglich
+
+=== Abgrenzungen
+
+. Die Applikation wird keinerlei Authentifizierung haben.
 
 == Tools
 
@@ -131,7 +139,7 @@ Z.B sobald last auf das System kommt, scaled es hoch um alle Anfragen bearbeiten
 |===
 h| Milestone h| Datum
 | Projektantrag | 06.09.2019
-| Projektauftrag | 11.09.2019
+| Projektauftrag Kickoff | 11.09.2019
 | Situationsbericht 1 | 13.09.2019
 | Situationsbericht 2 | 04.10.2019
 | Situationsbericht 3 | 01.11.2019
