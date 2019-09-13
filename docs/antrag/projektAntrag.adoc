@@ -77,7 +77,7 @@ Die exakten Tools und frameworks müssen definierte werden.
 
 .Architektur
 [#img-architektur]
-image::architektur.png[Architektur]
+image::architektur.jpg[Architektur, 600]
 
 *Aufwand*
 *Mittel*: Die Architektur festzulegen und Feedback einzuholen wird meist unterschätzt. Es ist aber ein essenzieller Bestandteil des Projekts.
