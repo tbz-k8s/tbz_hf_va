@@ -25,6 +25,7 @@ Bisher hatte ich mit meinem gewählten Thema (Clusterservices mit Kubernetes) nu
 Docker hingegen kenne ich schon eine Weile und habe im Geschäft auch immer wieder Berührungspunkte.
 
 Natürlich möchte ich bei dieser Arbeit hauptsächlich Kubernetes besser kennen lernen.
+Das builden sollte recht einfach per Travis CI machbar sein.
 Bei Gelegenheit werde ich vielleicht auch noch die Azure Pipelines anschauen, die seit der Übername
 von Microsoft scheinbar recht gut in Github integriert wurden.
 
@@ -73,7 +74,7 @@ Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernet
 === Konzeption Applikation / Aufteilen in Tickets
 
 Die grobe Architektur wurde im initialen Kickoff besprochen. Diese muss aber in einer "Vorstudie" verfeinert werden.
-Die exakten Tools und frameworks müssen definierte werden.
+Die exakten Tools und Frameworks müssen definierte werden.
 
 .Architektur
 [#img-architektur]
@@ -109,17 +110,17 @@ Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger
 . Die Applikation muss auf der Kubernetes Infrastruktur des TBZ laufen
 . Die Applikation muss auf einer Lokalen Installation laufen
 . Die Applikation muss per WebUI bedienbar sein
-. Services
-.. Es soll ein Service von Helm deploybar machen
-.. Die Anzahl Replikation muss einstellbar sein
+. System (Kann aus mehreren Containerern bestehen)
+.. Systeme werden von einem Github Projekt mit vorgegebener Ordnerstruktur deploybar gemacht
+.. Die Anzahl Replikation muss einstellbar sein. Es müssen n Systeme hochgezogen werden können, die je ein Entrypoint haben.
 .. Die Daten müssen auf dem Cluster persistiert werden können
-.. Die Deployte Appliation muss enfernt werden können
-
+.. Die Deployte Applikation muss entfernt werden können
 
 
 === Kann Ziele
 
 . Das Löschen von Applikation und Daten ist getrennt möglich
+. Die aktiven Services sollen für die Lernenden als Web-UI zur Verfügung gestellt werden (nur Anwahl).
 
 === Abgrenzungen
 
@@ -132,6 +133,8 @@ Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger
 * Markdown für Softwaredokumentation
 * Docker
 * Kubernetes (1.14.1)
+
+<<<
 
 == Milestones
 
@@ -146,8 +149,6 @@ h| Milestone h| Datum
 | Abgabe Arbeit | 22.11.2019
 
 |===
-
-<<<
 
 === Zeitplan
 
