@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78dd6814-3cd4-43b8-8562-801d873038da" name="Default Changelist" comment="" />
+    <list default="true" id="78dd6814-3cd4-43b8-8562-801d873038da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/Main.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/vue/layout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/vue/views/hello-world.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/app.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.iws" beforeDir="false" afterPath="$PROJECT_DIR$/app.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,14 +105,6 @@
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/app.test.iml" />
-        <option value="$PROJECT_DIR$/app.main.iml" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectId" id="1RbsEWq9VFW0pwIB5h0K4n0W5W4" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -126,6 +127,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app.ipr" />
+    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -170,6 +176,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="app.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="MainKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -181,6 +200,11 @@
         <option name="BuildArtifacts" enabled="false" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -192,8 +216,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1569947018862</updated>
-      <workItem from="1569947019477" duration="4985000" />
+      <workItem from="1569947019477" duration="5554000" />
+      <workItem from="1570124169869" duration="500000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial app checking">
+      <created>1570123574479</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1570123574479</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Check in iws">
+      <created>1570123725637</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1570123725637</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +244,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -212,6 +254,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <MESSAGE value="Initial app checking" />
+    <MESSAGE value="Check in iws" />
+    <option name="LAST_COMMIT_MESSAGE" value="Check in iws" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
 </project>
