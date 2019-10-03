@@ -28,7 +28,7 @@ Auch sollten verschiedene Aktionen ausgeführt werden können:
 
 Wenn möglich sollte das Log der Instanz auf der Detailseite dargestellt werden, damit es bei Problemen schnell überprüft werden kann
 
-## Aufsetzen einer Installation
+### Aufsetzen einer Installation
 
 Möglicherweise wäre es noch praktisch die Version der gewählten Installation beim deployen verändern zu können. Dann muss nicht jedes mal das File im Repo angepasst werden
 
@@ -44,6 +44,6 @@ Es könnte noch praktisch sein, eine Installation automatisch am Ende des Tages 
 
 Ein Service sollte mit verschiedenen Passwörtern für jede Instanz ausgeliefert werden, damit sich nicht alle Schüler auf allen Instanzen einloggen können.
 
-### Super nice to have
+## Super nice to have
 
 Anzahl Pods darstellung
