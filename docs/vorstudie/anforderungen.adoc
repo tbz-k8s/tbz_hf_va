@@ -1,0 +1,45 @@
+== Anforderungen
+
+=== Anforderungen nach Projektantrag
+
+==== Setup lokale Kubernetes Umgebung
+
+Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernetes Umgebung aufgesetzt werden, was ich noch nie gemacht habe. 
+
+*Aufwand*
+
+*Klein*: Der Aufwand sollte sich hier im Rahmen halten, da ich nicht der erste bin der so etwas machen möchte.
+
+==== Konzeption Applikation / Aufteilen in Tickets
+
+Die grobe Architektur wurde im initialen Kickoff besprochen. Diese muss aber in einer "Vorstudie" verfeinert werden.
+Die exakten Tools und Frameworks müssen definierte werden.
+
+.Architektur
+[#img-architektur]
+image::architektur.jpg[Architektur, 600]
+
+*Aufwand*
+*Mittel*: Die Architektur festzulegen und Feedback einzuholen wird meist unterschätzt. Es ist aber ein essenzieller Bestandteil des Projekts.
+ 
+==== Entwickeln der Applikation
+
+Dies ist natürlich der Hauptteil der Arbeit, da es um die effektive Umsetzung geht. Der Umfang der Applikation ist nicht gigantisch, muss aber mit vielen
+Umsystemen kommunizieren und funktionieren.
+
+*Aufwand*
+
+*Gross*: Das umsetzten und Integrieren in die Umgebung brauch voraussichtlich am meisten Zeit.
+
+==== Testen auf TBZ Infrastruktur
+
+Um die Applikation einsetzen zu können muss sie natürlich auf der Tbz Infrastruktur getestet werden.
+Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger Aufwand sein, kann aber trotzdem noch arbeit machen.
+
+*Aufwand*
+
+*Klein - Mittel*: Sollte kein all zu grosser Aufwand sein, es können aber doch dinge schief gehen.
+
+=== Anforderungen aus Gespräch mit Thomas Kälin
+
+include::erhebung_kaelin.adoc[]

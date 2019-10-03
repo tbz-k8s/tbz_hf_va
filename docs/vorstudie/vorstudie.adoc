@@ -16,93 +16,13 @@ Niklas Liechti <nliechti@nliechti.ch>
 
 <<<
 
-== Management Summary
+include::management_summary.adoc[]
 
-*Die wichtigen Kernpunkte sind:*
+include::auftrag.adoc[]
 
-== Antrag
-
-=== Organigramm
-
-Da das Projekt recht klein ist, hält sich auch das Organigramm in Grenzen. Grundsätzlich sind es 5 Beteiligte. Im Kern sind aber nur 3 Personen enger Involviert. 
-
-* Marcel Bernet (Auftraggeber)
-* Niklas Liechti (Projektleitung / Umsetzung)
-* Thomas Kälin (Berufsschullehrer)
-
-image::organigramm_va.png[Organigramm]
-
-=== Termin
-
-=== Budget
-
-Grundsätzlich steht für die Umsetzung der Vertiefungsarbeit kein Budget zu verfügung. 
-Lediglich ein Zeitbudget von ca. 100 Arbeitsstunden ist vorgesehen.
-
-=== Systemdefinition / Abgrenzungen
-
-==== Systemgrenzen
-
-image::systemgrenzen.png[]
-
-=== Projektauftrag
-
-Die Vorgabe für das Projekt ist das entwickeln eines Usecases für einen Clusterservice auf Kubernetes basierend.
-Nach dem Initialen Gespräch wurde die Aufgabenstellung sehr konkretisiert. +
-Es soll nun um ein kleines Management System für die Kubernetes Cluster des TBZ werden.
-
-Die Platform ist ausdrücklich nur für Lehrer, um die neu angeschafften Kubernetes Cluster für den Unterricht nutzen zu können.
-Es soll einfach eine mehrzahl von Services zu übungszwecken deployt werden können.
-
-=== Ausgangsaleg / Bisherige Erfahrung
-
-Beruflich hatte ich bereits einen sehr kleinen Berührungspunkt mit Kubernetes, genauer mit der GKE (Google Kubernetes Engine) in der GCP (Google Cloud Platform).
-Dieser ausflug war aber nur ein sehr beschränkter POC auf 3-4 Tage.
-
-Da ich Software Engineer bin habe ich auch das nötige wissen und können um diese Applikation zu bauen.
+include::anforderungen.adoc[]
 
 
-== Anforderungen
-
-=== Setup lokale Kubernetes Umgebung
-
-Um überhaupt mit der Arbeit starten zu können muss zuerst eine lokale Kubernetes Umgebung aufgesetzt werden, was ich noch nie gemacht habe. 
-
-*Aufwand*
-
-*Klein*: Der Aufwand sollte sich hier im Rahmen halten, da ich nicht der erste bin der so etwas machen möchte.
-
-=== Konzeption Applikation / Aufteilen in Tickets
-
-Die grobe Architektur wurde im initialen Kickoff besprochen. Diese muss aber in einer "Vorstudie" verfeinert werden.
-Die exakten Tools und Frameworks müssen definierte werden.
-
-.Architektur
-[#img-architektur]
-image::architektur.jpg[Architektur, 600]
-
-*Aufwand*
-*Mittel*: Die Architektur festzulegen und Feedback einzuholen wird meist unterschätzt. Es ist aber ein essenzieller Bestandteil des Projekts.
- 
-=== Entwickeln der Applikation
-
-Dies ist natürlich der Hauptteil der Arbeit, da es um die effektive Umsetzung geht. Der Umfang der Applikation ist nicht gigantisch, muss aber mit vielen
-Umsystemen kommunizieren und funktionieren.
-
-*Aufwand*
-
-*Gross*: Das umsetzten und Integrieren in die Umgebung brauch voraussichtlich am meisten Zeit.
-
-=== Testen auf TBZ Infrastruktur
-
-Um die Applikation einsetzen zu können muss sie natürlich auf der Tbz Infrastruktur getestet werden.
-Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger Aufwand sein, kann aber trotzdem noch arbeit machen.
-
-*Aufwand*
-
-*Klein - Mittel*: Sollte kein all zu grosser Aufwand sein, es können aber doch dinge schief gehen.
-
-<<<
 
 == Ziele
 
@@ -127,49 +47,7 @@ Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger
 
 . Die Applikation wird keinerlei Authentifizierung haben.
 
-== Tools
-
-* Git / Github (https://github.com/nliechti/tbz_hf_va)
-* Asciidoc für Projektdokumentation
-* Markdown für Softwaredokumentation
-* Docker
-* Kubernetes (1.14.1)
-
 <<<
 
-== Milestones
+== Weiteres Vorgehen
 
-[frame="topbot", cols="2", grid="rows"]
-|===
-h| Milestone h| Datum
-| Projektantrag | 06.09.2019
-| Projektauftrag Kickoff | 11.09.2019
-| Situationsbericht 1 | 13.09.2019
-| Situationsbericht 2 | 04.10.2019
-| Situationsbericht 3 | 01.11.2019
-| Abgabe Arbeit | 22.11.2019
-
-|===
-
-=== Zeitplan
-
-.Zeitplan
-[#img-zeitplan]
-image::zeitplan.png[Zeitplan]
-
-== Bescheinigung
-Hiermit bescheinigung Auftraggeber und Auftragnehmer seite, dass die VA den anforderungen Entspricht und in diesem Rahmen durgeführt werden kann.
-
-[frame="none", grid="none", cols="2"]
-|===
-a| Auftraggeber +
-Marcel Bernet +
- +
- +
-_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}
-| Auftragnehmer / Projektleiter +
-Niklas Liechti +
- +
- +
-_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}_{zwsp}
-|===
