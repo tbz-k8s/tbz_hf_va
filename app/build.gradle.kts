@@ -25,4 +25,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation("org.slf4j:slf4j-simple:1.7.28")
     implementation("org.webjars.npm:vue:2.6.10")
+    
+    implementation("io.fabric8:kubernetes-client:4.6.0")
+    implementation("io.fabric8:kubernetes-model:4.6.0")
 }
