@@ -1,7 +1,6 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.sun.org.apache.bcel.internal.Repository
 import groovy.lang.Closure
 
 plugins {
@@ -70,7 +69,10 @@ tasks.create("buildDockerImage", DockerBuildImage::class) {
     dependsOn("shadowJar")
     
     inputDir.set(file("."))
-    tags.add("$dockerImageName:$version")
+    if(!version.toString().contains("dirty")) {
+       tags.add("$dockerImageName:$version")
+    }
+    tags.add("$dockerImageName:latest")
 }
 
 tasks.create("pushDockerImage", DockerPushImage::class) {
