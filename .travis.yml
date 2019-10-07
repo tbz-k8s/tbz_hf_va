@@ -1,12 +1,12 @@
-language: minimal
+dist: trusty
 
 services:
   - docker
 
-deploy:
-  provider: script
-  script: 
-    - cd app
-    - ./gradlew pushDockerImages
-  on:
-    branch: master
+jobs:
+  - stage: build and push docker image 
+    script: 
+      - cd app
+      - ./gradlew pushDockerImages
+on:
+  branch: master
