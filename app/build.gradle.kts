@@ -94,3 +94,4 @@ tasks.create("pushDockerImages") {
     dependsOn("pushVersionedDockerImage")
     dependsOn("pushLatestDockerImage")
 }
+
