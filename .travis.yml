@@ -5,6 +5,8 @@ services:
 
 deploy:
   provider: script
-  script: ./gradlew pushDockerImages 
+  script: 
+    - cd app
+    - ./gradlew pushDockerImages
   on:
     branch: master
