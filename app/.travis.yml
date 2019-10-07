@@ -1,0 +1,10 @@
+language: java
+
+services:
+  - docker
+
+deploy:
+  provider: script
+  script: ./gradlew pushDockerImages 
+  on:
+    branch: master
