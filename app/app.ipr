@@ -25,8 +25,8 @@
       <entry name="!?*.java" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="1.6">
-      <module name="app.main" target="1.8" />
-      <module name="app.test" target="1.8" />
+      <module name="app.main" target="11" />
+      <module name="app.test" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -177,7 +177,7 @@
       <module fileurl="file://$PROJECT_DIR$/app.test.iml" filepath="$PROJECT_DIR$/app.test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">
