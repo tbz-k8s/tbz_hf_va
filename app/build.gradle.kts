@@ -1,4 +1,5 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.sun.org.apache.bcel.internal.Repository
 import groovy.lang.Closure
@@ -62,10 +63,32 @@ docker {
     }
 }
 
+val dockerImageName = "nliechti/tbz_deployer"
+
 // Use task types
-tasks.register("buildDockerImage", DockerBuildImage::class) {
+tasks.create("buildDockerImage", DockerBuildImage::class) {
     dependsOn("shadowJar")
     
     inputDir.set(file("."))
-    tags.add("nliechti/tbz_deployer:$version")
+    tags.add("$dockerImageName:$version")
+}
+
+tasks.create("pushDockerImage", DockerPushImage::class) {
+    dependsOn("buildDockerImage")
+    imageName.set("$dockerImageName:$version")
+}
+
+tasks.create("pushLatestDockerImage", DockerPushImage::class) {
+    dependsOn("buildDockerImage")
+    imageName.set("$dockerImageName:latest")
+}
+
+tasks.create("pushVersionedDockerImage", DockerPushImage::class) {
+    dependsOn("buildDockerImage")
+    imageName.set("$dockerImageName:$version")
+}
+
+tasks.create("pushDockerImages") {
+    dependsOn("pushVersionedDockerImage")
+    dependsOn("pushLatestDockerImage")
 }
