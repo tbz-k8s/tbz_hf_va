@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78dd6814-3cd4-43b8-8562-801d873038da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/main/Main.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/vue/layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/vue/views/hello-world.vue" afterDir="false" />
+    <list default="true" id="78dd6814-3cd4-43b8-8562-801d873038da" name="Default Changelist" comment="Check in iws">
       <change beforePath="$PROJECT_DIR$/app.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/app.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.iws" beforeDir="false" afterPath="$PROJECT_DIR$/app.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app.main.iml" afterDir="false" />
@@ -133,6 +130,11 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/vue/views" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -217,7 +219,9 @@
       <option name="presentableId" value="Default" />
       <updated>1569947018862</updated>
       <workItem from="1569947019477" duration="5554000" />
-      <workItem from="1570124169869" duration="500000" />
+      <workItem from="1570124169869" duration="3321000" />
+      <workItem from="1570191795416" duration="1197000" />
+      <workItem from="1570457376198" duration="684000" />
     </task>
     <task id="LOCAL-00001" summary="Initial app checking">
       <created>1570123574479</created>
