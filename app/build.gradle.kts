@@ -1,4 +1,5 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.sun.org.apache.bcel.internal.Repository
 import groovy.lang.Closure
 
@@ -46,6 +47,10 @@ dependencies {
 
     implementation("io.fabric8:kubernetes-client:4.6.0")
     implementation("io.fabric8:kubernetes-model:4.6.0")
+}
+
+tasks.withType<ShadowJar> {
+    version = null
 }
 
 docker {
