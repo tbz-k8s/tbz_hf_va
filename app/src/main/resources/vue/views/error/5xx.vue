@@ -1,11 +1,9 @@
-<template>
-	
+<template id="internal-server-error">
+    <h1>internal-server-error</h1>
 </template>
 
 <script>
-    export default {
-        name: "5xx.vue"
-    }
+    Vue.component("internal-server-error", {template: "#internal-server-error"})
 </script>
 
 <style scoped>
