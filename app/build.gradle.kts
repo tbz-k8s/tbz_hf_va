@@ -10,7 +10,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "5.1.0"
     id("com.bmuschko.docker-remote-api") version "5.2.0"
     id("com.palantir.git-version") version "0.12.2"
-    id("org.flywaydb.flyway") version "6.0.6"
 }
 
 buildscript {
@@ -52,6 +51,7 @@ dependencies {
     // Web stuff
     implementation("org.webjars.npm:vue:2.6.10")
     implementation("org.webjars.npm:bootstrap-vue:2.0.4")
+    implementation("org.webjars.npm:axios:0.19.0")
 
     implementation("io.fabric8:kubernetes-client:4.6.0")
     implementation("io.fabric8:kubernetes-model:4.6.0")
