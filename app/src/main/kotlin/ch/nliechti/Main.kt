@@ -1,11 +1,15 @@
 package ch.nliechti
 
+import ch.nliechti.controller.GithubRepoController
 import io.javalin.Javalin
 import io.javalin.plugin.rendering.vue.VueComponent
 import ch.nliechti.error.addErrorHandler
+import ch.nliechti.repository.GithubRepoRepository
 import io.fabric8.kubernetes.client.ConfigBuilder
 import io.fabric8.kubernetes.client.DefaultKubernetesClient
 import io.fabric8.kubernetes.client.KubernetesClient
+import java.net.URL
+import java.util.*
 
 
 fun main() {
@@ -18,8 +22,16 @@ fun main() {
     val kubernetesClient = initKubernetesClient()
 
     app.get("/", VueComponent("<hello-world></hello-world>"))
+    addGithubRepoController(app)
     addErrorHandler(app)
 
+    GithubRepoRepository.addGithubRepo(GithubRepository(name = "Bla test", url = URL("http://test.com"), id = UUID.randomUUID()) )
+}
+
+fun addGithubRepoController(app: Javalin) {
+    app.get("/api/v1/repos", GithubRepoController::getAll)
+    app.get("/api/v1/repos/:repo-id", GithubRepoController::getOne)
+    app.post("api/v1/repo/", GithubRepoController::getOne)
 }
 
 fun initKubernetesClient(): KubernetesClient {
@@ -39,16 +51,6 @@ fun initKubernetesClient(): KubernetesClient {
     val client = DefaultKubernetesClient(config)
     return client
 }
-
-//fun handleDBMigration() {
-//    val url = "jdbc:postgresql://127.0.0.1/test1"
-//    Database.connect(url, driver = "org.postgresql.Driver", user = "postgres", password = "123")
-//    Database.setInitialPowerOffCount(0)
-//
-//    val flyway = Flyway() 
-//    flyway.setDataSource(url, "postgres", "123")
-//    flyway.migrate()      
-//}
 
 private fun readPortConfig(): Int {
     val configuredPort = System.getenv("WEBSERVER_PORT")
