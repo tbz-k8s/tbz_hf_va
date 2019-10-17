@@ -7,7 +7,6 @@ import org.dizitart.kno2.getRepository
 import java.util.*
 
 object GithubRepoRepository {
-//    var repository: ObjectRepository<GithubRepository> = db.getRepository(GithubRepository)
 
     fun getAllGithubRepos(): List<GithubRepository> {
         var repos: List<GithubRepository> = emptyList()
@@ -16,7 +15,7 @@ object GithubRepoRepository {
         }
         return repos
     }
-    
+
     fun getGithubRepo(id: UUID): GithubRepository? {
         var repo: GithubRepository? = null
         db.getRepository<GithubRepository> {
@@ -25,16 +24,24 @@ object GithubRepoRepository {
         return repo
     }
 
-    fun addGithubRepo(repo: GithubRepository) {
+    fun addGithubRepo(repos: List<GithubRepository>) {
         db.getRepository<GithubRepository> {
-            insert(repo)
+            repos.forEach { insert(it) }
         }
     }
-    
+
     fun deleteGithubRepo(repos: List<GithubRepository>) {
         db.getRepository<GithubRepository> {
+            repos.forEach { repo: GithubRepository? ->
+                remove(repo)
+            }
+        }
+    }
+
+    fun deleteGithubRepoById(repos: List<UUID>) {
+        db.getRepository<GithubRepository> {
             repos.forEach {
-                repo: GithubRepository? -> remove(repo) 
+                remove(GithubRepository::id eq it)
             }
         }
     }
