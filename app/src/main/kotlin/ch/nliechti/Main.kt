@@ -21,9 +21,11 @@ fun main() {
 
 fun addGithubRepoController(app: Javalin) {
     app.get("/settings/repos", VueComponent("<github-repos></github-repos>"))
+    app.get("/settings/repo/:repo-id", VueComponent("<github-repo></github-repo>"))
+    app.get("/settings/repo", VueComponent("<github-repo></github-repo>"))
     app.get("/api/v1/repos", GithubRepoController::getAll)
     app.get("/api/v1/repos/:repo-id", GithubRepoController::getOne)
-    app.post("/api/v1/repos/", GithubRepoController::createRepo)
+    app.post("/api/v1/repo", GithubRepoController::createRepo)
     app.delete("/api/v1/repos/:repo-id", GithubRepoController::deleteRepo)
 }
 
