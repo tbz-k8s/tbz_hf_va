@@ -20,10 +20,11 @@ fun main() {
 }
 
 fun addGithubRepoController(app: Javalin) {
+    app.get("/settings/repos", VueComponent("<github-repos></github-repos>"))
     app.get("/api/v1/repos", GithubRepoController::getAll)
     app.get("/api/v1/repos/:repo-id", GithubRepoController::getOne)
-    app.post("/api/v1/repo/", GithubRepoController::createRepo)
-    app.delete("/api/v1/repo:repo-id", GithubRepoController::deleteRepo)
+    app.post("/api/v1/repos/", GithubRepoController::createRepo)
+    app.delete("/api/v1/repos/:repo-id", GithubRepoController::deleteRepo)
 }
 
 private fun readPortConfig(): Int {
