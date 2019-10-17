@@ -2,6 +2,7 @@ import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import groovy.lang.Closure
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     idea
@@ -23,10 +24,15 @@ buildscript {
     dependencies {
         classpath(kotlin("gradle-plugin", version = "1.3.50"))
     }
+
 }
 
 repositories {
     mavenCentral()
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "11"
 }
 
 // https://github.com/palantir/gradle-git-version/issues/105#issuecomment-523192407
@@ -40,8 +46,9 @@ val jar by tasks.getting(Jar::class) {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:3.5.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
+    implementation("io.javalin:javalin:3.5.0") {
+        exclude("com.fasterxml.jackson.module", "jackson-module-kotlin")
+    }
     implementation("org.slf4j:slf4j-simple:1.7.28")
 
     // Web stuff
@@ -52,9 +59,19 @@ dependencies {
     implementation("io.fabric8:kubernetes-model:4.6.0")
 
     // Database
-//    implementation("org.jetbrains.exposed:exposed:0.14.1")
-    implementation("com.h2database:h2:1.4.199")
-    implementation("org.flywaydb:flyway-core:6.0.6")
+    implementation("org.dizitart:potassium-nitrite:3.2.0")
+
+    // Serializer
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5")
+
+//    constraints {
+//        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
+//            because("https://github.com/dizitart/nitrite-database/issues/164: Nitrite needs this version")
+//        }
+//    }
+
 }
 
 tasks.withType<ShadowJar> {
@@ -75,10 +92,10 @@ val dockerImageName = "nliechti/tbz_deployer"
 // Use task types
 tasks.create("buildDockerImage", DockerBuildImage::class) {
     dependsOn("shadowJar")
-    
+
     inputDir.set(file("."))
-    if(!version.toString().contains("dirty")) {
-       tags.add("$dockerImageName:$version")
+    if (!version.toString().contains("dirty")) {
+        tags.add("$dockerImageName:$version")
     }
     tags.add("$dockerImageName:latest")
 }
