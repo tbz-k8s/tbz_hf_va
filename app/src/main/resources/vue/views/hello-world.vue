@@ -1,5 +1,8 @@
 <template id="hello-world">
-    <h1 class="hello-world">Hello, World!</h1>
+    <div>
+        <navigation active_navigation="Home"></navigation>
+        <h1>Welcome home</h1>
+    </div>
 </template>
 <script>
     Vue.component("hello-world", {template: "#hello-world"});
