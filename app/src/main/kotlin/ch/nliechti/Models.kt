@@ -1,15 +1,16 @@
 package ch.nliechti
 
+import org.dizitart.no2.objects.Id
 import java.net.URL
+import java.util.*
 
 data class Deployment(
-        val id: String,
+        @Id val id: UUID,
         val name: String,
         val replication: Int
 )
 
-data class Repository(
-        val id: String,
+data class GithubRepository(
+        @Id val id: UUID,
         val name: String,
-        val url: URL
-)
+        val url: URL)
