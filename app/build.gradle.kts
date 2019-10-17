@@ -77,7 +77,10 @@ tasks.create("buildDockerImage", DockerBuildImage::class) {
     dependsOn("shadowJar")
     
     inputDir.set(file("."))
-    tags.add("$dockerImageName:$version")
+    if(!version.toString().contains("dirty")) {
+       tags.add("$dockerImageName:$version")
+    }
+    tags.add("$dockerImageName:latest")
 }
 
 tasks.create("pushDockerImage", DockerPushImage::class) {
@@ -99,3 +102,4 @@ tasks.create("pushDockerImages") {
     dependsOn("pushVersionedDockerImage")
     dependsOn("pushLatestDockerImage")
 }
+
