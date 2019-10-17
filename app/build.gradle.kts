@@ -46,14 +46,12 @@ val jar by tasks.getting(Jar::class) {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:3.5.0") {
-        exclude("com.fasterxml.jackson.module", "jackson-module-kotlin")
-    }
+    implementation("io.javalin:javalin:3.5.0") 
     implementation("org.slf4j:slf4j-simple:1.7.28")
 
     // Web stuff
     implementation("org.webjars.npm:vue:2.6.10")
-    compile("org.webjars.npm:vuetify:2.1.1")
+    implementation("org.webjars.npm:bootstrap-vue:2.0.4")
 
     implementation("io.fabric8:kubernetes-client:4.6.0")
     implementation("io.fabric8:kubernetes-model:4.6.0")
@@ -66,11 +64,11 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5")
 
-//    constraints {
-//        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
-//            because("https://github.com/dizitart/nitrite-database/issues/164: Nitrite needs this version")
-//        }
-//    }
+    constraints {
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
+            because("https://github.com/dizitart/nitrite-database/issues/164: Nitrite needs this version")
+        }
+    }
 
 }
 
