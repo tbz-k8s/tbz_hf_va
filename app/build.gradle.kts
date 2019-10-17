@@ -1,7 +1,6 @@
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 import com.bmuschko.gradle.docker.tasks.image.DockerPushImage
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.sun.org.apache.bcel.internal.Repository
 import groovy.lang.Closure
 
 plugins {
@@ -10,11 +9,15 @@ plugins {
     id("com.github.johnrengelman.shadow") version "5.1.0"
     id("com.bmuschko.docker-remote-api") version "5.2.0"
     id("com.palantir.git-version") version "0.12.2"
+    id("org.flywaydb.flyway") version "6.0.6"
 }
 
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url = uri("https://dl.bintray.com/kotlin/exposed")
+        }
     }
 
     dependencies {
@@ -37,7 +40,6 @@ val jar by tasks.getting(Jar::class) {
 }
 
 dependencies {
-    implementation("org.springframework:spring-web:5.0.2.RELEASE")
     implementation("io.javalin:javalin:3.5.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation("org.slf4j:slf4j-simple:1.7.28")
@@ -48,6 +50,11 @@ dependencies {
 
     implementation("io.fabric8:kubernetes-client:4.6.0")
     implementation("io.fabric8:kubernetes-model:4.6.0")
+
+    // Database
+//    implementation("org.jetbrains.exposed:exposed:0.14.1")
+    implementation("com.h2database:h2:1.4.199")
+    implementation("org.flywaydb:flyway-core:6.0.6")
 }
 
 tasks.withType<ShadowJar> {
