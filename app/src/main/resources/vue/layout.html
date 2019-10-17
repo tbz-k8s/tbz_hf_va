@@ -3,18 +3,17 @@
 <head>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="/webjars/vue/2.6.10/dist/vue.min.js"></script>
+    <script src="/webjars/vue/2.6.10/dist/vue.js"></script>
     <script src="/webjars/bootstrap-vue/2.0.4/dist/bootstrap-vue.min.js"></script>
+    <script src="/webjars/axios/0.19.0/dist/axios.min.js"></script>
 
     <link href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/webjars/bootstrap-vue/2.0.4/dist/bootstrap-vue.min.css" rel="stylesheet">
-    
     @componentRegistration
 </head>
 <body>
 <main id="main-vue" v-cloak>
     @routeComponent
-    <b-alert show> Hello {{ name }}! </b-alert>
 </main>
 <script>
     new Vue({

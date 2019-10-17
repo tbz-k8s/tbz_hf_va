@@ -20,6 +20,7 @@ object GithubRepoController {
 
     fun createRepo(ctx: Context) {
         val repository = ctx.body<List<GithubRepository>>()
+//        repository.forEach { repo -> repo.id }
         GithubRepoRepository.addGithubRepo(repository)
         ctx.status(204)
     }
