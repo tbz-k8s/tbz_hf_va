@@ -2,6 +2,7 @@ package ch.nliechti
 
 import ch.nliechti.controller.GithubRepoController
 import ch.nliechti.error.addErrorHandler
+import com.charleskorn.kaml.Yaml
 import io.javalin.Javalin
 import io.javalin.plugin.rendering.vue.VueComponent
 
@@ -15,6 +16,37 @@ fun main() {
     app.get("/", VueComponent("<hello-world></hello-world>"))
     addGithubRepoController(app)
     addErrorHandler(app)
+
+    val input = """
+apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: osticket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osticket
+  template:
+    metadata:
+      labels:
+        app: osticket
+        group: customer
+        tier: frontend
+    spec:
+      containers:
+      - name: osticket
+        image: campbellsoftwaresolutions/osticket
+        env:
+        - name: MYSQL_HOST
+          value: osticket-mysql
+        - name: MYSQL_PASSWORD
+          value: secret        
+        ports:
+        - containerPort: 80
+          name: osticket
+          """.trimIndent()
+    val result = Yaml.default.parse(ReplicaSet.serializer(), input)
 
 //    GithubRepoRepository.addGithubRepo(GithubRepository(name = "Bla test", url = URL("http://test.com"), id = UUID.randomUUID()) )
 }
