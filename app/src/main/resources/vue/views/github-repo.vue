@@ -1,7 +1,7 @@
 <template id="github-repo">
     <div>
         <navigation :active_navigation="'Repo: ' + repo.name"></navigation>
-        <div class="container">
+        <b-container>
             <b-form @submit="onSubmit" @reset="onReset">
                 <b-form-group
                         id="repo-name-group"
@@ -26,10 +26,17 @@
                             required
                             placeholder="Enter repo url, ex: https://github.com/mc-b/duk/tree/master/osticket"></b-form-input>
                 </b-form-group>
-                <b-button type="submit" variant="primary">Submit</b-button>
-                <b-button type="reset" variant="danger-outline">Reset</b-button>
+                <b-row>
+                    <b-col>
+                        <b-button variant="outline"></b-button>
+                    </b-col>
+                    <b-col>
+                        <b-button type="submit" variant="primary">Submit</b-button>
+                        <b-button type="reset" variant="danger-outline">Reset</b-button>
+                    </b-col>
+                </b-row>
             </b-form>
-        </div>
+        </b-container>
     </div>
 
 </template>
