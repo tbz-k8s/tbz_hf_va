@@ -1,0 +1,29 @@
+== Systemdefinition / Abgrenzungen
+
+== Systemgrenzen
+
+image::systemgrenzen.png[]
+
+=== Umsysteme
+
+==== Kubernetes Cluster
+
+Der Kubernets cluster wird zum Deployment der Applikationen verwendet. Da der Hauptteil der Applition die Kommunikation mit der Kubernetes Cluster ist hat er die Wichtigste Schnittstelle zum Projekt.
+
+==== Github
+
+Github wird zum "hosten" der be
+
+==== Docker registry / Dockerhub
+
+=== Applikation
+
+==== Enduser
+
+==== Frontend
+
+==== Backend
+
+==== Datastore
+
+==== Authentifizierung ()
