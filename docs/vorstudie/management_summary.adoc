@@ -1,3 +1,14 @@
 == Management Summary
 
-*Die wichtigen Kernpunkte sind:*
+In dem Projekt geht es darum, eine minimale Management Applikation für die Lehrer der TBZ zu bauen, welche Applikationen auf einen Kubernetes Cluster deployen kann.
+
+Die Applikation müssen bereits in einem Kubernetes "fähigen" zustand vorliegen. +
+Dies heisst:
+
+* Es muss ein Dockerimage der Applikation geben
+* Es muss bereits kubernetes config file dafür geben.
+
+Die Lehrer sollen dadurch die neu erschafenen Kubernetes Cluster in den Schulzimmern einfacher nutzen können.
+
+Theoretisch können damit auch Lehrer die kein explizites Kubernetes Wissen haben, eine Applikation für den Unterricht aufsetzten.
+

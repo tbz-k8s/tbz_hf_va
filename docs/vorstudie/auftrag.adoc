@@ -1,5 +1,4 @@
 == Antrag
-
 === Organigramm
 
 Da das Projekt recht klein ist, hält sich auch das Organigramm in Grenzen. Grundsätzlich sind es 5 Beteiligte. Im Kern sind aber nur 3 Personen enger Involviert. 
@@ -8,20 +7,7 @@ Da das Projekt recht klein ist, hält sich auch das Organigramm in Grenzen. Grun
 * Niklas Liechti (Projektleitung / Umsetzung)
 * Thomas Kälin (Berufsschullehrer)
 
-image::organigramm_va.svg[Organigramm]
-
-=== Termin
-
-=== Budget
-
-Grundsätzlich steht für die Umsetzung der Vertiefungsarbeit kein Budget zu verfügung. 
-Lediglich ein Zeitbudget von ca. 100 Arbeitsstunden ist vorgesehen.
-
-=== Systemdefinition / Abgrenzungen
-
-==== Systemgrenzen
-
-image::systemgrenzen.svg[]
+image::organigramm_va.png[Organigramm, 300]
 
 === Projektauftrag
 
@@ -38,3 +24,10 @@ Beruflich hatte ich bereits einen sehr kleinen Berührungspunkt mit Kubernetes, 
 Dieser ausflug war aber nur ein sehr beschränkter POC auf 3-4 Tage.
 
 Da ich Software Engineer bin habe ich auch das nötige wissen und können um diese Applikation zu bauen.
+
+=== Termin
+
+=== Budget
+
+Grundsätzlich steht für die Umsetzung der Vertiefungsarbeit kein Budget zu verfügung. 
+Lediglich ein Zeitbudget von ca. 100 Arbeitsstunden ist vorgesehen.
