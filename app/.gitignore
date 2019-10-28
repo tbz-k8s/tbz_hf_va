@@ -4,3 +4,6 @@
 # Ignore Gradle build output directory
 build
 app.iws
+
+deployer_db
+.idea
