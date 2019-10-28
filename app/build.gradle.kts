@@ -8,7 +8,7 @@ val kotlinVersion = "1.3.50"
 
 plugins {
     idea
-    kotlin("jvm") version "1.3.50" 
+    kotlin("jvm") version "1.3.50"
     id("com.github.johnrengelman.shadow") version "5.1.0"
     id("com.bmuschko.docker-remote-api") version "5.2.0"
     id("com.palantir.git-version") version "0.12.2"
@@ -47,7 +47,7 @@ val jar by tasks.getting(Jar::class) {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:3.5.0") 
+    implementation("io.javalin:javalin:3.5.0")
     implementation("org.slf4j:slf4j-simple:1.7.28")
 
     // Web stuff
@@ -62,13 +62,11 @@ dependencies {
     implementation("org.dizitart:potassium-nitrite:3.2.0")
 
     // Serializer
-    implementation("javax.xml.bind:jaxb-api:2.3.1")
+//    implementation("javax.xml.bind:jaxb-api:2.3.1")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5")
-    
-    implementation("com.charleskorn.kaml:kaml:0.14.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.13.0") // JVM dependency
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.+")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+")
 
     constraints {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
