@@ -2,7 +2,12 @@ package ch.nliechti
 
 import ch.nliechti.controller.GithubRepoController
 import ch.nliechti.error.addErrorHandler
-import com.charleskorn.kaml.Yaml
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import io.fabric8.kubernetes.api.model.apps.ReplicaSet
+import io.fabric8.kubernetes.client.utils.Serialization
 import io.javalin.Javalin
 import io.javalin.plugin.rendering.vue.VueComponent
 
@@ -18,37 +23,12 @@ fun main() {
     addErrorHandler(app)
 
     val input = """
-apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
-kind: Deployment
-metadata:
-  name: osticket
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: osticket
-  template:
-    metadata:
-      labels:
-        app: osticket
-        group: customer
-        tier: frontend
-    spec:
-      containers:
-      - name: osticket
-        image: campbellsoftwaresolutions/osticket
-        env:
-        - name: MYSQL_HOST
-          value: osticket-mysql
-        - name: MYSQL_PASSWORD
-          value: secret        
-        ports:
-        - containerPort: 80
-          name: osticket
-          """.trimIndent()
-    val result = Yaml.default.parse(ReplicaSet.serializer(), input)
 
-//    GithubRepoRepository.addGithubRepo(GithubRepository(name = "Bla test", url = URL("http://test.com"), id = UUID.randomUUID()) )
+          """.trimIndent()
+
+    val mapper = ObjectMapper(YAMLFactory())
+    val replicaSet = mapper.readValue<ReplicaSet>(input)
+    print(replicaSet)
 }
 
 fun addGithubRepoController(app: Javalin) {

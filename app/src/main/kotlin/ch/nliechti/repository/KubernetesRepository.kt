@@ -2,10 +2,7 @@ package ch.nliechti.repository
 
 import io.fabric8.kubernetes.client.ConfigBuilder
 import io.fabric8.kubernetes.client.DefaultKubernetesClient
-import org.dizitart.kno2.nitrite
-import org.dizitart.no2.Nitrite
 import org.slf4j.LoggerFactory
-import java.io.File
 
 object KubernetesRepository {
 
@@ -32,4 +29,6 @@ object KubernetesRepository {
                 .build()
         client = DefaultKubernetesClient(config)
     }
+    
+    
 }
