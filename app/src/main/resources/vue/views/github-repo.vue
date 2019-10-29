@@ -31,8 +31,10 @@
                         <b-button variant="secondary-outline" href="/settings/repos">Back</b-button>
                     </b-col>
                     <b-col>
-                        <b-button type="submit" variant="primary">Submit</b-button>
-                        <b-button type="reset" variant="danger-outline">Reset</b-button>
+                        <div class="float-right">
+                            <b-button type="submit" variant="primary">Submit</b-button>
+                            <b-button type="reset" variant="danger-outline">Reset</b-button>
+                        </div>
                     </b-col>
                 </b-row>
             </b-form>
@@ -44,7 +46,7 @@
     Vue.component("github-repo", {
         template: "#github-repo",
         data: () => ({
-            repo: {name: "", url: ""}
+            repo: {name: "", url: "", id: ""}
         }),
         created() {
             const repoId = this.$javalin.pathParams["repo-id"];
@@ -69,12 +71,12 @@
                         title: 'Error Saving Record',
                         autoHideDelay: 5000,
                         variant: 'danger'
-                    }) 
+                    })
                 })
 
             },
             onReset(evt) {
-                this.repo = null
+                this.repo = {name: "", url: "", id: ""}
             }
         }
 
