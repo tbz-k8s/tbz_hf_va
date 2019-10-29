@@ -1,11 +1,17 @@
 <template id="github-repos">
     <div>
         <navigation active_navigation="Github Repos"></navigation>
-        <h1>All Repositories</h1>
-        <b-table hover :items="repos" :fields="rows">
+        <b-container>
+            <h1>All Repositories</h1>
+            <b-table hover :items="repos" :fields="rows">
 
-        </b-table>
-        <b-button href="/settings/repo" variant="success">Add Repository</b-button>
+            </b-table>
+            <b-row>
+                <b-col>
+                    <b-button href="/settings/repo" variant="success" class="float-right">Add Repository</b-button>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 
 </template>
