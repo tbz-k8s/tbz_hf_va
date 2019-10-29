@@ -59,3 +59,7 @@ java.nio.file.NoSuchFileException: src/main/resources/vue
 ```
 
 ## Libraries
+
+## Kubernetes models
+Das Typensichere laden eines Kubernetes configfiles war schwerer als gedacht, da die Offiziellen
+models kein wirklich generisches Parsen zulassen.
