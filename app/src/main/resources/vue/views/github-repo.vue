@@ -2,7 +2,7 @@
     <div>
         <navigation :active_navigation="'Repo: ' + repo.name"></navigation>
         <b-container>
-            <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @submit="addRepo" @reset="onReset">
                 <b-form-group
                         id="repo-name-group"
                         label="Name of Repository:"
@@ -28,7 +28,7 @@
                 </b-form-group>
                 <b-row>
                     <b-col>
-                        <b-button variant="outline"></b-button>
+                        <b-button variant="secondary-outline" href="/settings/repos">Back</b-button>
                     </b-col>
                     <b-col>
                         <b-button type="submit" variant="primary">Submit</b-button>
@@ -56,12 +56,24 @@
             }
         },
         methods: {
-            onSubmit(evt) {
-                console.log("bla");
-                axios.post("/api/v1/repos", [this.repo]).then(() => {
-                    console.log("bla server")
+            addRepo(evt) {
+                evt.preventDefault();
+                axios.post("/api/v1/repo", this.repo).then(() => {
+                    this.$bvToast.toast("Nice one", {
+                        title: 'Success',
+                        autoHideDelay: 5000,
+                        variant: 'success'
+                    })
+                }).catch((error) => {
+                    this.$bvToast.toast("" + error, {
+                        title: 'Error Saving Record',
+                        autoHideDelay: 5000,
+                        variant: 'danger'
+                    }) 
                 })
-            }, onReset(evt) {
+
+            },
+            onReset(evt) {
                 this.repo = null
             }
         }

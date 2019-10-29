@@ -1,18 +1,17 @@
 package ch.nliechti
 
 import org.dizitart.no2.objects.Id
-import java.net.URL
 import java.util.*
 
 data class GithubRepository(
-        @Id val id: UUID,
-        val name: String,
-        val url: URL)
+        @Id var id: String,
+        var name: String,
+        var url: String)
 
 data class Deployment (
-        @Id val id: UUID,
-        val replication: Number,
-        val shouldPersist: Boolean,
-        val shouldDeleteAfterShutdown: Boolean,
-        val replaceCredentialPlaceholder: Boolean
+        @Id var id: UUID,
+        var replication: Number,
+        var shouldPersist: Boolean,
+        var shouldDeleteAfterShutdown: Boolean,
+        var replaceCredentialPlaceholder: Boolean
 ) 

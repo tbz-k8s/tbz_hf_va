@@ -4,6 +4,7 @@ import ch.nliechti.GithubRepository
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.util.UUIDUtil.fromString
 import io.javalin.http.Context
+import java.util.*
 
 object GithubRepoController {
     fun getAll(ctx: Context) {
@@ -19,9 +20,9 @@ object GithubRepoController {
     }
 
     fun createRepo(ctx: Context) {
-        val repository = ctx.body<List<GithubRepository>>()
-//        repository.forEach { repo -> repo.id }
-        GithubRepoRepository.addGithubRepo(repository)
+        val repository = ctx.body<GithubRepository>()
+        repository.id = UUID.randomUUID().toString()
+        GithubRepoRepository.addGithubRepo(listOf(repository))
         ctx.status(204)
     }
 
