@@ -1,13 +1,8 @@
 package ch.nliechti
 
+import ch.nliechti.controller.DeploymentsController
 import ch.nliechti.controller.GithubRepoController
 import ch.nliechti.error.addErrorHandler
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import io.fabric8.kubernetes.api.model.apps.ReplicaSet
-import io.fabric8.kubernetes.client.utils.Serialization
 import io.javalin.Javalin
 import io.javalin.plugin.rendering.vue.VueComponent
 
@@ -20,6 +15,7 @@ fun main() {
 
     app.get("/", VueComponent("<hello-world></hello-world>"))
     addGithubRepoController(app)
+    addDeploymentsRoutes(app)
     addErrorHandler(app)
 
     val input = """
@@ -39,6 +35,13 @@ fun addGithubRepoController(app: Javalin) {
     app.get("/api/v1/repos/:repo-id", GithubRepoController::getOne)
     app.post("/api/v1/repo", GithubRepoController::createRepo)
     app.delete("/api/v1/repos/:repo-id", GithubRepoController::deleteRepo)
+}
+
+fun addDeploymentsRoutes(app: Javalin) {
+    app.get("/deployments", VueComponent("<deployments></deployments>"))
+    app.get("/api/v1/deployments", DeploymentsController::getAll)
+
+    app.post("/api/v1/deployment", DeploymentsController::addDeployment)
 }
 
 private fun readPortConfig(): Int {
