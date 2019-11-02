@@ -55,18 +55,17 @@ dependencies {
     implementation("org.webjars.npm:bootstrap-vue:2.0.4")
     implementation("org.webjars.npm:axios:0.19.0")
 
-    implementation("io.fabric8:kubernetes-client:4.6.0")
-    implementation("io.fabric8:kubernetes-model:4.6.0")
+    implementation("io.fabric8:kubernetes-client:4.6.1")
+    implementation("io.fabric8:kubernetes-model:4.6.1")
 
     // Database
     implementation("org.dizitart:potassium-nitrite:3.2.0")
 
     // Serializer
-//    implementation("javax.xml.bind:jaxb-api:2.3.1")
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.+")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.9.5")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.5")
 
     constraints {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
