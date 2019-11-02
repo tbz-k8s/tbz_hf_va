@@ -1,8 +1,8 @@
 package ch.nliechti.controller
 
 import ch.nliechti.GithubRepository
+import ch.nliechti.Repository
 import ch.nliechti.repository.GithubRepoRepository
-import ch.nliechti.util.UUIDUtil.fromString
 import io.javalin.http.Context
 import java.util.*
 
@@ -12,10 +12,8 @@ object GithubRepoController {
     }
 
     fun getOne(ctx: Context) {
-        fromString(ctx.pathParam("repo-id"))?.let { uuid ->
-            val repo: GithubRepository? = GithubRepoRepository.getGithubRepo(uuid)
-            repo?.let { ctx.json(it) } ?: ctx.status(404)
-        } ?: ctx.status(400)
+        val repo: Repository? = GithubRepoRepository.getGithubRepo(ctx.pathParam("repo-id"))
+        repo?.let { ctx.json(it) } ?: ctx.status(404)
 
     }
 
@@ -27,8 +25,6 @@ object GithubRepoController {
     }
 
     fun deleteRepo(ctx: Context) {
-        fromString(ctx.pathParam("repo-id"))?.let { uuid ->
-            GithubRepoRepository.deleteGithubRepoById(listOf(uuid))
-        } ?: ctx.status(400)
+        GithubRepoRepository.deleteGithubRepoById(listOf(ctx.pathParam("repo-id")))
     }
 }

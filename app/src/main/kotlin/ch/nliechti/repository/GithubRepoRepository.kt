@@ -1,6 +1,7 @@
 package ch.nliechti.repository
 
 import ch.nliechti.GithubRepository
+import ch.nliechti.Repository
 import ch.nliechti.repository.NitriteDB.db
 import org.dizitart.kno2.filters.eq
 import org.dizitart.kno2.getRepository
@@ -16,7 +17,7 @@ object GithubRepoRepository {
         return repos
     }
 
-    fun getGithubRepo(id: UUID): GithubRepository? {
+    fun getGithubRepo(id: String): Repository? {
         var repo: GithubRepository? = null
         db.getRepository<GithubRepository> {
             repo = find(GithubRepository::id eq id).firstOrDefault()
@@ -38,7 +39,7 @@ object GithubRepoRepository {
         }
     }
 
-    fun deleteGithubRepoById(repos: List<UUID>) {
+    fun deleteGithubRepoById(repos: List<String>) {
         db.getRepository<GithubRepository> {
             repos.forEach {
                 remove(GithubRepository::id eq it)
