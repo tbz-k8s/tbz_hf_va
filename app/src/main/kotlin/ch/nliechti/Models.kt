@@ -1,8 +1,8 @@
 package ch.nliechti
 
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.dizitart.no2.objects.Id
-import java.net.URL
-import java.util.*
 
 interface Repository {
     val id: String
@@ -15,12 +15,18 @@ data class GithubRepository(
         override var name: String,
         var url: String) : Repository {
     override val dataSource: String
-        get() = URL(url).readText()
+        get() {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                    .url(url)
+                    .build()
+            return client.newCall(request).execute().body()?.string() ?: ""
+        }
 }
 
 data class Deployment(
-        @Id var id: String,
-        var replication: Number,
+        @Id var name: String,
+        var replication: Int,
         var shouldPersist: Boolean,
         var shouldDeleteAfterShutdown: Boolean
 )

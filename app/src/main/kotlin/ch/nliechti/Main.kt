@@ -17,14 +17,6 @@ fun main() {
     addGithubRepoController(app)
     addDeploymentsRoutes(app)
     addErrorHandler(app)
-
-    val input = """
-
-          """.trimIndent()
-
-    val mapper = ObjectMapper(YAMLFactory())
-    val replicaSet = mapper.readValue<ReplicaSet>(input)
-    print(replicaSet)
 }
 
 fun addGithubRepoController(app: Javalin) {
@@ -42,6 +34,7 @@ fun addDeploymentsRoutes(app: Javalin) {
     app.get("/api/v1/deployments", DeploymentsController::getAll)
 
     app.post("/api/v1/deployment", DeploymentsController::addDeployment)
+    app.delete("/api/v1/deployment/:deployment-name", DeploymentsController::deleteDeployment)
 }
 
 private fun readPortConfig(): Int {
