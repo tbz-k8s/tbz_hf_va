@@ -84,7 +84,7 @@ spec:
           image: campbellsoftwaresolutions/osticket
           env:
             - name: MYSQL_HOST
-              value: osticket-mysql-1
+              value: osticket-mysql
             - name: MYSQL_PASSWORD
               value: secret
           ports:
