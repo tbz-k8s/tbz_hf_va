@@ -4,7 +4,11 @@
         <b-container>
             <h1>All Repositories</h1>
             <b-table hover :items="repos" :fields="rows">
-
+                <template v-slot:cell(action)="data">
+                    <b-button :href="'/settings/repo/' + data.item.id" variant="outline-primary" class="float-right">
+                        Edit {{ data.item.name }}
+                    </b-button>
+                </template>
             </b-table>
             <b-row>
                 <b-col>
@@ -29,7 +33,7 @@
                     key: 'url',
                     sortable: true
                 }, {
-                    key: 'Action',
+                    key: 'action',
                     sortable: false
                 }]
         }),

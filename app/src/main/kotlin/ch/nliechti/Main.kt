@@ -33,6 +33,7 @@ fun addDeploymentsRoutes(app: Javalin) {
     app.get("/deployments", VueComponent("<deployments></deployments>"))
     app.get("/api/v1/deployments", DeploymentsController::getAll)
 
+    app.get("/api/v1/deployment/:deployment-name", DeploymentsController::getDeployment)
     app.post("/api/v1/deployment", DeploymentsController::addDeployment)
     app.delete("/api/v1/deployment/:deployment-name", DeploymentsController::deleteDeployment)
 }

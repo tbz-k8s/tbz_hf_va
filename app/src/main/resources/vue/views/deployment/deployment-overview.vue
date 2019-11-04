@@ -4,7 +4,11 @@
         <b-container>
             <h1>Existing Deployments</h1>
             <b-table hover :items="deployments" :fields="rows">
-
+                <template v-slot:cell(action)="data">
+                    <b-button :href="'/deployment/' + data.item.name" variant="outline-primary" class="float-right">
+                        Edit {{ data.item.name }}
+                    </b-button>
+                </template>
             </b-table>
             <b-row>
                 <b-col>
@@ -27,6 +31,10 @@
                 },
                 {
                     key: 'replications',
+                    sortable: true
+                },
+                {
+                    key: 'action',
                     sortable: true
                 }
             ]
