@@ -31,6 +31,7 @@ fun addGithubRepoController(app: Javalin) {
 
 fun addDeploymentsRoutes(app: Javalin) {
     app.get("/deployments", VueComponent("<deployments></deployments>"))
+    app.get("/deployment", VueComponent("<deployment></deployment>"))
     app.get("/api/v1/deployments", DeploymentsController::getAll)
 
     app.get("/api/v1/deployment/:deployment-name", DeploymentsController::getDeployment)
