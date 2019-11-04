@@ -23,7 +23,15 @@ object DeploymentsController {
             deployments.compute(deployedLabel) { _, count -> count?.let { count + 1 } ?: 1 }
         }
 
-        ctx.json(deployments)
+        ctx.json(deployments.map { DeploymentsResponse(it.key, it.value) })
+    }
+
+    data class DeploymentsResponse(val name: String, val replications: Int)
+
+    fun getDeployment(ctx: Context) {
+        val repo: String = ctx.pathParam("deployment-name")
+
+//        KubernetesRepository.client.namespaces().withName()
     }
 
     fun addDeployment(ctx: Context) {

@@ -19,7 +19,7 @@
     Vue.component("deployments", {
         template: "#deployments",
         data: () => ({
-            deployments: [],
+            deployments: [{}],
             rows: [
                 {
                     key: 'name',
@@ -34,7 +34,10 @@
         created() {
             fetch("/api/v1/deployments")
                 .then(res => res.json())
-                .then(res => this.deploymens = res)
+                .then(res => {
+                    console.log(res);
+                    this.deployments = res
+                })
                 .catch(() => "")
         }
     });
