@@ -39,16 +39,20 @@ object DeploymentsController {
         val loadedConfigs = KubernetesRepository.client.load(originalDataSource.byteInputStream()).get()
 
         repeat(totalReplications) {
-            val namespace = "${deploymentPost.deployment.name}-$it"
-            KubernetesRepository.client.namespaces()
-                    .createNew()
-                    .withNewMetadata()
-                    .withName(namespace)
-                    .endMetadata()
-                    .done()
-            setLoadBalancerConfig(loadedConfigs, it)
-            KubernetesRepository.client.resourceList(loadedConfigs).inNamespace(namespace).createOrReplace()
+            createDeploymentInNamespace(deploymentPost, it, loadedConfigs)
         }
+    }
+
+    private fun createDeploymentInNamespace(deploymentPost: DeploymentPost, prefix: Int, loadedConfigs: MutableList<HasMetadata>) {
+        val namespace = "${deploymentPost.deployment.name}-$prefix"
+        KubernetesRepository.client.namespaces()
+                .createNew()
+                .withNewMetadata()
+                .withName(namespace)
+                .endMetadata()
+                .done()
+        setLoadBalancerConfig(loadedConfigs, prefix)
+        KubernetesRepository.client.resourceList(loadedConfigs).inNamespace(namespace).createOrReplace()
     }
 
     private fun setLoadBalancerConfig(configs: List<HasMetadata>, configCounter: Int) {
