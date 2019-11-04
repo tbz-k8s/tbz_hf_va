@@ -43,6 +43,10 @@
 
 </template>
 <script>
+    function clearInput() {
+        this.repo = {name: "", url: "", id: ""}
+    }
+
     Vue.component("github-repo", {
         template: "#github-repo",
         data: () => ({
@@ -65,7 +69,8 @@
                         title: 'Success',
                         autoHideDelay: 5000,
                         variant: 'success'
-                    })
+                    });
+                    clearInput()
                 }).catch((error) => {
                     this.$bvToast.toast("" + error, {
                         title: 'Error Saving Record',
@@ -76,7 +81,7 @@
 
             },
             onReset(evt) {
-                this.repo = {name: "", url: "", id: ""}
+                clearInput()
             }
         }
 
