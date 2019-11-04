@@ -6,14 +6,25 @@ import ch.nliechti.controller.DeploymentsController.KubernetesConfigTypes.LOAD_B
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import io.fabric8.kubernetes.api.model.HasMetadata
+import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Service
 import io.javalin.http.Context
 
 
 object DeploymentsController {
+
+    private const val tbzDeploymentLabel = "tbz-deployment"
+
     fun getAll(ctx: Context) {
-//        ctx.json(GithubRepoRepository.getAllGithubRepos())
-        KubernetesRepository.client.inNamespace("default").pods()
+        val tbzDeployedNamespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(tbzDeploymentLabel).list().items
+
+        val deployments = mutableMapOf<String, Int>()
+        tbzDeployedNamespaces.forEach { deployment ->
+            val deployedLabel: String = deployment.metadata.labels[tbzDeploymentLabel]!!
+            deployments.compute(deployedLabel) { _, count -> count?.let { count + 1 } ?: 1 }
+        }
+
+        ctx.json(deployments)
     }
 
     fun addDeployment(ctx: Context) {
@@ -48,6 +59,7 @@ object DeploymentsController {
         KubernetesRepository.client.namespaces()
                 .createNew()
                 .withNewMetadata()
+                .withLabels(mapOf(tbzDeploymentLabel to deploymentPost.deployment.name))
                 .withName(namespace)
                 .endMetadata()
                 .done()
