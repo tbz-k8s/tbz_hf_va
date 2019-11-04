@@ -3,11 +3,16 @@
         <navigation active_navigation="Deployments"></navigation>
         <b-container>
             <h1>Existing Deployments</h1>
-            <b-table hover :items="deployments" :fields="rows">
+            <b-table id="deployment-table" hover :items="deployments" :fields="rows">
                 <template v-slot:cell(action)="data">
-                    <b-button :href="'/deployment/' + data.item.name" variant="outline-primary" class="float-right">
-                        Edit {{ data.item.name }}
-                    </b-button>
+                    <div class="float-right">
+                        <b-button :href="'/deployment/' + data.item.name" variant="outline-primary">
+                            Edit {{ data.item.name }}
+                        </b-button>
+                        <b-button @click="deleteDeployment(data.item.name)" variant="outline-danger">
+                            X
+                        </b-button>
+                    </div>
                 </template>
             </b-table>
             <b-row>
@@ -35,7 +40,8 @@
                 },
                 {
                     key: 'action',
-                    sortable: true
+                    sortable: false,
+                    label: ''
                 }
             ]
         }),
@@ -43,10 +49,16 @@
             fetch("/api/v1/deployments")
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res);
                     this.deployments = res
                 })
                 .catch(() => "")
+        },
+        methods: {
+            deleteDeployment(name) {
+                axios.delete(`/api/v1/deployment/${name}`).then(res => {
+                    this.$root.$emit('bv::refresh::table', 'deployment-table')
+                })
+            }
         }
     });
 </script>
