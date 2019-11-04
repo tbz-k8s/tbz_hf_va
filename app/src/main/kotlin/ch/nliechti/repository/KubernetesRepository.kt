@@ -1,5 +1,6 @@
 package ch.nliechti.repository
 
+import io.fabric8.kubernetes.api.model.Service
 import io.fabric8.kubernetes.api.model.apps.DeploymentList
 import io.fabric8.kubernetes.client.ConfigBuilder
 import io.fabric8.kubernetes.client.DefaultKubernetesClient
@@ -36,5 +37,22 @@ object KubernetesRepository {
     
     fun getAllDeployments(): DeploymentList {
         return client.inNamespace("default").apps().deployments().list()
+    }
+
+    fun readOccupiedPorts(): List<Int> {
+        val occupiedPorts = mutableListOf<Int>()
+        client.inAnyNamespace().services().list().items.forEach { service ->
+            if (isLoadBalancer(service)) {
+                service.spec.ports.forEach { occupiedPorts.add(it.port) }
+            }
+        }
+        return occupiedPorts
+    }
+
+    fun isLoadBalancer(config: Service) = config.spec.type == KubernetesConfigTypes.LOAD_BALANCER.value
+
+
+    enum class KubernetesConfigTypes(val value: String) {
+        LOAD_BALANCER("LoadBalancer")
     }
 }

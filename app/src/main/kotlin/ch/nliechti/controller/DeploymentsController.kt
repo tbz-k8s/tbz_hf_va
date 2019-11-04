@@ -2,7 +2,6 @@ package ch.nliechti.controller
 
 import ch.nliechti.Deployment
 import ch.nliechti.Repository
-import ch.nliechti.controller.DeploymentsController.KubernetesConfigTypes.LOAD_BALANCER
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import io.fabric8.kubernetes.api.model.HasMetadata
@@ -68,10 +67,13 @@ object DeploymentsController {
     }
 
     private fun setLoadBalancerConfig(configs: List<HasMetadata>, configCounter: Int) {
+        val occupiedPorts: List<Int> = KubernetesRepository.readOccupiedPorts()
         configs.forEach { config ->
-            if (config is Service && config.spec.type == LOAD_BALANCER.value) {
-                config.spec.ports.forEach {
-                    it.port = 11000 + configCounter
+            if (config is Service && KubernetesRepository.isLoadBalancer(config)) {
+                config.spec.ports.forEach { publicPort ->
+                    var port = 11000 + configCounter
+                    occupiedPorts.forEach { ocPort -> if (ocPort == port) port++ }
+                    publicPort.port = port
                 }
             }
         }
@@ -79,8 +81,5 @@ object DeploymentsController {
 
     data class DeploymentPost(val deployment: Deployment, val repositoryId: String)
 
-    enum class KubernetesConfigTypes(val value: String) {
-        LOAD_BALANCER("LoadBalancer")
-    }
 }
 
