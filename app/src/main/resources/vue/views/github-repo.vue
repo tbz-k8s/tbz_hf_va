@@ -28,7 +28,7 @@
                 </b-form-group>
                 <b-row>
                     <b-col>
-                        <b-button variant="secondary-outline" href="/settings/repos">Back</b-button>
+                        <b-button variant="outline-primary" href="/settings/repos"><-</b-button>
                     </b-col>
                     <b-col>
                         <div class="float-right">
