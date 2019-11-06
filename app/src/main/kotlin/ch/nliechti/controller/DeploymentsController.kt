@@ -36,6 +36,7 @@ object DeploymentsController {
 
     fun addDeployment(ctx: Context) {
         val deploymentPost = ctx.body<DeploymentPost>()
+        deploymentPost.deployment.name = deploymentPost.deployment.name.toLowerCase()
         val repo = GithubRepoRepository.getGithubRepo(deploymentPost.repositoryId)
         repo?.let {
             createKubernetesConfig(repo, deploymentPost)
