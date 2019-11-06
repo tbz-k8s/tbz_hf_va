@@ -17,7 +17,7 @@
             </b-table>
             <b-row>
                 <b-col>
-                    <b-button href="" variant="success" class="float-right">Add Deployment</b-button>
+                    <b-button href="/deployment" variant="success" class="float-right">Add Deployment</b-button>
                 </b-col>
             </b-row>
         </b-container>
@@ -28,7 +28,7 @@
     Vue.component("deployments", {
         template: "#deployments",
         data: () => ({
-            deployments: [{}],
+            deployments: [],
             rows: [
                 {
                     key: 'name',
