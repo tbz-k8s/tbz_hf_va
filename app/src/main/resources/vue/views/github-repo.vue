@@ -33,7 +33,7 @@
                     <b-col>
                         <div class="float-right">
                             <b-button type="submit" variant="primary">Submit</b-button>
-                            <b-button type="reset" variant="danger-outline">Reset</b-button>
+                            <b-button type="reset" variant="outline-danger">Reset</b-button>
                         </div>
                     </b-col>
                 </b-row>
