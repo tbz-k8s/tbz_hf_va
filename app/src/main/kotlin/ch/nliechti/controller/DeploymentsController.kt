@@ -2,6 +2,7 @@ package ch.nliechti.controller
 
 import ch.nliechti.Deployment
 import ch.nliechti.Repository
+import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import io.fabric8.kubernetes.api.model.HasMetadata
@@ -12,14 +13,12 @@ import io.javalin.http.Context
 
 object DeploymentsController {
 
-    private const val tbzDeploymentLabel = "tbz-deployment"
-
     fun getAll(ctx: Context) {
-        val tbzDeployedNamespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(tbzDeploymentLabel).list().items
+        val tbzDeployedNamespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL).list().items
 
         val deployments = mutableMapOf<String, Int>()
         tbzDeployedNamespaces.forEach { deployment ->
-            val deployedLabel: String = deployment.metadata.labels[tbzDeploymentLabel]!!
+            val deployedLabel: String = deployment.metadata.labels[TBZ_DEPLOYMENT_LABEL]!!
             deployments.compute(deployedLabel) { _, count -> count?.let { count + 1 } ?: 1 }
         }
 
@@ -67,7 +66,7 @@ object DeploymentsController {
         KubernetesRepository.client.namespaces()
                 .createNew()
                 .withNewMetadata()
-                .withLabels(mapOf(tbzDeploymentLabel to deploymentPost.deployment.name))
+                .withLabels(mapOf(TBZ_DEPLOYMENT_LABEL to deploymentPost.deployment.name))
                 .withName(namespace)
                 .endMetadata()
                 .done()
