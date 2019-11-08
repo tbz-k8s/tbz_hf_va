@@ -3,8 +3,10 @@ package ch.nliechti.controller
 import ch.nliechti.Deployment
 import ch.nliechti.Repository
 import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
+import ch.nliechti.kubernetesModels.TBZ_REPLACE_ENV
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
+import ch.nliechti.util.DeploymentUtil
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Service
@@ -28,9 +30,13 @@ object DeploymentsController {
     data class DeploymentsResponse(val name: String, val replications: Int)
 
     fun getDeployment(ctx: Context) {
-        val repo: String = ctx.pathParam("deployment-name")
-
-//        KubernetesRepository.client.namespaces().withName()
+        val deploymentName: String = ctx.pathParam("deployment-name")
+        val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
+        namespaces.forEach { namespace ->
+            namespace.metadata.labels[TBZ_REPLACE_ENV]?.let {
+                //                KubernetesRepository.client.inNamespace(namespace.)
+            }
+        }
     }
 
     fun addDeployment(ctx: Context) {
@@ -57,11 +63,33 @@ object DeploymentsController {
         val loadedConfigs = KubernetesRepository.client.load(originalDataSource.byteInputStream()).get()
 
         repeat(totalReplications) {
-            createDeploymentInNamespace(deploymentPost, it, loadedConfigs)
+            val preparedConfig = replacePlaceholder(loadedConfigs)
+            createDeploymentInNamespace(deploymentPost, it, preparedConfig)
         }
     }
 
-    private fun createDeploymentInNamespace(deploymentPost: DeploymentPost, prefix: Int, loadedConfigs: MutableList<HasMetadata>) {
+    private fun replacePlaceholder(loadedConfigs: List<HasMetadata>): List<HasMetadata> {
+        loadedConfigs.forEach { config ->
+            config.metadata.labels[TBZ_REPLACE_ENV]?.let { label ->
+                replaceEnv(config, label)
+            }
+        }
+        return loadedConfigs
+    }
+
+    private fun replaceEnv(config: HasMetadata, label: String) {
+        if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
+            config.spec.template.spec.containers.forEach { container ->
+                container.env.forEach { env ->
+                    if (env.name == label) {
+                        env.value = DeploymentUtil.getRandomValueForEnv()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun createDeploymentInNamespace(deploymentPost: DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>) {
         val namespace = "${deploymentPost.deployment.name}-$prefix"
         KubernetesRepository.client.namespaces()
                 .createNew()
