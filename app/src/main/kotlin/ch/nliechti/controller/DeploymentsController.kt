@@ -20,18 +20,22 @@ object DeploymentsController {
 
         val deployments = mutableMapOf<String, DeploymentsResponse>()
         tbzDeployedNamespaces.forEach { deployment ->
-            deployment.status
-            val deployedLabel: String = deployment.metadata.labels[TBZ_DEPLOYMENT_LABEL]!!
-            deployments.compute(deployedLabel) { _, response ->
-                val newResponse: DeploymentsResponse = response?.let {
-                    it.replications = it.replications + 1
-                    it
-                } ?: DeploymentsResponse(deployedLabel, 1, deployment.status.phase)
-                newResponse
-            }
+            extractDeploymentInfos(deployment, deployments)
         }
 
         ctx.json(deployments.values)
+    }
+
+    private fun extractDeploymentInfos(deployment: Namespace, deployments: MutableMap<String, DeploymentsResponse>) {
+        deployment.status
+        val deployedLabel: String = deployment.metadata.labels[TBZ_DEPLOYMENT_LABEL]!!
+        deployments.compute(deployedLabel) { _, response ->
+            val newResponse: DeploymentsResponse = response?.let {
+                it.replications = it.replications + 1
+                it
+            } ?: DeploymentsResponse(deployedLabel, 1, deployment.status.phase)
+            newResponse
+        }
     }
 
     data class DeploymentsResponse(val name: String, var replications: Int, val status: String)
