@@ -67,6 +67,14 @@
             repos: [{text: 'Select One', value: null}]
         }),
         created() {
+            fetch("/api/v1/repos")
+                .then(res => res.json())
+                .then(res => {
+                    this.repos = res.map(repo => {
+                        return {text: repo.name, value: repo}
+                    })
+                })
+                .catch(() => "")
         },
         methods: {
             addDeployment(evt) {
