@@ -18,16 +18,23 @@ object DeploymentsController {
     fun getAll(ctx: Context) {
         val tbzDeployedNamespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL).list().items
 
-        val deployments = mutableMapOf<String, Int>()
+        val deployments = mutableMapOf<String, DeploymentsResponse>()
         tbzDeployedNamespaces.forEach { deployment ->
+            deployment.status
             val deployedLabel: String = deployment.metadata.labels[TBZ_DEPLOYMENT_LABEL]!!
-            deployments.compute(deployedLabel) { _, count -> count?.let { count + 1 } ?: 1 }
+            deployments.compute(deployedLabel) { _, response ->
+                val newResponse: DeploymentsResponse = response?.let {
+                    it.replications = it.replications + 1
+                    it
+                } ?: DeploymentsResponse(deployedLabel, 1, deployment.status.phase)
+                newResponse
+            }
         }
 
-        ctx.json(deployments.map { DeploymentsResponse(it.key, it.value) })
+        ctx.json(deployments.values)
     }
 
-    data class DeploymentsResponse(val name: String, val replications: Int)
+    data class DeploymentsResponse(val name: String, var replications: Int, val status: String)
 
     fun getDeployment(ctx: Context) {
         val deploymentName: String = ctx.pathParam("deployment-name")
