@@ -11,6 +11,7 @@ import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.javalin.http.Context
 
 object DeploymentController {
@@ -20,24 +21,35 @@ object DeploymentController {
         val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
         val deployments = mutableListOf<DeploymentResponse>()
         namespaces.forEach { namespace ->
-            val replacedEnvs = getAllReplacesEnv(namespace)
+            val deploymentsInNamespace = getAllDeploymentsInNamespace(namespace.metadata.name)
+            val replacedEnvs = getAllReplacesEnv(deploymentsInNamespace)
             val externalAccess = getExternalAccess(namespace)
-            deployments.add(DeploymentResponse(externalAccess, replacedEnvs))
+            val state = getDeploymentState(deploymentsInNamespace)
+            deployments.add(DeploymentResponse(externalAccess, replacedEnvs, state))
         }
 
         ctx.json(deployments)
+    }
+
+    private fun getDeploymentState(deployments: List<Deployment>): DeploymentState {
+        var ready = 0
+        deployments.forEach {
+            if (it.status.availableReplicas == 1) ready++
+        }
+        return DeploymentState(ready, deployments.size)
     }
 
     private fun getExternalAccess(namespace: Namespace): List<ExternalAccess> {
         return mutableListOf()
     }
 
-    private fun getAllReplacesEnv(namespace: Namespace): List<EnvVar> {
-        return getAllReplacableEnvs(getAllDeploymentsInNamespace(namespace.metadata.name))
+    private fun getAllReplacesEnv(deployments: List<Deployment>): List<EnvVar> {
+        return getAllReplacableEnvs(deployments)
     }
 
-    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val replacedEnvs: List<EnvVar>)
+    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val replacedEnvs: List<EnvVar>, val state: DeploymentState)
     data class ExternalAccess(val ip: String, val port: Number)
+    data class DeploymentState(val ready: Number, val total: Number)
 
     fun addDeployment(ctx: Context) {
         val deploymentPost = ctx.body<DeploymentsController.DeploymentPost>()
