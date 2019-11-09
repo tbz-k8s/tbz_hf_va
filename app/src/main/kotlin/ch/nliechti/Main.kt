@@ -1,5 +1,6 @@
 package ch.nliechti
 
+import ch.nliechti.controller.DeploymentController
 import ch.nliechti.controller.DeploymentsController
 import ch.nliechti.controller.GithubRepoController
 import ch.nliechti.error.addErrorHandler
@@ -34,8 +35,8 @@ fun addDeploymentsRoutes(app: Javalin) {
     app.get("/deployment", VueComponent("<deployment></deployment>"))
     app.get("/api/v1/deployments", DeploymentsController::getAll)
 
-    app.get("/api/v1/deployment/:deployment-name", DeploymentsController::getDeployment)
-    app.post("/api/v1/deployment", DeploymentsController::addDeployment)
+    app.get("/api/v1/deployment/:deployment-name", DeploymentController::getDeployment)
+    app.post("/api/v1/deployment", DeploymentController::addDeployment)
     app.delete("/api/v1/deployment/:deployment-name", DeploymentsController::deleteDeployment)
 }
 
