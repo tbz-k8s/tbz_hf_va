@@ -67,21 +67,6 @@
             repos: [{text: 'Select One', value: null}]
         }),
         created() {
-            const deploymentName = this.$javalin.pathParams["repo-name"];
-            if (deploymentName) {
-                fetch(`/api/v1/deployments/${deploymentName}`)
-                    .then(res => res.json())
-                    .then(res => this.deployment = res)
-                    .catch(() => "");
-            }
-            fetch("/api/v1/repos")
-                .then(res => res.json())
-                .then(res => {
-                    this.repos = res.map(repo => {
-                        return {text: repo.name, value: repo}
-                    })
-                })
-                .catch(() => "")
         },
         methods: {
             addDeployment(evt) {
