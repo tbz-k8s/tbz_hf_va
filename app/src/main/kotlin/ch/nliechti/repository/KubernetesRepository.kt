@@ -1,7 +1,7 @@
 package ch.nliechti.repository
 
 import io.fabric8.kubernetes.api.model.Service
-import io.fabric8.kubernetes.api.model.apps.DeploymentList
+import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.fabric8.kubernetes.client.ConfigBuilder
 import io.fabric8.kubernetes.client.DefaultKubernetesClient
 import org.slf4j.LoggerFactory
@@ -14,7 +14,7 @@ object KubernetesRepository {
 
     init {
         val kubernetesMasterURL: String = System.getenv("KUBERNETES_MASTER_URL")
-                ?: "https://192.168.64.5:8443"
+                ?: "https://192.168.64.6:8443"
         val kubernetesUsername: String = System.getenv("KUBERNETES_USERNAME") ?: "minikube"
         val kubernetesClientCertData: String = System.getenv("KUBERNETES_CLIENT_CERT_DATA")
                 ?: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM5RENDQWR5Z0F3SUJBZ0lJWTZkMnA5R3ZCYWN3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB4T1RBNE1UUXhNelEwTURCYUZ3MHlNREV4TURFeE5ESTBNREZhTURZeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sc3dHUVlEVlFRREV4SmtiMk5yWlhJdFptOXlMV1JsCmMydDBiM0F3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRHNIcy85S05kZmhIbjUKeTIwcU9lc05oM0lyYk5mN2t1VUlidnNXbWxxaENuTVdUMDd6bjdEL3ZvRVgvODQwYTl2d3hMNDFac29SclA0YQo2bWVEandCTCt0L1lMeVQyK0lVVkhhSFNWL2tWT3Y4U3JZY1F3OTh2VGtnaHJ1eE04YW9aZEp0RmVhd0g2cE1WClZjZjlRQzhRQTdrNjJodmQ0UzErZEZsK1RQZUdnNnVPUTc3YWZnNm1CL1I4WHRXcTltYTl5VWNUT2luL01IbTAKcGFpY0tzTkdmLzR6TkNLKzdkdmlDWW50MVJmdjZJWSs0OEYxUkFnSmNkeTBoSUFLUS9ITkdIVjVIbm4wbTJxNQpEazhFbWhaM3N4TFRQUHpJMi9oUHhoTzlSV0o1UGZZT1ptSldyTE1SZUI2WFVZdTF6Nmh5TkdRUFVSa1B6dmx1Ck8yRTNqcGxIQWdNQkFBR2pKekFsTUE0R0ExVWREd0VCL3dRRUF3SUZvREFUQmdOVkhTVUVEREFLQmdnckJnRUYKQlFjREFqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUFiVUExMktDamcvdHBCdml4NTJpRW11ckM2VVRzaklsdAplaU90ODg1dFZPNjQzVFdLdGc5bXF1ejhOb3BkdldDMGRhbjR3R3dBMlpXMGFOM2dtY0JheHdweUxqZjNuSlBLCmV6Rmt1aEFoZHFEMy9tZE1qWFlYUHZVdlMzejdXNjN0dTluVFhIUnRTMHNuOXFCQU00WndWVm85aGtYRWg3U0IKU2EwRFhWbVlLTWNGVysxU3Z4U3ZuQ0s3eDBzMnJnTTBCd25rTnFEekU3bzhXUEdSRlhWTkZicVBpNllXYlpyaApXMEtmMnA4Yk9vNXllT0FYWHZoeUxSWTJWM29teHRrVGRCUkhiRUU5YWRsQ2VGbHc3empaQXhVbU54Z2JqQ2d1CmhrQ0swNG52NFFvQTlrWlY0Q3NUZnYwTm9NY0R0bC9yZ2xyUVZlU2NJWnpMRjk0NEZoSDVQdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
@@ -34,9 +34,9 @@ object KubernetesRepository {
                 .build()
         client = DefaultKubernetesClient(config)
     }
-    
-    fun getAllDeployments(): DeploymentList {
-        return client.inNamespace("default").apps().deployments().list()
+
+    fun getAllDeploymentsInNamespace(namespaceName: String): List<Deployment> {
+        return client.inNamespace(namespaceName).apps().deployments().list().items
     }
 
     fun readOccupiedPorts(): List<Int> {

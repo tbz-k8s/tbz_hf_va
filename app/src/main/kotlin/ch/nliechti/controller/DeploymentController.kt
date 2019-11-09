@@ -5,7 +5,9 @@ import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
 import ch.nliechti.kubernetesModels.TBZ_REPLACE_ENV
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
+import ch.nliechti.repository.KubernetesRepository.getAllDeploymentsInNamespace
 import ch.nliechti.util.DeploymentUtil
+import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.Service
@@ -18,17 +20,24 @@ object DeploymentController {
         val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
         val deployments = mutableListOf<DeploymentResponse>()
         namespaces.forEach { namespace ->
-            namespace.metadata.labels[TBZ_REPLACE_ENV]?.let {
-//                KubernetesRepository.client.inNamespace(namespacea.apiVersion)
-            }
+            val replacedEnvs = getAllReplacesEnv(namespace)
+            val externalAccess = getExternalAccess(namespace)
+            deployments.add(DeploymentResponse(externalAccess, replacedEnvs))
         }
 
         ctx.json(deployments)
     }
 
-    data class DeploymentResponse(val externalAccess: MutableList<ExternalAccess>, val replacedEnvs: MutableList<ReplacedEnv>)
+    private fun getExternalAccess(namespace: Namespace): List<ExternalAccess> {
+        return mutableListOf()
+    }
+
+    private fun getAllReplacesEnv(namespace: Namespace): List<EnvVar> {
+        return getAllReplacableEnvs(getAllDeploymentsInNamespace(namespace.metadata.name))
+    }
+
+    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val replacedEnvs: List<EnvVar>)
     data class ExternalAccess(val ip: String, val port: Number)
-    data class ReplacedEnv(val env: String, val value: String)
 
     fun addDeployment(ctx: Context) {
         val deploymentPost = ctx.body<DeploymentsController.DeploymentPost>()
@@ -52,23 +61,28 @@ object DeploymentController {
     }
 
     private fun replacePlaceholder(loadedConfigs: List<HasMetadata>): List<HasMetadata> {
-        loadedConfigs.forEach { config ->
-            config.metadata.labels[TBZ_REPLACE_ENV]?.let { label ->
-                replaceEnv(config, label)
-            }
-        }
+        val envs = getAllReplacableEnvs(loadedConfigs)
+        replaceEnv(envs)
         return loadedConfigs
     }
 
-    private fun replaceEnv(config: HasMetadata, label: String) {
-        if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
-            config.spec.template.spec.containers.forEach { container ->
-                container.env.forEach { env ->
-                    if (env.name == label) {
-                        env.value = DeploymentUtil.getRandomValueForEnv()
+    private fun getAllReplacableEnvs(configs: List<HasMetadata>): List<EnvVar> {
+        val envs = mutableListOf<EnvVar>()
+        configs.forEach { config ->
+            config.metadata.labels[TBZ_REPLACE_ENV]?.let { label ->
+                if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
+                    config.spec.template.spec.containers.forEach { container ->
+                        container.env.forEach { env -> if (env.name == label) envs.add(env) }
                     }
                 }
             }
+        }
+        return envs
+    }
+
+    private fun replaceEnv(envs: List<EnvVar>) {
+        envs.forEach { env ->
+            env.value = DeploymentUtil.getRandomValueForEnv()
         }
     }
 
@@ -88,6 +102,7 @@ object DeploymentController {
     private fun setLoadBalancerConfig(configs: List<HasMetadata>, configCounter: Int) {
         val occupiedPorts: List<Int> = KubernetesRepository.readOccupiedPorts()
         configs.forEach { config ->
+            // Cannot extract into method because the compiler cannot handle typeOf check for the config in function.
             if (config is Service && KubernetesRepository.isLoadBalancer(config)) {
                 config.spec.ports.forEach { publicPort ->
                     var port = 11000 + configCounter
