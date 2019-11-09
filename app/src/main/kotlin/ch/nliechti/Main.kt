@@ -33,11 +33,13 @@ fun addGithubRepoController(app: Javalin) {
 fun addDeploymentsRoutes(app: Javalin) {
     app.get("/deployments", VueComponent("<deployments></deployments>"))
     app.get("/deployment", VueComponent("<deployment></deployment>"))
+    app.get("/deployment/:deployment-name", VueComponent("<deployment-detail></deployment-detail>"))
     app.get("/api/v1/deployments", DeploymentsController::getAll)
 
     app.get("/api/v1/deployment/:deployment-name", DeploymentController::getDeployment)
     app.post("/api/v1/deployment", DeploymentController::addDeployment)
     app.delete("/api/v1/deployment/:deployment-name", DeploymentsController::deleteDeployment)
+
 }
 
 private fun readPortConfig(): Int {

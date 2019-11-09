@@ -7,7 +7,7 @@
                 <template v-slot:cell(action)="data">
                     <div class="float-right" v-if="data.item.status !== 'Terminating'">
                         <b-button :href="'/deployment/' + data.item.name" variant="outline-primary">
-                            Edit {{ data.item.name }}
+                            Detail of {{ data.item.name }}
                         </b-button>
                         <b-button @click="deleteDeployment(data.item.name)" variant="outline-danger">
                             X

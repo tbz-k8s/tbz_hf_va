@@ -16,15 +16,19 @@ object DeploymentController {
     fun getDeployment(ctx: Context) {
         val deploymentName: String = ctx.pathParam("deployment-name")
         val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
+        val deployments = mutableListOf<DeploymentResponse>()
         namespaces.forEach { namespace ->
             namespace.metadata.labels[TBZ_REPLACE_ENV]?.let {
-                //                KubernetesRepository.client.inNamespace(namespace.)
+//                KubernetesRepository.client.inNamespace(namespacea.apiVersion)
             }
         }
+
+        ctx.json(deployments)
     }
 
-//    data class DeploymentResponse(val externalAccess: MutableList<ExternalAccess>, )
-//    data class ExternalAccess(val ip: String, val port: Number)
+    data class DeploymentResponse(val externalAccess: MutableList<ExternalAccess>, val replacedEnvs: MutableList<ReplacedEnv>)
+    data class ExternalAccess(val ip: String, val port: Number)
+    data class ReplacedEnv(val env: String, val value: String)
 
     fun addDeployment(ctx: Context) {
         val deploymentPost = ctx.body<DeploymentsController.DeploymentPost>()
