@@ -5,9 +5,14 @@
             <h1>All Repositories</h1>
             <b-table hover :items="repos" :fields="rows">
                 <template v-slot:cell(action)="data">
-                    <b-button :href="'/settings/repo/' + data.item.id" variant="outline-primary" class="float-right">
-                        Edit {{ data.item.name }}
-                    </b-button>
+                    <div class="float-right">
+                        <b-button :href="'/settings/repo/' + data.item.id" variant="outline-primary">
+                            Edit {{ data.item.name }}
+                        </b-button>
+                        <b-button @click="deleteRepo(data.item.id)" variant="outline-danger">
+                            X
+                        </b-button>
+                    </div>
                 </template>
             </b-table>
             <b-row>
@@ -38,10 +43,21 @@
                 }]
         }),
         created() {
-            fetch("/api/v1/repos")
-                .then(res => res.json())
-                .then(res => this.repos = res)
-                .catch(() => "")
+            this.loadData();
+            setInterval(function () {
+                this.loadData();
+            }.bind(this), 2000);
+        },
+        methods: {
+            deleteRepo(id) {
+                axios.delete(`/api/v1/repos/${id}`)
+            },
+            loadData() {
+                fetch("/api/v1/repos")
+                    .then(res => res.json())
+                    .then(res => this.repos = res)
+                    .catch(() => "")
+            }
         }
     });
 </script>
