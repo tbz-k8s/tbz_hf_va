@@ -3,7 +3,11 @@
         <navigation active_navigation="Deployment Detail"></navigation>
         <b-container>
             <h1>{{deploymentName}}</h1>
-            <div v-for="deployment in deployments">
+            <b-progress :max="data.totalDeployments" show-value class="deployment-progress">
+                <b-progress-bar :value="data.totalReady" variant="success"></b-progress-bar>
+                <b-progress-bar :value="data.totalDeployments - data.totalReady" variant="warning"></b-progress-bar>
+            </b-progress>
+            <div v-for="deployment in data.deployments">
                 <b-card no-body class="deployment-card" title="Bla" sub-title="Card subtitle"
                         style="min-width: 800px;">
                     <b-row no-gutters>
@@ -34,11 +38,16 @@
         template: "#deployment-detail",
         data: () => ({
             deploymentName: "",
-            deployments: [{
-                replacedEnvs: [{name: '', value: ''}],
-                externalAccess: [],
-                state: {ready: '', total: ''}
-            }]
+            data: {
+                deployments: [{
+                    replacedEnvs: [{name: '', value: ''}],
+                    externalAccess: [],
+                    state: {ready: '', total: ''}
+                }],
+                totalReady: 0,
+                totalDeployments: 0
+            }
+
         }),
         created() {
             this.deploymentName = this.$javalin.pathParams["deployment-name"];
@@ -52,7 +61,7 @@
                 fetch(`/api/v1/deployment/${this.deploymentName}`)
                     .then(res => res.json())
                     .then(res => {
-                        this.deployments = res
+                        this.data = res;
                         console.log(res)
                     })
                     .catch(() => "")
@@ -62,7 +71,7 @@
 </script>
 
 <style scoped>
-    .deployment-card {
+    .deployment-card, .deployment-progress {
         margin-bottom: 10px;
     }
 
