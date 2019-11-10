@@ -32,20 +32,20 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: mysql:5.6
-        name: mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: secret
-        - name: MYSQL_USER
-          value: osticket
-        - name: MYSQL_PASSWORD
-          value: secret
-        - name: MYSQL_DATABASE
-          value: osticket
-        ports:
-        - containerPort: 3306
+        - image: mysql:5.6
           name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: secret
+            - name: MYSQL_USER
+              value: osticket
+            - name: MYSQL_PASSWORD
+              value: secret
+            - name: MYSQL_DATABASE
+              value: osticket
+          ports:
+            - containerPort: 3306
+              name: mysql
 ---
 apiVersion: v1
 kind: Service
@@ -68,7 +68,8 @@ kind: Deployment
 metadata:
   name: osticket
   labels:
-    tbz-replace-env: ADMIN_PASSWORD 
+    tbz-replace-env: ADMIN_PASSWORD
+    tbz-replace-env-1: BLA_TEST_VALUE 
 spec:
   replicas: 1
   selector:
@@ -91,6 +92,8 @@ spec:
               value: secret
             - name: ADMIN_PASSWORD
               value: adminPw
+            - name: BLA_TEST_VALUE
+              value: toReplace
           ports:
             - containerPort: 80
               name: osticket
