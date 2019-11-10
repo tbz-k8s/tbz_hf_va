@@ -5,6 +5,8 @@ import ch.nliechti.controller.DeploymentsController
 import ch.nliechti.controller.GithubRepoController
 import ch.nliechti.error.addErrorHandler
 import io.javalin.Javalin
+import io.javalin.http.staticfiles.Location
+import io.javalin.plugin.rendering.vue.JavalinVue
 import io.javalin.plugin.rendering.vue.VueComponent
 
 
@@ -13,6 +15,9 @@ fun main() {
     val app = Javalin.create { config ->
         config.enableWebjars()
     }.start(readPortConfig())
+    if (System.getenv("DOCKER_DEPLOY") == "true") {
+        JavalinVue.rootDirectory("/vue", Location.CLASSPATH)
+    }
 
     app.get("/", VueComponent("<hello-world></hello-world>"))
     addGithubRepoController(app)

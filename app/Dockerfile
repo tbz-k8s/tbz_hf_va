@@ -6,6 +6,8 @@ RUN apk update && \
 RUN apk add --update tzdata
 ENV TZ=Europe/Zurich
 
+ENV DOCKER_DEPLOY=true
+
 # Clean APK cache
 RUN rm -rf /var/cache/apk/*
 
