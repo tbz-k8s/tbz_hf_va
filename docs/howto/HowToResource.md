@@ -10,7 +10,7 @@ Momentan wird nur Github als host der Kubernetes yaml files unterstützt.
 * Die Services müssen im Yaml File mit `---` voneinader getrennt sein [Yaml Spec](https://yaml.org/spec/1.2/spec.html#id2760395)
 * Der link zum file muss das "Rohe file" beinhalten:  
 
-[Raw file link on github](howto_github_raw.png)
+![Raw file link on github](howto_github_raw.png)
 
 ## Varible Replacement
 
