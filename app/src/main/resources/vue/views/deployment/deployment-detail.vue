@@ -21,8 +21,18 @@
                         </b-col>
                         <b-col md="6">
                             <b-card-body title="Replaced Envs">
+                                <b-card-text class="replaced-env-text" v-for="env in deployment.replacedEnvs">
+                                    <span>{{env.name}}: {{env.value}}</span>
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                        <b-col md="5">
+                            <b-card-body title="Cluster Access">
                                 <b-card-text>
-                                    <span v-for="env in deployment.replacedEnvs">{{env.name}}: {{env.value}}</span>
+                                    <span v-for="externalAccess in deployment.externalAccess">
+                                        {{externalAccess.ip}}:<span
+                                            v-for="port in externalAccess.ports">{{port}} </span>
+                                    </span>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
@@ -86,6 +96,10 @@
 
     .deployment-card-title {
         font-size: 1.3rem;
+    }
+    
+    .replaced-env-text {
+        margin-bottom: 2px;
     }
 
 </style>

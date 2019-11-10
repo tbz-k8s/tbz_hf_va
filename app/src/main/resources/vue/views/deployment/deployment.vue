@@ -83,14 +83,9 @@
                     deployment: this.deployment,
                     repositoryId: this.repo.id
                 }).then(() => {
-                    this.$bvToast.toast("Nice one", {
-                        title: 'Success',
-                        autoHideDelay: 5000,
-                        variant: 'success'
-                    });
-                    clearInput()
+                    window.location.href = `/deployment/${this.deployment.name.toLowerCase()}`;
                 }).catch((error) => {
-                    this.$bvToast.toast("" + error, {
+                    this.$bvToast.toast("" + error.response.statusText, {
                         title: 'Error Saving Record',
                         autoHideDelay: 5000,
                         variant: 'danger'

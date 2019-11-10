@@ -43,7 +43,10 @@ object DeploymentController {
     }
 
     private fun getExternalAccess(namespace: Namespace): List<ExternalAccess> {
-        return mutableListOf()
+        val loadBalancer = KubernetesRepository.getAllLoadBalancerInNamespace(namespace.metadata.name)
+        return loadBalancer.map { lb ->
+            ExternalAccess(lb.status.loadBalancer.ingress[0]?.ip ?: "", lb.spec.ports.map { port -> port.port })
+        }
     }
 
     private fun getAllReplacesEnv(deployments: List<Deployment>): List<EnvVar> {
@@ -52,7 +55,7 @@ object DeploymentController {
 
     data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val replacedEnvs: List<EnvVar>, val state: DeploymentState)
     data class DeploymentsResponse(val deployments: List<DeploymentResponse>, val totalReady: Number, val totalDeployments: Number)
-    data class ExternalAccess(val ip: String, val port: Number)
+    data class ExternalAccess(val ip: String, val ports: List<Int>)
     data class DeploymentState(val ready: Int, val total: Int)
 
     fun addDeployment(ctx: Context) {
@@ -85,13 +88,15 @@ object DeploymentController {
     private fun getAllReplacableEnvs(configs: List<HasMetadata>): List<EnvVar> {
         val envs = mutableListOf<EnvVar>()
         configs.forEach { config ->
-            config.metadata.labels[TBZ_REPLACE_ENV]?.let { label ->
-                if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
-                    config.spec.template.spec.containers.forEach { container ->
-                        container.env.forEach { env -> if (env.name == label) envs.add(env) }
+            config.metadata.labels
+                    .filter { label -> label.key.matches(Regex("^tbz-replace-env.*")) }
+                    .forEach { label ->
+                        if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
+                            config.spec.template.spec.containers.forEach { container ->
+                                container.env.forEach { env -> if (env.name == label.value) envs.add(env) }
+                            }
+                        }
                     }
-                }
-            }
         }
         return envs
     }

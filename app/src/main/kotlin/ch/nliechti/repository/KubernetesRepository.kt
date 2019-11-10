@@ -39,6 +39,15 @@ object KubernetesRepository {
         return client.inNamespace(namespaceName).apps().deployments().list().items
     }
 
+    fun getAllServicesInNamespace(namespaceName: String): List<Service> {
+        return client.inNamespace(namespaceName).services().list().items
+    }
+
+    fun getAllLoadBalancerInNamespace(namespaceName: String): List<Service> {
+        return getAllServicesInNamespace(namespaceName)
+                .filter { service -> isLoadBalancer(service) }
+    }
+
     fun readOccupiedPorts(): List<Int> {
         val occupiedPorts = mutableListOf<Int>()
         client.inAnyNamespace().services().list().items.forEach { service ->
