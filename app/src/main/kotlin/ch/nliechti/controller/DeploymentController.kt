@@ -20,17 +20,15 @@ object DeploymentController {
         val deploymentName: String = ctx.pathParam("deployment-name")
         val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
         val deployments = mutableListOf<DeploymentResponse>()
-        var totalReady: Int = 0
+        var totalReady = 0
         var totalDeployments = 0
         namespaces.forEach { namespace ->
             val deploymentsInNamespace = getAllDeploymentsInNamespace(namespace.metadata.name)
-            val replacedEnvs = getAllReplacesEnv(deploymentsInNamespace)
-            val externalAccess = getExternalAccess(namespace)
             val state = getDeploymentState(deploymentsInNamespace)
             totalReady += state.ready
             totalDeployments += state.total
 
-            deployments.add(DeploymentResponse(externalAccess, replacedEnvs, state))
+            deployments.add(DeploymentResponse(getExternalAccess(namespace), getAllReplacesEnv(deploymentsInNamespace), state))
         }
 
         ctx.json(DeploymentsResponse(deployments, totalReady, totalDeployments))
