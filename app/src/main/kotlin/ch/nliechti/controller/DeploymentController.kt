@@ -45,7 +45,8 @@ object DeploymentController {
     private fun getExternalAccess(namespace: Namespace): List<ExternalAccess> {
         val loadBalancer = KubernetesRepository.getAllLoadBalancerInNamespace(namespace.metadata.name)
         return loadBalancer.map { lb ->
-            ExternalAccess(lb.status.loadBalancer.ingress[0]?.ip ?: "", lb.spec.ports.map { port -> port.port })
+            ExternalAccess(lb.status.loadBalancer.ingress.getOrNull(0)?.ip
+                    ?: "", lb.spec.ports.map { port -> port.port })
         }
     }
 
