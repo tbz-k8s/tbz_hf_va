@@ -35,7 +35,7 @@
                 </b-form-group>
                 <b-row>
                     <b-col>
-                        <b-button variant="outline-primary" href="/deployments"><-</b-button>
+                        <nav-back return_to="/deployments"/>
                     </b-col>
                     <b-col>
                         <div class="float-right">

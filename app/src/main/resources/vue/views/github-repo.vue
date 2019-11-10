@@ -28,7 +28,7 @@
                 </b-form-group>
                 <b-row>
                     <b-col>
-                        <b-button variant="outline-primary" href="/settings/repos"><-</b-button>
+                        <nav-back return_to="/settings/repos"/>
                     </b-col>
                     <b-col>
                         <div class="float-right">

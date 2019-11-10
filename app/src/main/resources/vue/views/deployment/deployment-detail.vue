@@ -29,6 +29,11 @@
                     </b-row>
                 </b-card>
             </div>
+            <b-row>
+                <b-col>
+                    <nav-back return_to="/deployments"/>
+                </b-col>
+            </b-row>
         </b-container>
     </div>
 </template>
@@ -73,6 +78,10 @@
 <style scoped>
     .deployment-card, .deployment-progress {
         margin-bottom: 10px;
+    }
+
+    .deployment-progress {
+        height: 40px;
     }
 
     .deployment-card-title {
