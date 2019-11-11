@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tbz-deployer
+  labels:
+    app: tbz-deployer
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 7000
+      protocol: TCP
+  selector:
+    app: tbz-deployer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tbz-dployer-deployment
+  labels:
+    app: tbz-deployer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tbz-deployer
+  template:
+    metadata:
+      labels:
+        app: tbz-deployer
+    spec:
+      containers:
+        - name: tbz-deployer
+          image: nliechti/tbz_deployer:latest
+          ports:
+            - containerPort: 7000
+              name: tbz-deployer
+  
