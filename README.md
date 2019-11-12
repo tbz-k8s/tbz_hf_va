@@ -1,6 +1,6 @@
 # Vertiefungsarbeit 2019 TBZ HF
 
-[](https://travis-ci.com/nliechti/tbz_hf_va.svg?branch=master)
+![](https://travis-ci.com/nliechti/tbz_hf_va.svg?branch=master)
 
 ## [Dokumentaion der Arbeit](docs)
 
