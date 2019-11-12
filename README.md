@@ -1,5 +1,7 @@
 # Vertiefungsarbeit 2019 TBZ HF
 
+[](https://travis-ci.com/nliechti/tbz_hf_va.svg?branch=master)
+
 ## [Dokumentaion der Arbeit](docs)
 
 Die offiziell geforderte Dokumentation findet in Asciidoc statt, da dies besser als markdown zu einem PDF compiled werden kann.
