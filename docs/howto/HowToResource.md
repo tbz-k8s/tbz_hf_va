@@ -12,6 +12,8 @@ Momentan wird nur Github als host der Kubernetes yaml files unterstützt.
 
 ![Raw file link on github](howto_github_raw.png)
 
+WICHTIG: Es kann einige Minuten dauern, bis das Raw file von github aktualisiert wird.
+
 ## Varible Replacement
 
 Damit nicht alle Schüler das gleiche Passwort bei der Applikation haben, können "markierte" Env variablen durch einen random 20 Zeichen langen String ersetzt werden.
