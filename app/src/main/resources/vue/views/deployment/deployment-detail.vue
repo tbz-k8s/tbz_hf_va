@@ -19,20 +19,30 @@
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="6">
+                        <b-col md="5">
                             <b-card-body title="Replaced Envs">
                                 <b-card-text class="replaced-env-text" v-for="env in deployment.replacedEnvs">
                                     <span>{{env.name}}: {{env.value}}</span>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="5">
+                        <b-col md="3">
                             <b-card-body title="Cluster Access">
                                 <b-card-text>
                                     <span v-for="externalAccess in deployment.externalAccess">
                                         {{externalAccess.ip}}:<span
                                             v-for="port in externalAccess.ports">{{port}} </span>
                                     </span>
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                        <b-col md="3">
+                            <b-card-body title="Cluster Access">
+                                <b-card-text>
+                                    <a v-for="clusterAccess in deployment.clusterAccess">
+                                        {{clusterAccess.ip}}:<span
+                                            v-for="port in clusterAccess.ports">{{port}} </span>
+                                    </a>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
@@ -57,6 +67,7 @@
                 deployments: [{
                     replacedEnvs: [{name: '', value: ''}],
                     externalAccess: [],
+                    clusterAccess: [],
                     state: {ready: '', total: ''}
                 }],
                 totalReady: 0,

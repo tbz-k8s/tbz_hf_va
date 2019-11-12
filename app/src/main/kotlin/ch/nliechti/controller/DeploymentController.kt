@@ -7,10 +7,7 @@ import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import ch.nliechti.repository.KubernetesRepository.getAllDeploymentsInNamespace
 import ch.nliechti.util.DeploymentUtil
-import io.fabric8.kubernetes.api.model.EnvVar
-import io.fabric8.kubernetes.api.model.HasMetadata
-import io.fabric8.kubernetes.api.model.Namespace
-import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.*
 import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.javalin.http.Context
 
@@ -28,10 +25,23 @@ object DeploymentController {
             totalReady += state.ready
             totalDeployments += state.total
 
-            deployments.add(DeploymentResponse(getExternalAccess(namespace), getAllReplacesEnv(deploymentsInNamespace), state))
+            deployments.add(DeploymentResponse(
+                    getExternalAccess(namespace),
+                    getClusterAccess(namespace),
+                    getAllReplacesEnv(deploymentsInNamespace),
+                    state))
         }
 
         ctx.json(DeploymentsResponse(deployments, totalReady, totalDeployments))
+    }
+
+    private fun getClusterAccess(namespace: Namespace): List<ClusterAccess> {
+        val services = KubernetesRepository.getAllServicesInNamespace(namespace.metadata.name)
+        return services
+                .filter { service -> service.spec.clusterIP != "None" }
+                .map { service ->
+            ClusterAccess(service.spec.clusterIP, service.spec.ports.map { port -> port.nodePort })
+        }
     }
 
     private fun getDeploymentState(deployments: List<Deployment>): DeploymentState {
@@ -54,9 +64,10 @@ object DeploymentController {
         return getAllReplacableEnvs(deployments)
     }
 
-    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val replacedEnvs: List<EnvVar>, val state: DeploymentState)
+    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val clusterAccess: List<ClusterAccess>, val replacedEnvs: List<EnvVar>, val state: DeploymentState)
     data class DeploymentsResponse(val deployments: List<DeploymentResponse>, val totalReady: Number, val totalDeployments: Number)
     data class ExternalAccess(val ip: String, val ports: List<Int>)
+    data class ClusterAccess(val ip: String, val ports: List<Int>)
     data class DeploymentState(val ready: Int, val total: Int)
 
     fun addDeployment(ctx: Context) {
