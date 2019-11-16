@@ -6,9 +6,6 @@
             <b-table hover :items="classes" :fields="rows">
                 <template v-slot:cell(action)="data">
                     <div class="float-right">
-                        <b-button :href="'/settings/school-class' + data.item.name" variant="outline-primary">
-                            Edit
-                        </b-button>
                         <b-button @click="deleteSchoolClass(data.item.name)" variant="outline-danger">
                             X
                         </b-button>
