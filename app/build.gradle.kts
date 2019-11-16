@@ -121,9 +121,7 @@ tasks.create("pushVersionedDockerImage", DockerPushImage::class) {
 }
 
 tasks.create("pushDockerImages") {
-    if (versionDetails.isCleanTag) {
-        dependsOn("pushVersionedDockerImage")
-    }
+    dependsOn("pushVersionedDockerImage")
     dependsOn("pushLatestDockerImage")
 }
 
