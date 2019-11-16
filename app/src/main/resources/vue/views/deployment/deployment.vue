@@ -13,16 +13,33 @@
                                   required
                                   placeholder="Deployment Name"></b-form-input>
                 </b-form-group>
-                <b-form-group id="deployment-replication-group"
-                              label="Number of deployments"
-                              label-for="deployment-replication"
-                              description="Set the number of deployments in the cluster">
-                    <b-form-input id="deployment-replication"
-                                  v-model="deployment.replication"
-                                  type="number"
-                                  required
-                                  placeholder="0"></b-form-input>
-                </b-form-group>
+                <b-row>
+                    <b-col>
+                        <b-form-group id="deployment-replication-group"
+                                      label="Number of deployments"
+                                      label-for="deployment-replication"
+                                      description="Set the number of deployments in the cluster">
+                            <b-form-input id="deployment-replication"
+                                          v-model="deployment.replication"
+                                          type="number"
+                                          required
+                                          placeholder="0"
+                                          :disabled="schoolClassName != null"></b-form-input>
+                        </b-form-group>
+                    </b-col>
+                    <b-col>
+                        <b-form-group id="class-select-group"
+                                      label="School class to deploy for"
+                                      label-for="class-select"
+                                      description="You can select a school class here so you get additional infos like email adresses">
+                            <b-form-select id="class-select"
+                                           v-model="schoolClassName"
+                                           :options="schoolClasses">
+                            </b-form-select>
+                        </b-form-group>
+                    </b-col>
+                </b-row>
+
                 <b-form-group id="repo-select-group"
                               label="Repo to deploy"
                               label-for="repo-select"
@@ -62,6 +79,8 @@
                 replication: 0,
             },
             repo: {},
+            schoolClasses: [{}],
+            schoolClassName: null,
             repos: [{text: 'Select One', value: null}]
         }),
         created() {
@@ -71,15 +90,22 @@
                     this.repos = res.map(repo => {
                         return {text: repo.name, value: repo}
                     })
+                });
+            fetch("/api/v1/school-classes")
+                .then(res => res.json())
+                .then(res => {
+                    this.schoolClasses = res.map(schoolClass => {
+                        return {text: schoolClass.name, value: schoolClass.name}
+                    })
                 })
-                .catch(() => "")
         },
         methods: {
             addDeployment(evt) {
                 evt.preventDefault();
                 axios.post("/api/v1/deployment", {
                     deployment: this.deployment,
-                    repositoryId: this.repo.id
+                    repositoryId: this.repo.id,
+                    schoolClassName: this.schoolClassName
                 }).then(() => {
                     window.location.href = `/deployment/${this.deployment.name.toLowerCase()}`;
                 }).catch((error) => {

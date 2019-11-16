@@ -47,8 +47,5 @@ object DeploymentsController {
         val namespacesToDelete = namespaces.filter { it.metadata.name.matches(Regex("^$deploymentName-\\d+")) }
         KubernetesRepository.client.resourceList(namespacesToDelete).delete()
     }
-
-    data class DeploymentPost(val deployment: Deployment, val repositoryId: String)
-
 }
 

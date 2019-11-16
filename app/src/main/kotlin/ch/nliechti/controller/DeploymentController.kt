@@ -71,7 +71,7 @@ object DeploymentController {
     data class DeploymentState(val ready: Int, val total: Int)
 
     fun addDeployment(ctx: Context) {
-        val deploymentPost = ctx.body<DeploymentsController.DeploymentPost>()
+        val deploymentPost = ctx.body<DeploymentPost>()
         deploymentPost.deployment.name = deploymentPost.deployment.name.toLowerCase()
         val repo = GithubRepoRepository.getGithubRepo(deploymentPost.repositoryId)
         repo?.let {
@@ -79,7 +79,7 @@ object DeploymentController {
         } ?: ctx.res.sendError(400, "No repository with id ${deploymentPost.repositoryId} found")
     }
 
-    private fun createKubernetesConfig(repo: Repository, deploymentPost: DeploymentsController.DeploymentPost) {
+    private fun createKubernetesConfig(repo: Repository, deploymentPost: DeploymentPost) {
         val totalReplications = deploymentPost.deployment.replication
         val originalDataSource = repo.dataSource
 
@@ -119,7 +119,7 @@ object DeploymentController {
         }
     }
 
-    private fun createDeploymentInNamespace(deploymentPost: DeploymentsController.DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>) {
+    private fun createDeploymentInNamespace(deploymentPost: DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>) {
         val namespace = "${deploymentPost.deployment.name}-$prefix"
         KubernetesRepository.client.namespaces()
                 .createNew()
@@ -145,5 +145,7 @@ object DeploymentController {
             }
         }
     }
+    
+    data class DeploymentPost(val deployment: ch.nliechti.Deployment, val repositoryId: String, val schoolClassName: String)
 
 }
