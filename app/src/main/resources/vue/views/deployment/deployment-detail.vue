@@ -60,7 +60,9 @@
                         </b-col>
                         <b-col md="1">
                             <b-card-body>
-
+                                <b-button variant="outline-primary" @click="sendSingleMail(deployment.deploymentNumber)">
+                                    Mail
+                                </b-button>
                             </b-card-body>
                         </b-col>
                     </b-row>
@@ -69,6 +71,11 @@
             <b-row>
                 <b-col>
                     <nav-back return_to="/deployments"/>
+                </b-col>
+                <b-col>
+                    <div class="float-right">
+                        <b-button variant="outline-primary" @click="sendAllMail()">Send mails for all Trainees</b-button>
+                    </div>
                 </b-col>
             </b-row>
         </b-container>
@@ -89,7 +96,8 @@
                         name: "",
                         email: ""
                     },
-                    state: {ready: '', total: ''}
+                    state: {ready: '', total: ''},
+                    deploymentNumber: null
                 }],
                 totalReady: 0,
                 totalDeployments: 0
@@ -115,6 +123,12 @@
             },
             getLink(access) {
                 return `${access.ip}:${access.ports[0]}`
+            },
+            sendSingleMail(deploymentNumber) {
+                axios.post(`/api/v1/deployment/${this.deploymentName}/mail/${deploymentNumber}`)
+            },
+            sendAllMail() {
+                axios.post(`/api/v1/deployment/${this.deploymentName}/mail`)
             }
         }
     });
@@ -141,7 +155,7 @@
     .container {
         max-width: 2500px;
     }
-    
+
     .trainee-text {
         font-size: 0.8rem;
     }

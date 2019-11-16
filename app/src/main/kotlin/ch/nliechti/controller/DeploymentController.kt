@@ -8,6 +8,7 @@ import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import ch.nliechti.repository.KubernetesRepository.getAllDeploymentsInNamespace
 import ch.nliechti.service.DeploymentKubernetesService
+import ch.nliechti.service.MailService
 import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.apps.Deployment
@@ -17,6 +18,10 @@ object DeploymentController {
 
     fun getDeployment(ctx: Context) {
         val deploymentName: String = ctx.pathParam("deployment-name")
+        ctx.json(getDeployment(deploymentName))
+    }
+
+    private fun getDeployment(deploymentName: String): DeploymentsResponse {
         val namespaces: List<Namespace> = KubernetesRepository.client.namespaces().withLabel(TBZ_DEPLOYMENT_LABEL, deploymentName).list().items
         val deployments = mutableListOf<DeploymentResponse>()
         var totalReady = 0
@@ -32,10 +37,11 @@ object DeploymentController {
                     getClusterAccess(namespace),
                     getAllReplacesEnv(deploymentsInNamespace),
                     getTraineeForNamespace(namespace),
-                    state))
+                    state,
+                    namespace.metadata.name.replace("$deploymentName-", "")))
         }
 
-        ctx.json(DeploymentsResponse(deployments, totalReady, totalDeployments))
+        return DeploymentsResponse(deployments, totalReady, totalDeployments)
     }
 
     private fun getTraineeForNamespace(namespace: Namespace): Trainee? {
@@ -80,7 +86,8 @@ object DeploymentController {
                                   val clusterAccess: List<ClusterAccess>,
                                   val replacedEnvs: List<EnvVar>,
                                   val trainee: Trainee?,
-                                  val state: DeploymentState)
+                                  val state: DeploymentState,
+                                  val deploymentNumber: String)
 
     data class DeploymentsResponse(val deployments: List<DeploymentResponse>, val totalReady: Number, val totalDeployments: Number)
     data class ExternalAccess(val ip: String, val ports: List<Int>)
@@ -101,4 +108,42 @@ object DeploymentController {
 
     data class DeploymentPost(val deployment: ch.nliechti.Deployment, val repositoryId: String, val schoolClassName: String)
 
+    fun sendMailForDeployment(deploymentName: String, deploymentNumber: String?) {
+        val deployment = getDeployment(deploymentName)
+        if (deploymentNumber != null) {
+            val deploymentNo = Integer.valueOf(deploymentNumber)
+            sendMailForDeploymentPart(deployment.deployments[deploymentNo])
+        } else {
+            deployment.deployments.forEach { deployment ->
+                sendMailForDeploymentPart(deployment)
+            }
+        }
+    }
+
+    fun sendMailForAllDeployment(ctx: Context) {
+        val deploymentName: String = ctx.pathParam("deployment-name")
+        sendMailForDeployment(deploymentName, null)
+    }
+
+    fun sendMailForOneDeployment(ctx: Context) {
+        val deploymentNumber: String = ctx.pathParam("deployment-number")
+        val deploymentName: String = ctx.pathParam("deployment-name")
+        sendMailForDeployment(deploymentName, deploymentNumber)
+    }
+
+    private fun sendMailForDeploymentPart(deploymentResponse: DeploymentResponse) {
+        var mailBody = "Login für ${deploymentResponse.trainee?.name} \n"
+        mailBody += "\n\nENV Variablen: \n"
+        deploymentResponse.replacedEnvs.forEach { mailBody += "${it.name}: ${it.value} \n" }
+
+        mailBody += "\n\n External Access: "
+        deploymentResponse.externalAccess.forEach { mailBody += "${it.ip}:${it.ports[0]} \n" }
+
+        mailBody += "\n\n Cluster Access: "
+        deploymentResponse.clusterAccess.forEach { mailBody += "${it.ip}:${it.ports[0]} \n" }
+
+//        MailService.sendMail(deploymentResponse.trainee?.email ?: "", mailBody)
+        println("Real email: ${deploymentResponse.trainee?.email}")
+        MailService.sendMail("nliechti@nliechti.ch", mailBody)
+    }
 }

@@ -31,7 +31,7 @@ fun addSchoolClassRoutes(app: Javalin) {
     app.get("/settings/school-classes", VueComponent("<school-classes></school-classes>"))
     app.get("/settings/school-class/:class-name", VueComponent("<school-class></school-class>"))
     app.get("/settings/school-class", VueComponent("<school-class></school-class>"))
-    
+
     app.get("/api/v1/school-classes", SchoolClassController::getAll)
     app.get("/api/v1/school-class/:class-name", SchoolClassController::getOne)
     app.post("/api/v1/school-class", SchoolClassController::createSchoolClass)
@@ -58,6 +58,8 @@ fun addDeploymentsRoutes(app: Javalin) {
     app.post("/api/v1/deployment", DeploymentController::addDeployment)
     app.delete("/api/v1/deployment/:deployment-name", DeploymentsController::deleteDeployment)
 
+    app.post("/api/v1/deployment/:deployment-name/mail", DeploymentController::sendMailForAllDeployment)
+    app.post("/api/v1/deployment/:deployment-name/mail/:deployment-number", DeploymentController::sendMailForOneDeployment)
 }
 
 private fun readPortConfig(): Int {
