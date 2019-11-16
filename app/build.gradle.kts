@@ -40,6 +40,8 @@ tasks.withType<KotlinCompile> {
 val gitVersion: Closure<*> by extra
 version = gitVersion()
 
+val versionDetails: Closure<*> by extra
+
 val jar by tasks.getting(Jar::class) {
     manifest {
         attributes["Main-Class"] = "ch.nliechti.MainKt"
@@ -119,7 +121,7 @@ tasks.create("pushVersionedDockerImage", DockerPushImage::class) {
 }
 
 tasks.create("pushDockerImages") {
-    if (!(version as String).contains("dirty")) {
+    if (versionDetails.isCleanTag) {
         dependsOn("pushVersionedDockerImage")
     }
     dependsOn("pushLatestDockerImage")
