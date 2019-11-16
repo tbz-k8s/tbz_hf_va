@@ -18,11 +18,23 @@ Niklas Liechti <nliechti@nliechti.ch>
 
 include::management_summary.adoc[]
 
+<<<
+
 include::auftrag.adoc[]
+
+<<<
 
 include::systemdefinition.adoc[]
 
+<<<
+
 include::anforderungen.adoc[]
+
+<<<
+
+include::swot.adoc[]
+
+<<<
 
 == Ziele
 
@@ -46,6 +58,10 @@ include::anforderungen.adoc[]
 === Abgrenzungen
 
 . Die Applikation wird keinerlei Authentifizierung haben.
+
+<<<
+
+include::erhebung/erhebung.adoc[]
 
 <<<
 

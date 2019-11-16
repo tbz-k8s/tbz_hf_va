@@ -66,6 +66,8 @@ dependencies {
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.9.5")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.5")
+    // Mailing
+    implementation("org.simplejavamail:simple-java-mail:5.5.1")
 
     constraints {
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.5") {
@@ -117,7 +119,9 @@ tasks.create("pushVersionedDockerImage", DockerPushImage::class) {
 }
 
 tasks.create("pushDockerImages") {
-    dependsOn("pushVersionedDockerImage")
+    if (!(version as String).contains("dirty")) {
+        dependsOn("pushVersionedDockerImage")
+    }
     dependsOn("pushLatestDockerImage")
 }
 

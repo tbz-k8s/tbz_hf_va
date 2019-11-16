@@ -40,6 +40,8 @@ Da sie eigentlich "platformunabhängig" ist, sollte das eigentlich kein riesiger
 
 *Klein - Mittel*: Sollte kein all zu grosser Aufwand sein, es können aber doch dinge schief gehen.
 
+<<<
+
 === Anforderungen aus Gespräch mit Thomas Kälin
 
 include::erhebung_kaelin.adoc[]
