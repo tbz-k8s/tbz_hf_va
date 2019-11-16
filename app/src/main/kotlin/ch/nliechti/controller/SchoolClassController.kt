@@ -2,7 +2,7 @@ package ch.nliechti.controller
 
 import ch.nliechti.SchoolClass
 import ch.nliechti.repository.SchoolClassRepository
-import ch.nliechti.service.CSVService
+import ch.nliechti.service.TraineeService
 import io.javalin.http.Context
 
 object SchoolClassController {
@@ -18,7 +18,7 @@ object SchoolClassController {
     fun createSchoolClass(ctx: Context) {
         val uploadedFile = ctx.uploadedFile("file")
         uploadedFile?.content?.let {
-            val schoolClass = CSVService.readTrainees(it)
+            val schoolClass = TraineeService.readTrainees(it)
             SchoolClassRepository.addSchoolClass(listOf(schoolClass))
         } ?: ctx.status(500)
 
