@@ -19,31 +19,48 @@
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="5">
-                            <b-card-body title="Replaced Envs">
+                        <b-col md="4">
+                            <b-card-body>
+                                <b-card-title class="deployment-card-title">Replaced Envs</b-card-title>
                                 <b-card-text class="replaced-env-text" v-for="env in deployment.replacedEnvs">
                                     <span>{{env.name}}: {{env.value}}</span>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="3">
-                            <b-card-body title="Cluster Access">
+                        <b-col md="2">
+                            <b-card-body>
+                                <b-card-title class="deployment-card-title">External Access</b-card-title>
                                 <b-card-text>
-                                    <span v-for="externalAccess in deployment.externalAccess">
-                                        {{externalAccess.ip}}:<span
-                                            v-for="port in externalAccess.ports">{{port}} </span>
+                                    <span v-for="externalAccess in deployment.externalAccess"
+                                          :href="'http://' + getLink(externalAccess)">
+                                        {{ getLink(externalAccess)}}
                                     </span>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="3">
-                            <b-card-body title="Cluster Access">
+                        <b-col md="2">
+                            <b-card-body>
+                                <b-card-title class="deployment-card-title">Cluster Access</b-card-title>
                                 <b-card-text>
-                                    <a v-for="clusterAccess in deployment.clusterAccess">
-                                        {{clusterAccess.ip}}:<span
-                                            v-for="port in clusterAccess.ports">{{port}} </span>
+                                    <a v-for="clusterAccess in deployment.clusterAccess"
+                                       :href="'http://' + getLink(clusterAccess)">
+                                        {{ getLink(clusterAccess)}}
                                     </a>
                                 </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                        <b-col md="2">
+                            <b-card-body>
+                                <b-card-title class="deployment-card-title">Trainee</b-card-title>
+                                <b-card-text class="trainee-text">
+                                    <div>Name: {{ deployment.trainee.name }}</div>
+                                    <div>Email: {{ deployment.trainee.email }}</div>
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                        <b-col md="1">
+                            <b-card-body>
+
                             </b-card-body>
                         </b-col>
                     </b-row>
@@ -68,6 +85,10 @@
                     replacedEnvs: [{name: '', value: ''}],
                     externalAccess: [],
                     clusterAccess: [],
+                    trainee: {
+                        name: "",
+                        email: ""
+                    },
                     state: {ready: '', total: ''}
                 }],
                 totalReady: 0,
@@ -91,6 +112,9 @@
                         console.log(res)
                     })
                     .catch(() => "")
+            },
+            getLink(access) {
+                return `${access.ip}:${access.ports[0]}`
             }
         }
     });
@@ -106,11 +130,20 @@
     }
 
     .deployment-card-title {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
-    
+
     .replaced-env-text {
         margin-bottom: 2px;
+        font-size: 0.9rem;
+    }
+
+    .container {
+        max-width: 2500px;
+    }
+    
+    .trainee-text {
+        font-size: 0.8rem;
     }
 
 </style>

@@ -19,7 +19,8 @@ object TraineeService {
             }
             val splitted = line.split(";")
             if (splitted.size == 18) {
-                trainees.add(Trainee(splitted[0] + splitted[1], splitted[16]))
+                trainees.add(Trainee(
+                        splitted[0] + " " + splitted[1].replace("\"", ""), splitted[16]))
             }
         }
         return SchoolClass(className, trainees)

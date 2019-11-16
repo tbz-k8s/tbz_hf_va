@@ -1,25 +1,34 @@
 package ch.nliechti.service
 
 import ch.nliechti.Repository
+import ch.nliechti.Trainee
 import ch.nliechti.controller.DeploymentController
 import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
+import ch.nliechti.kubernetesModels.TBZ_TRAINEE_MAIL
+import ch.nliechti.kubernetesModels.TBZ_TRAINEE_NAME
 import ch.nliechti.repository.KubernetesRepository
+import ch.nliechti.repository.SchoolClassRepository
 import ch.nliechti.util.DeploymentUtil
 import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Service
-import io.fabric8.kubernetes.api.model.apps.Deployment
 
 object DeploymentKubernetesService {
     fun createKubernetesConfig(repo: Repository, deploymentPost: DeploymentController.DeploymentPost) {
-        val totalReplications = deploymentPost.deployment.replication
         val originalDataSource = repo.dataSource
-
         val loadedConfigs = KubernetesRepository.client.load(originalDataSource.byteInputStream()).get()
 
+
+        val totalReplications = deploymentPost.deployment.replication
         repeat(totalReplications) {
             val preparedConfig = replacePlaceholder(loadedConfigs)
-            createDeploymentInNamespace(deploymentPost, it, preparedConfig)
+            createDeploymentInNamespace(deploymentPost, it, preparedConfig, null)
+        }
+
+        val schoolClass = SchoolClassRepository.getSchoolClass(deploymentPost.schoolClassName)
+        schoolClass?.trainees?.forEachIndexed { index, trainee ->
+            val preparedConfig = replacePlaceholder(loadedConfigs)
+            createDeploymentInNamespace(deploymentPost, index, preparedConfig, trainee)
         }
     }
 
@@ -52,18 +61,27 @@ object DeploymentKubernetesService {
     }
 
 
-    private fun createDeploymentInNamespace(deploymentPost: DeploymentController.DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>) {
+    private fun createDeploymentInNamespace(deploymentPost: DeploymentController.DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>, trainee: Trainee?) {
         val namespace = "${deploymentPost.deployment.name}-$prefix"
-        KubernetesRepository.client.namespaces()
+        val doneableNamespace = KubernetesRepository.client.namespaces()
                 .createNew()
                 .withNewMetadata()
                 .withLabels(mapOf(TBZ_DEPLOYMENT_LABEL to deploymentPost.deployment.name))
                 .withName(namespace)
-                .endMetadata()
-                .done()
+
+        trainee?.let { it -> doneableNamespace.withAnnotations(createTraineeAnnotations(it)) }
+        doneableNamespace.endMetadata().done()
+
         setLoadBalancerConfig(loadedConfigs, prefix)
         KubernetesRepository.client.resourceList(loadedConfigs).inNamespace(namespace).createOrReplace()
     }
+
+    private fun createTraineeAnnotations(trainee: Trainee): MutableMap<String, String> {
+        return mutableMapOf(
+                Pair(TBZ_TRAINEE_NAME, trainee.name),
+                Pair(TBZ_TRAINEE_MAIL, trainee.email))
+    }
+
 
     private fun setLoadBalancerConfig(configs: List<HasMetadata>, configCounter: Int) {
         val occupiedPorts: List<Int> = KubernetesRepository.readOccupiedPorts()

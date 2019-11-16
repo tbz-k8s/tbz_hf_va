@@ -37,6 +37,6 @@ data class SchoolClass(
 )
 
 data class Trainee(
-        val name: String,
-        val email: String
+        var name: String,
+        var email: String
 )

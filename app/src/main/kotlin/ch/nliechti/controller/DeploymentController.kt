@@ -1,14 +1,15 @@
 package ch.nliechti.controller
 
-import ch.nliechti.Repository
+import ch.nliechti.Trainee
 import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
-import ch.nliechti.kubernetesModels.TBZ_REPLACE_ENV
+import ch.nliechti.kubernetesModels.TBZ_TRAINEE_MAIL
+import ch.nliechti.kubernetesModels.TBZ_TRAINEE_NAME
 import ch.nliechti.repository.GithubRepoRepository
 import ch.nliechti.repository.KubernetesRepository
 import ch.nliechti.repository.KubernetesRepository.getAllDeploymentsInNamespace
 import ch.nliechti.service.DeploymentKubernetesService
-import ch.nliechti.util.DeploymentUtil
-import io.fabric8.kubernetes.api.model.*
+import io.fabric8.kubernetes.api.model.EnvVar
+import io.fabric8.kubernetes.api.model.Namespace
 import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.javalin.http.Context
 
@@ -30,10 +31,19 @@ object DeploymentController {
                     getExternalAccess(namespace),
                     getClusterAccess(namespace),
                     getAllReplacesEnv(deploymentsInNamespace),
+                    getTraineeForNamespace(namespace),
                     state))
         }
 
         ctx.json(DeploymentsResponse(deployments, totalReady, totalDeployments))
+    }
+
+    private fun getTraineeForNamespace(namespace: Namespace): Trainee? {
+        val annotations = namespace.metadata.annotations
+        val trainee = Trainee("", "")
+        annotations[TBZ_TRAINEE_NAME]?.let { trainee.name = it } ?: return null
+        annotations[TBZ_TRAINEE_MAIL]?.let { trainee.email = it } ?: return null
+        return trainee
     }
 
     private fun getClusterAccess(namespace: Namespace): List<ClusterAccess> {
@@ -66,7 +76,12 @@ object DeploymentController {
     }
 
 
-    data class DeploymentResponse(val externalAccess: List<ExternalAccess>, val clusterAccess: List<ClusterAccess>, val replacedEnvs: List<EnvVar>, val state: DeploymentState)
+    data class DeploymentResponse(val externalAccess: List<ExternalAccess>,
+                                  val clusterAccess: List<ClusterAccess>,
+                                  val replacedEnvs: List<EnvVar>,
+                                  val trainee: Trainee?,
+                                  val state: DeploymentState)
+
     data class DeploymentsResponse(val deployments: List<DeploymentResponse>, val totalReady: Number, val totalDeployments: Number)
     data class ExternalAccess(val ip: String, val ports: List<Int>)
     data class ClusterAccess(val ip: String, val ports: List<Int>)
@@ -76,6 +91,8 @@ object DeploymentController {
         val deploymentPost = ctx.body<DeploymentPost>()
         deploymentPost.deployment.name = deploymentPost.deployment.name.toLowerCase()
         val repo = GithubRepoRepository.getGithubRepo(deploymentPost.repositoryId)
+
+        if (deploymentPost.schoolClassName.isNotBlank()) deploymentPost.deployment.replication = 0
         repo?.let {
             DeploymentKubernetesService.createKubernetesConfig(repo, deploymentPost)
         } ?: ctx.res.sendError(400, "No repository with id ${deploymentPost.repositoryId} found")
