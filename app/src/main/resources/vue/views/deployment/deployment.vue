@@ -60,8 +60,6 @@
             deployment: {
                 name: "",
                 replication: 0,
-                shouldPersist: false,
-                shouldDeleteAfterShutdown: false
             },
             repo: {},
             repos: [{text: 'Select One', value: null}]

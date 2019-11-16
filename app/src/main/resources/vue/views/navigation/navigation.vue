@@ -9,6 +9,7 @@
                 <b-navbar-nav>
                     <b-nav-item-dropdown text="Settings">
                         <b-dropdown-item href="/settings/repos">Github Repos</b-dropdown-item>
+                        <b-dropdown-item href="/settings/school-classes">Klassen</b-dropdown-item>
                     </b-nav-item-dropdown>
                     <b-nav-item href="/deployments">Deployments</b-nav-item>
                 </b-navbar-nav>

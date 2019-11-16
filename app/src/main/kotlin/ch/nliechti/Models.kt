@@ -30,3 +30,13 @@ data class Deployment(
         var shouldPersist: Boolean,
         var shouldDeleteAfterShutdown: Boolean
 )
+
+data class SchoolClass(
+        @Id val name: String,
+        val trainees: List<Trainee>
+)
+
+data class Trainee(
+        val name: String,
+        val email: String
+)

@@ -10,6 +10,10 @@ fun addErrorHandler(app: Javalin) {
     app.error(500, "html", VueComponent("<internal-server-error></internal-server-error>"))
 
     app.exception(KubernetesClientException::class.java) { e, ctx ->
-        ctx.res.sendError(500, e.status?.message?: e.message)
+        ctx.res.sendError(500, e.status?.message ?: e.message)
+    }
+
+    app.exception(org.dizitart.no2.exceptions.UniqueConstraintException::class.java) { e, ctx ->
+        ctx.res.sendError(500, e.message)
     }
 }
