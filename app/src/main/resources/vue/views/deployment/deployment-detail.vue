@@ -60,7 +60,8 @@
                         </b-col>
                         <b-col md="1">
                             <b-card-body>
-                                <b-button variant="outline-primary" @click="sendSingleMail(deployment.deploymentNumber)">
+                                <b-button variant="outline-primary"
+                                          @click="sendSingleMail(deployment.deploymentNumber)">
                                     Mail
                                 </b-button>
                             </b-card-body>
@@ -74,7 +75,8 @@
                 </b-col>
                 <b-col>
                     <div class="float-right">
-                        <b-button variant="outline-primary" @click="sendAllMail()">Send mails for all Trainees</b-button>
+                        <b-button variant="outline-primary" @click="sendAllMail()">Send mails for all Trainees
+                        </b-button>
                     </div>
                 </b-col>
             </b-row>
@@ -126,9 +128,18 @@
             },
             sendSingleMail(deploymentNumber) {
                 axios.post(`/api/v1/deployment/${this.deploymentName}/mail/${deploymentNumber}`)
+                    .catch((error) => this.showErrorMessage(error.response.statusText));
             },
             sendAllMail() {
                 axios.post(`/api/v1/deployment/${this.deploymentName}/mail`)
+                    .catch((error) => this.showErrorMessage(error.response.statusText));
+            },
+            showErrorMessage(error) {
+                this.$bvToast.toast("" + error, {
+                    title: 'Error',
+                    autoHideDelay: 5000,
+                    variant: 'danger'
+                })
             }
         }
     });

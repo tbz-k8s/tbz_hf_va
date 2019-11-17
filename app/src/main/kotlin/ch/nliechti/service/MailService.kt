@@ -1,5 +1,6 @@
 package ch.nliechti.service
 
+import org.simplejavamail.MailException
 import org.simplejavamail.email.Email
 import org.simplejavamail.email.EmailBuilder
 import org.simplejavamail.mailer.MailerBuilder
@@ -23,15 +24,23 @@ object MailService {
     }
 
     private fun sendMail(email: Email) {
-        val mailer = MailerBuilder
-                .withSMTPServer(
-                        System.getenv("EMAIL_SMTP_SERVER"),
-                        Integer.valueOf(System.getenv("EMAL_SMTP_PORT")),
-                        System.getenv("EMAIL_SMTP_USER"),
-                        System.getenv("EMAIL_SMTP_PASSWORD"))
-                .withTransportStrategy(TransportStrategy.SMTP_TLS)
-                .withSessionTimeout(10 * 1000)
-                .buildMailer()
-        mailer.sendMail(email)
+        try {
+            val mailer = MailerBuilder
+                    .withSMTPServer(
+                            System.getenv("EMAIL_SMTP_SERVER"),
+                            Integer.valueOf(System.getenv("EMAIL_SMTP_PORT")),
+                            System.getenv("EMAIL_SMTP_USER"),
+                            System.getenv("EMAIL_SMTP_PASSWORD"))
+                    .withTransportStrategy(TransportStrategy.SMTP_TLS)
+                    .withSessionTimeout(10 * 1000)
+                    .buildMailer()
+            mailer.sendMail(email)
+        } catch (e: NumberFormatException) {
+            throw MailSenderException("Could not parse EMAIL_SMTP_PORT")
+        } catch (e: Exception) {
+            throw MailSenderException("Could not send mail: $email")
+        }
     }
+
+    class MailSenderException(message: String?) : MailException(message)
 }

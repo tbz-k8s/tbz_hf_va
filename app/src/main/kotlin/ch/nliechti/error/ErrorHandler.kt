@@ -1,5 +1,6 @@
 package ch.nliechti.error
 
+import ch.nliechti.service.MailService
 import io.fabric8.kubernetes.client.KubernetesClientException
 import io.javalin.Javalin
 import io.javalin.plugin.rendering.vue.VueComponent
@@ -14,6 +15,10 @@ fun addErrorHandler(app: Javalin) {
     }
 
     app.exception(org.dizitart.no2.exceptions.UniqueConstraintException::class.java) { e, ctx ->
+        ctx.res.sendError(500, e.message)
+    }
+
+    app.exception(MailService.MailSenderException::class.java) { e, ctx ->
         ctx.res.sendError(500, e.message)
     }
 }
