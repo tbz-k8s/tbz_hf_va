@@ -31,10 +31,10 @@
                             <b-card-body>
                                 <b-card-title class="deployment-card-title">External Access</b-card-title>
                                 <b-card-text>
-                                    <span v-for="externalAccess in deployment.externalAccess"
+                                    <a v-for="externalAccess in deployment.externalAccess"
                                           :href="'http://' + getLink(externalAccess)">
                                         {{ getLink(externalAccess)}}
-                                    </span>
+                                    </a>
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
