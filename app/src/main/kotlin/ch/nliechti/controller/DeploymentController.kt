@@ -45,11 +45,14 @@ object DeploymentController {
     }
 
     private fun getTraineeForNamespace(namespace: Namespace): Trainee? {
-        val annotations = namespace.metadata.annotations
-        val trainee = Trainee("", "")
-        annotations[TBZ_TRAINEE_NAME]?.let { trainee.name = it } ?: return null
-        annotations[TBZ_TRAINEE_MAIL]?.let { trainee.email = it } ?: return null
-        return trainee
+        val annotations: Map<String, String>? = namespace.metadata.annotations
+        annotations?.let {
+            if (!annotations.containsKey(TBZ_TRAINEE_NAME)) return null
+            val trainee = Trainee("", "")
+            annotations[TBZ_TRAINEE_NAME]?.let { trainee.name = it }
+            annotations[TBZ_TRAINEE_MAIL]?.let { trainee.email = it }
+            return trainee
+        }?: return null
     }
 
     private fun getClusterAccess(namespace: Namespace): List<ClusterAccess> {
@@ -99,16 +102,16 @@ object DeploymentController {
         deploymentPost.deployment.name = deploymentPost.deployment.name.toLowerCase()
         val repo = GithubRepoRepository.getGithubRepo(deploymentPost.repositoryId)
 
-        if (deploymentPost.schoolClassName.isNotBlank()) deploymentPost.deployment.replication = 0
+        deploymentPost.schoolClassName?.let { deploymentPost.deployment.replication = 0 }
         repo?.let {
             DeploymentKubernetesService.createKubernetesConfig(repo, deploymentPost)
         } ?: ctx.res.sendError(400, "No repository with id ${deploymentPost.repositoryId} found")
     }
 
 
-    data class DeploymentPost(val deployment: ch.nliechti.Deployment, val repositoryId: String, val schoolClassName: String)
+    data class DeploymentPost(val deployment: ch.nliechti.Deployment, val repositoryId: String, val schoolClassName: String?)
 
-    fun sendMailForDeployment(deploymentName: String, deploymentNumber: String?) {
+    private fun sendMailForDeployment(deploymentName: String, deploymentNumber: String?) {
         val deployment = getDeployment(deploymentName)
         if (deploymentNumber != null) {
             val deploymentNo = Integer.valueOf(deploymentNumber)

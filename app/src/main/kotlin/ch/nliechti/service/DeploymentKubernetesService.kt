@@ -19,16 +19,18 @@ object DeploymentKubernetesService {
         val loadedConfigs = KubernetesRepository.client.load(originalDataSource.byteInputStream()).get()
 
 
-        val totalReplications = deploymentPost.deployment.replication
-        repeat(totalReplications) {
-            val preparedConfig = replacePlaceholder(loadedConfigs)
-            createDeploymentInNamespace(deploymentPost, it, preparedConfig, null)
-        }
-
-        val schoolClass = SchoolClassRepository.getSchoolClass(deploymentPost.schoolClassName)
-        schoolClass?.trainees?.forEachIndexed { index, trainee ->
-            val preparedConfig = replacePlaceholder(loadedConfigs)
-            createDeploymentInNamespace(deploymentPost, index, preparedConfig, trainee)
+        if (deploymentPost.deployment.replication > 0) {
+            val totalReplications = deploymentPost.deployment.replication
+            repeat(totalReplications) {
+                val preparedConfig = replacePlaceholder(loadedConfigs)
+                createDeploymentInNamespace(deploymentPost, it, preparedConfig, null)
+            }
+        } else {
+            val schoolClass = SchoolClassRepository.getSchoolClass(deploymentPost.schoolClassName!!)
+            schoolClass?.trainees?.forEachIndexed { index, trainee ->
+                val preparedConfig = replacePlaceholder(loadedConfigs)
+                createDeploymentInNamespace(deploymentPost, index, preparedConfig, trainee)
+            }
         }
     }
 

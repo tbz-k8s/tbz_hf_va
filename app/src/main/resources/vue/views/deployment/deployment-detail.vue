@@ -49,7 +49,7 @@
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="2">
+                        <b-col md="2" v-if="deployment.trainee">
                             <b-card-body>
                                 <b-card-title class="deployment-card-title">Trainee</b-card-title>
                                 <b-card-text class="trainee-text">
@@ -58,7 +58,7 @@
                                 </b-card-text>
                             </b-card-body>
                         </b-col>
-                        <b-col md="1">
+                        <b-col md="1" v-if="deployment.trainee">
                             <b-card-body>
                                 <b-button variant="outline-primary"
                                           @click="sendSingleMail(deployment.deploymentNumber)">
