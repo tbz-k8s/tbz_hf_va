@@ -1,6 +1,6 @@
 <template id="howto-resource">
     <div>
-        <navigation active_navigation="Deploy"></navigation>
+        <navigation active_navigation="Resource"></navigation>
         <b-container>
             <div v-html="html"/>
         </b-container>
