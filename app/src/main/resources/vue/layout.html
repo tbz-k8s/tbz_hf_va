@@ -6,6 +6,7 @@
     <script src="/webjars/vue/2.6.10/dist/vue.js"></script>
     <script src="/webjars/bootstrap-vue/2.0.4/dist/bootstrap-vue.min.js"></script>
     <script src="/webjars/axios/0.19.0/dist/axios.min.js"></script>
+    <script src="/webjars/marked/0.7.0/marked.min.js"></script>
 
     <link href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/webjars/bootstrap-vue/2.0.4/dist/bootstrap-vue.min.css" rel="stylesheet">
@@ -16,8 +17,12 @@
     @routeComponent
 </main>
 <script>
+    marked.setOptions({
+        gfm: true,
+        baseUrl: "https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/"
+    });
     new Vue({
-        el: "#main-vue"
+        el: "#main-vue",
     });
 
 </script>

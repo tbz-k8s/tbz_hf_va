@@ -11,6 +11,10 @@
                         <b-dropdown-item href="/settings/repos">Github Repos</b-dropdown-item>
                         <b-dropdown-item href="/settings/school-classes">Klassen</b-dropdown-item>
                     </b-nav-item-dropdown>
+                    <b-nav-item-dropdown text="HowTo">
+                        <b-dropdown-item href="/howto/deploy">Deploy</b-dropdown-item>
+                        <b-dropdown-item href="/howto/tbz-deployer">How To use Deployer</b-dropdown-item>
+                    </b-nav-item-dropdown>
                     <b-nav-item href="/deployments">Deployments</b-nav-item>
                 </b-navbar-nav>
             </b-collapse>

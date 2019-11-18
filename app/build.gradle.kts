@@ -56,6 +56,7 @@ dependencies {
     implementation("org.webjars.npm:vue:2.6.10")
     implementation("org.webjars.npm:bootstrap-vue:2.0.4")
     implementation("org.webjars.npm:axios:0.19.0")
+    implementation("org.webjars.npm:marked:0.7.0")
 
     implementation("io.fabric8:kubernetes-client:4.6.1")
     implementation("io.fabric8:kubernetes-model:4.6.1")

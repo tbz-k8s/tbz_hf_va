@@ -24,6 +24,7 @@ fun main() {
     addGithubRepoController(app)
     addDeploymentsRoutes(app)
     addSchoolClassRoutes(app)
+    addHowtoRoutes(app)
     addErrorHandler(app)
 }
 
@@ -60,6 +61,11 @@ fun addDeploymentsRoutes(app: Javalin) {
 
     app.post("/api/v1/deployment/:deployment-name/mail", DeploymentController::sendMailForAllDeployment)
     app.post("/api/v1/deployment/:deployment-name/mail/:deployment-number", DeploymentController::sendMailForOneDeployment)
+}
+
+fun addHowtoRoutes(app: Javalin) {
+    app.get("/howto/tbz-deployer", VueComponent("<howto-tbz-deployer></howto-tbz-deployer>"))
+    app.get("/howto/deploy", VueComponent("<howto-deploy></howto-deploy>"))
 }
 
 private fun readPortConfig(): Int {
