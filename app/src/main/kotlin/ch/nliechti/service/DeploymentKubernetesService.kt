@@ -3,6 +3,7 @@ package ch.nliechti.service
 import ch.nliechti.Repository
 import ch.nliechti.Trainee
 import ch.nliechti.controller.DeploymentController
+import ch.nliechti.controller.DeploymentsController
 import ch.nliechti.kubernetesModels.TBZ_DEPLOYMENT_LABEL
 import ch.nliechti.kubernetesModels.TBZ_TRAINEE_MAIL
 import ch.nliechti.kubernetesModels.TBZ_TRAINEE_NAME
@@ -12,6 +13,7 @@ import ch.nliechti.util.DeploymentUtil
 import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.client.KubernetesClientException
 
 object DeploymentKubernetesService {
     fun createKubernetesConfig(repo: Repository, deploymentPost: DeploymentController.DeploymentPost) {
@@ -64,18 +66,23 @@ object DeploymentKubernetesService {
 
 
     private fun createDeploymentInNamespace(deploymentPost: DeploymentController.DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>, trainee: Trainee?) {
-        val namespace = "${deploymentPost.deployment.name}-$prefix"
-        val doneableNamespace = KubernetesRepository.client.namespaces()
-                .createNew()
-                .withNewMetadata()
-                .withLabels(mapOf(TBZ_DEPLOYMENT_LABEL to deploymentPost.deployment.name))
-                .withName(namespace)
+        try {
+            val namespace = "${deploymentPost.deployment.name}-$prefix"
+            val doneableNamespace = KubernetesRepository.client.namespaces()
+                    .createNew()
+                    .withNewMetadata()
+                    .withLabels(mapOf(TBZ_DEPLOYMENT_LABEL to deploymentPost.deployment.name))
+                    .withName(namespace)
 
-        trainee?.let { it -> doneableNamespace.withAnnotations(createTraineeAnnotations(it)) }
-        doneableNamespace.endMetadata().done()
+            trainee?.let { it -> doneableNamespace.withAnnotations(createTraineeAnnotations(it)) }
+            doneableNamespace.endMetadata().done()
 
-        setLoadBalancerConfig(loadedConfigs, prefix)
-        KubernetesRepository.client.resourceList(loadedConfigs).inNamespace(namespace).createOrReplace()
+            setLoadBalancerConfig(loadedConfigs, prefix)
+            KubernetesRepository.client.resourceList(loadedConfigs).inNamespace(namespace).createOrReplace()
+        } catch (e: KubernetesClientException) {
+            DeploymentsController.deleteDeploymentByName(deploymentPost.deployment.name)
+            throw e
+        }
     }
 
     private fun createTraineeAnnotations(trainee: Trainee): MutableMap<String, String> {

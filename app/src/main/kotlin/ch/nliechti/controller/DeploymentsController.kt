@@ -42,7 +42,10 @@ object DeploymentsController {
 
     fun deleteDeployment(ctx: Context) {
         val deploymentName: String = ctx.pathParam("deployment-name")
-
+        deleteDeploymentByName(deploymentName)
+    }
+    
+    fun deleteDeploymentByName(deploymentName: String) {
         val namespaces = KubernetesRepository.client.namespaces().list().items
         val namespacesToDelete = namespaces.filter { it.metadata.name.matches(Regex("^$deploymentName-\\d+")) }
         KubernetesRepository.client.resourceList(namespacesToDelete).delete()
