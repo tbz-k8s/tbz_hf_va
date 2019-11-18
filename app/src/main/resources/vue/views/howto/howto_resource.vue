@@ -1,4 +1,4 @@
-<template id="howto-deploy">
+<template id="howto-resource">
     <div>
         <navigation active_navigation="Deploy"></navigation>
         <b-container>
@@ -7,13 +7,13 @@
     </div>
 </template>
 <script>
-    Vue.component("howto-deploy", {
-        template: "#howto-deploy",
+    Vue.component("howto-resource", {
+        template: "#howto-resource",
         data: () => ({
             html: ""
         }),
         created() {
-            axios.get("https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/howto_tbz_deployer.md")
+            axios.get("https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/HowToResource.md")
                 .then(res => {
                     this.html = marked(res.data);
                 });

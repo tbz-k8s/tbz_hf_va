@@ -65,7 +65,7 @@ fun addDeploymentsRoutes(app: Javalin) {
 
 fun addHowtoRoutes(app: Javalin) {
     app.get("/howto/tbz-deployer", VueComponent("<howto-tbz-deployer></howto-tbz-deployer>"))
-    app.get("/howto/deploy", VueComponent("<howto-deploy></howto-deploy>"))
+    app.get("/howto/resource", VueComponent("<howto-resource></howto-resource>"))
 }
 
 private fun readPortConfig(): Int {

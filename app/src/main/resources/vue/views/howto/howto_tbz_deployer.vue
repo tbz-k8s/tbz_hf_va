@@ -17,7 +17,7 @@
                 gfm: true,
                 baseUrl: "https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/"
             });
-            axios.get("https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/HowToResource.md")
+            axios.get("")
                 .then(res => {
                     this.html = marked(res.data);
                 });
