@@ -2,7 +2,23 @@
 
 ## Deployments
 
+Deployments können für den Cluster auf dem der Deployer aufgesetzt ist sehr einfach gemacht werden.
+
 ![Deployment](tbz_deployment.png)
+
+### Name of Deployment
+
+Der Name des Deployments muss ein wort ohne Abstände oder Sonderzeichen sein.
+
+### Number / School class
+
+Hier kann entweder die Anzahl replikationen, oder ein Klasse gewählt werden. 
+
+Wenn eine Klasse gewählt wurde, können danach die Anmelde-informationen per Mail verschickt werden.
+
+### Repo
+
+Hier kann die Applikation gewählt werden, welche deployt werden soll.
 
 ## Repos
 
