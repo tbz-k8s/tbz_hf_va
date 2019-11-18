@@ -15,9 +15,9 @@
         created() {
             marked.setOptions({
                 gfm: true,
-                baseUrl: "https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/howto_tbz_deployer.md"
+                baseUrl: "https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto"
             });
-            axios.get("")
+            axios.get("https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/docs/howto/howto_tbz_deployer.md")
                 .then(res => {
                     this.html = marked(res.data);
                 });
