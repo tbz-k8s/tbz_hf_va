@@ -14,3 +14,9 @@ Der rest ist alles auf github in Markdown dokumentiert.
 ## [Applikation](app)
 
 Die Applikation selber ist in [javalin](https://javalin.io) und [vue.js](https://vuejs.org) geschrieben.
+
+## Benutzung der Applikation
+
+Wie die Applikation zu benutzen ist, ist [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/howto/howto_tbz_deployer.md) beschrieben
+
+Wie Ressourcen für die Applikation erstellt werden können ist [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/howto/HowToResource.md) beschrieben.
