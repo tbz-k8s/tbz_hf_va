@@ -23,7 +23,7 @@ Damit eine Variabel ersetzt wird, muss einfach bei dem Service ein Label gesetzt
 ```
 metadata:
   name: osticket
-  labels:
+  annotations:
     tbz-replace-env: ADMIN_PASSWORD
     tbz-replace-env-1: BLA_TEST_VALUE 
 spec:
