@@ -2,15 +2,22 @@
     <div>
         <navigation :active_navigation="'School Class'"></navigation>
         <b-container>
+            <h1>Upload School class</h1>
             <b-form @submit="addSchoolClass" @reset="onReset">
-                <b-form-file
-                        v-model="file"
-                        :state="Boolean(file)"
-                        accept="text/csv"
-                        placeholder="Choose a file or drop it here..."
-                        drop-placeholder="Drop file here..."
-                ></b-form-file>
-                <b-row>
+                <b-form-group id="school-class-upload-group"
+                              label="School class list to upload"
+                              label-for="school-class-upload"
+                              description="Here you shold upload the class list you downloaded from ecolm.com. Nothing else will work.">
+
+                    <b-form-file
+                            id="school-class-upload"
+                            v-model="file"
+                            :state="Boolean(file)"
+                            accept="text/csv"
+                            placeholder="Choose a class list from ecolm.com to upload"
+                            drop-placeholder="Drop file here..."></b-form-file>
+                </b-form-group>
+                <b-row class="submit-row">
                     <b-col>
                         <nav-back return_to="/settings/school-classes"/>
                     </b-col>
@@ -73,6 +80,8 @@
 
     });
 </script>
-<style>
-
+<style scoped>
+    .submit-row {
+        margin-top: 20px;
+    }
 </style>
