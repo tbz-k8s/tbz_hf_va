@@ -2,8 +2,7 @@
 
 ## Deployments
 
-<img src="./tbz_deployment.png" width="48">
-<!-- ![Deployment](tbz_deployment.png | width=100) -->
+![Deployment](tbz_deployment.png)
 
 ## Repos
 
