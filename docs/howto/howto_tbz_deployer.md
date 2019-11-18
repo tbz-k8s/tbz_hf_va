@@ -2,7 +2,7 @@
 
 ## Deployments
 
-![Deployment](tbz_deployment.png)
+![Deployment](tbz_deployment.png | width=100)
 
 ## Repos
 
@@ -10,4 +10,5 @@ Repos sind Grundsätzlich applikationen, welche deployt werden können. Diese m�
 
 ## Klassen
 Die Klassen können unter "Settings / Klassen" hochgeladen werden. Hier kann das CSV hochgeladen werden, welches alle Schüler mit emails beinhaltet. Dieses kann von [ecolm.com](ecolm.com) herunter geladen werden.
+
 ⚠️ Nur dieses File funktionier
