@@ -41,12 +41,12 @@ object DeploymentKubernetesService {
     fun getAllReplacableEnvs(configs: List<HasMetadata>): List<EnvVar> {
         val envs = mutableListOf<EnvVar>()
         configs.forEach { config ->
-            config.metadata.labels
-                    .filter { label -> label.key.matches(Regex("^tbz-replace-env.*")) }
-                    .forEach { label ->
+            config.metadata.annotations
+                    .filter { annotation -> annotation.key.matches(Regex("^tbz-replace-env.*")) }
+                    .forEach { annotation ->
                         if (config is io.fabric8.kubernetes.api.model.apps.Deployment) {
                             config.spec.template.spec.containers.forEach { container ->
-                                container.env.forEach { env -> if (env.name == label.value) envs.add(env) }
+                                container.env.forEach { env -> if (env.name == annotation.value) envs.add(env) }
                             }
                         }
                     }
