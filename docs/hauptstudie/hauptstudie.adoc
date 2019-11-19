@@ -1,0 +1,23 @@
+= Hauptstudie Umsetzung VA
+Niklas Liechti <nliechti@nliechti.ch>
+:doctype: pdf
+:author: Niklas Liechti
+:subtitle: Kubernetes Clusterservice
+:ntitle: {subtitle}
+:class: ITSE 17a
+:pdf-stylesdir: /Users/nliechti/bin/ives_theme/resources/themes
+:pdf-fontsdir: /Users/nliechti/bin/ives_theme/resources/fonts
+:pdf-style: tbz
+:allow-uri-read:
+:sectnums:
+:toc:
+:toc-title: Inhaltsverzeichnis
+:title-page:
+
+include::architecture.adoc[]
+
+<<<
+
+include::technologies.adoc[]
+
+<<<

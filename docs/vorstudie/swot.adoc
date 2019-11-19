@@ -1,0 +1,23 @@
+== Swot
+
+=== Strengths
+
+* Lehrer können extrem schnell eine Umgebung aufsetzten
+* Schüler haben ab dem ersten mal eine Arbeitsumgebung
+* Es wird keine Zeit mit dem individuellen setup verloren
+* Lehrer hat eine einheitliche datenlage um zu bewerten.
+
+=== Weaknesses
+
+* Die installation ist nicht so flexibel 
+* Bereitstellung benötigt Kubernetes Kenntnisse
+
+=== Opportunities
+
+* Lehrer können ihren Unterricht flexibler gestalten als zuvor
+* Lehrer brauchen weniger zeit für die Bereitstellung der Umgebung
+
+=== Threats
+
+* Die Lehrer brauchen die Applikation nicht, weil die Bereitstellung der Services als Kubernetes config file zu kompliziert ist
+* Es kommt eine neue Technologie die Kubernetes ersetzt und die Applikation obsolet macht (unwahrscheinlich)

@@ -1,0 +1,52 @@
+== Erhebung
+
+=== 1) Nullvariante
+
+==== Risiken
+
+. Hoher Supportaufwand im Betrieb
+. Lehrer benutzen wegen zu hoher Komplexität die Cluster gar nicht
+. Kubernetes wird EOL
+
+==== Kosten
+
+In der Umsetzung selber gäbe es hier keine Kosten. Wenn diese Variante gewählt würde, müssten aber viele Lehrer im Umgang mit Kubernetes geschult werden.
+Dieser Aufwand wäre schwierig zu rechtfertigen und mit gewissen Lehrpersonen auch nicht durchführbar.
+
+<<<
+
+=== 2) Entwicklung einer Individuallösung mit Kubernetes Files hosted on Github
+
+==== Risiken
+
+. Die Applikation deckt nicht alle Usecases ab
+. Github steht nicht mehr zur verfügung
+. Kubernetes wird EOL
+
+==== Kosten
+
+<<<
+
+=== 3) Entwicklung einer Individuallösung basierend auf Helm
+
+==== Risiken
+
+. Wegen zu hoher Komplexität entstehen keine neuen Packages
+. Die Applikation deckt nicht alle Usecases ab
+. Kubernetes wird EOL
+
+==== Kosten
+
+Diese möglichkeit wäre womöglich mit leicht weniger Aufwand umzusetzen als Variante 2. Es entsteht aber im nachhinein ein grösserer Aufwand für die Lehrer, welche die Helm Packages erstellen müssen. Dieser würde sich dann auf sehr wenige Lehrpersonen konzentrieren, welche das nötige Knowhow haben.
+
+<<<
+
+== Empfehlung
+
+Die Nullvariante scheidet wegen nicht vorhandenem Knowhow der Lehrer im Kubernets von anfang an aus.
+
+Die Variante 3 wäre technisch und Nutzertechnisch eigentlich die Beste Variante, welche aber wegen limitiertem Zeitbudget und auch limitiertem Knowhow mit dem erstellen von Helm Packages nicht umgesetzt werden kann.
+
+Daher bleibt eigentlich nur die Variante 2, welche alle Anforderungen zur genüge erfüllt. Diese Version ist auch die Einzige, welche die Technische hürde genug tief legt, um es den meisten Lehrpersonen zu ermöglichen die Kubernetes Cluster zu benutzen.
+
+*Empfehlung: Variante 2 "Entwicklung einer Individuallösung mit Kubernetes Files hosted on Github"*
