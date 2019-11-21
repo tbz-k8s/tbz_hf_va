@@ -13,6 +13,7 @@ import ch.nliechti.util.DeploymentUtil
 import io.fabric8.kubernetes.api.model.EnvVar
 import io.fabric8.kubernetes.api.model.HasMetadata
 import io.fabric8.kubernetes.api.model.Service
+import io.fabric8.kubernetes.api.model.apps.Deployment
 import io.fabric8.kubernetes.client.KubernetesClientException
 
 object DeploymentKubernetesService {
@@ -20,17 +21,16 @@ object DeploymentKubernetesService {
         val originalDataSource = repo.dataSource
         val loadedConfigs = KubernetesRepository.client.load(originalDataSource.byteInputStream()).get()
 
+        val preparedConfig = replacePlaceholder(loadedConfigs)
 
         if (deploymentPost.deployment.replication > 0) {
             val totalReplications = deploymentPost.deployment.replication
             repeat(totalReplications) {
-                val preparedConfig = replacePlaceholder(loadedConfigs)
                 createDeploymentInNamespace(deploymentPost, it, preparedConfig, null)
             }
         } else {
             val schoolClass = SchoolClassRepository.getSchoolClass(deploymentPost.schoolClassName!!)
             schoolClass?.trainees?.forEachIndexed { index, trainee ->
-                val preparedConfig = replacePlaceholder(loadedConfigs)
                 createDeploymentInNamespace(deploymentPost, index, preparedConfig, trainee)
             }
         }
@@ -68,6 +68,7 @@ object DeploymentKubernetesService {
     private fun createDeploymentInNamespace(deploymentPost: DeploymentController.DeploymentPost, prefix: Int, loadedConfigs: List<HasMetadata>, trainee: Trainee?) {
         try {
             val namespace = "${deploymentPost.deployment.name}-$prefix"
+            replacePersistentVolumeClaimSubpaths(loadedConfigs, namespace)
             val doneableNamespace = KubernetesRepository.client.namespaces()
                     .createNew()
                     .withNewMetadata()
@@ -83,6 +84,17 @@ object DeploymentKubernetesService {
             DeploymentsController.deleteDeploymentByName(deploymentPost.deployment.name)
             throw e
         }
+    }
+
+    private fun replacePersistentVolumeClaimSubpaths(loadedConfigs: List<HasMetadata>, namespaceName: String) {
+        loadedConfigs.filterIsInstance<Deployment>()
+                .forEach { config ->
+                    config.spec.template.spec.containers.forEach { container ->
+                        container.volumeMounts.forEach { volumeMount ->
+                            volumeMount.subPath = namespaceName + "/" + volumeMount.subPath
+                        }
+                    }
+                }
     }
 
     private fun createTraineeAnnotations(trainee: Trainee): MutableMap<String, String> {
