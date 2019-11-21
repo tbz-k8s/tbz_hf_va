@@ -1,0 +1,23 @@
+== Technische Voraussetzungen
+
+=== Kubernetes Cluster
+
+Um die Applikation zu deployen müssen Persistent Volumes mit der storage class `local-storage`
+
+```
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-02
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"
+```

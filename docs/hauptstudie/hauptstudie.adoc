@@ -29,3 +29,5 @@ include::technologies.adoc[]
 include::difficulties.adoc[]
 
 <<<
+
+include::technical_prerequisites.adoc[]
