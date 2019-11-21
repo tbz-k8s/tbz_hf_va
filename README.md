@@ -20,3 +20,7 @@ Die Applikation selber ist in [javalin](https://javalin.io) und [vue.js](https:/
 Wie die Applikation zu benutzen ist, ist [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/howto/howto_tbz_deployer.md) beschrieben
 
 Wie Ressourcen für die Applikation erstellt werden können ist [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/howto/HowToResource.md) beschrieben.
+
+## Voraussetzungen
+
+Die Voraussetzung sind [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/hauptstudie/technical_prerequisites.adoc) dokumentiert
