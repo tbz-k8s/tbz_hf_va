@@ -14,10 +14,18 @@ Niklas Liechti <nliechti@nliechti.ch>
 :toc-title: Inhaltsverzeichnis
 :title-page:
 
+include::management_summary.adoc[]
+
+<<<
+
 include::architecture.adoc[]
 
 <<<
 
 include::technologies.adoc[]
+
+<<<
+
+include::difficulties.adoc[]
 
 <<<

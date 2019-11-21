@@ -34,7 +34,8 @@ image::frameworks/angular2.png[Angular2+, 450, align="center"]
 
 ===== Vue.js
 
-Vue.js ist das neuste aller Frameworks. Es ist sehr einfach zu lernen und 
+Vue.js ist das neuste aller Frameworks. Es ist sehr einfach zu lernen und grundsätzlich sehr leichtgewichtig.
+Es ist ähnlich reaktiv wie react.js und nutzt Web components excessiv.
 
 .Vue.js
 [link=https://vuejs.org/]
@@ -51,6 +52,10 @@ React.js ist eine möglichst schlank gehaltene Frontend Library, welche von Face
 image::frameworks/react_js.png[React.js, 450, align="center"]
 
 <<<
+
+==== Entscheidung
+
+Das am einfachsten auf zu setzende Framework ist in meinem Fall Vue, da es direkt von meinem Backend Framework unterstützt wird. Da sich alle Frameworks für meinen Anwendungsfall nicht viel nehmen, habe ich mich für Vue.js entschieden.
 
 === Backend
 
@@ -91,3 +96,7 @@ Gradle macht auch das Dependencie management. Die dependencies sind https://gith
 
 === CI / CD
 
+Da bei einer so komplexen Umgebung ein Continous integration nur mit viel Aufwand möglich ist, gibt es dies hier nicht.
+
+Für den Continous delivery Teil sorgt https://travis-ci.com/[Travis], welcher bei jedem Push auf das Repo ein latest Docker image baut und dieses zu Dockerhub pusht.
+Sobald ein Commit ge tagt ist, wird zusätzlich ein fixe Version released.

@@ -1,1 +1,20 @@
 == Architektur
+
+Die Architektur ist eine recht einfach gehaltenes Frontend welches über eine Rest API mit dem Backend kommuniziert.
+
+=== Frontend
+
+Da ich das Frontend recht simple halten wollte, habe ich mich dafür entschieden die Komponenten fast komplett voneinander zu trennen.
+Die einzigen Komponenten, die mehrfach verwendet werden, sind die Navigations komponenten.
+Auch verwende ich nicht den Vue router, daher wird ganz klassisch per "full page reload" navigiert.
+
+=== Backend
+
+Das Backend ist mehr oder weniger klassisch aufgebaut.
+Im Main.kt sind alle rest endpoints in einzelnen Funktionen definiert. Dort sind diese dann mit Controllern verlinkt.
+
+Die Controller übernehmen dann die basic funktionalitätet und einen Teil der Logik.
+
+Komplexe und ab kapselbare Logik ist dann in Services ausgelagert, die von den Controllern aufgerufen werden.
+
+Der Persistenz Layer ist über sogenannte Repositories verfügbar. Dies können Implementationen sein, welche auf eine DB gehen, oder auf den Kubernetes cluster.

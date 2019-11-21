@@ -25,6 +25,8 @@ Dieser Aufwand wäre schwierig zu rechtfertigen und mit gewissen Lehrpersonen au
 
 ==== Kosten
 
+Die Kosten hier liegen bei der Entwicklung der Applikation, welche im Ramen der VA gemacht wird. Das Ziel ist dann, dass möglichst wenig Schulung nötig sein wird.
+
 <<<
 
 === 3) Entwicklung einer Individuallösung basierend auf Helm
@@ -41,7 +43,19 @@ Diese möglichkeit wäre womöglich mit leicht weniger Aufwand umzusetzen als Va
 
 <<<
 
-== Empfehlung
+=== Bewertung
+
+<<<
+
+=== Präferenzmatrix
+
+<<<
+
+=== Nutzwertanalyse
+
+<<<
+
+=== Empfehlung
 
 Die Nullvariante scheidet wegen nicht vorhandenem Knowhow der Lehrer im Kubernets von anfang an aus.
 
