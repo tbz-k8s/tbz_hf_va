@@ -74,7 +74,6 @@
                 }).catch((error) => {
                     this.$bvToast.toast("" + error, {
                         title: 'Error Saving Record',
-                        autoHideDelay: 5000,
                         variant: 'danger'
                     })
                 })

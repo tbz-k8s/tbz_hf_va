@@ -137,7 +137,6 @@
             showErrorMessage(error) {
                 this.$bvToast.toast("" + error, {
                     title: 'Error',
-                    autoHideDelay: 5000,
                     variant: 'danger'
                 })
             }
