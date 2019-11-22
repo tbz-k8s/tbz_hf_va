@@ -145,8 +145,7 @@ object DeploymentController {
         mailBody += "\n\n Cluster Access: "
         deploymentResponse.clusterAccess.forEach { mailBody += "${it.ip}:${it.ports[0]} \n" }
 
-//        MailService.sendMail(deploymentResponse.trainee?.email ?: "", mailBody)
+        MailService.sendMail(deploymentResponse.trainee?.email ?: "", mailBody)
         println("Real email: ${deploymentResponse.trainee?.email}")
-        MailService.sendMail("nliechti@nliechti.ch", mailBody)
     }
 }
