@@ -1,0 +1,158 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-01
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"  
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-02
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-03
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-04
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-05
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-06
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"  
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-07
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-08
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-09
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data"
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: rwo-volume-10
+  labels:
+    type: local
+spec:
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Recycle
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data" 
