@@ -1,4 +1,26 @@
 == Management summary
 
 Das Projekt soll Lehrpersonen das benützen der vorhandenen Kubernetes Cluster vereinfachen.
-Dieses Ziel wurde 
+
+Das Projekt ist auf https://github.com/nliechti/tbz_hf_va[Github] gehostet, wo auch diese Dokumentation als Asciidoc verfügbar ist.
+
+Dort finden sich auch noch weitere dokumentationen dazu, wie die Applikation zu Deployen, zu benutzen und mit Inhalt zu beliefern ist.
+
+=== Funktion
+
+Die Applikation selber erlaubt ein einfaches bereitstellen von Applikation auf pro Schüler ebene.
+Das heisst die Lehrperson kann mit wenigen klicks 25 OS Ticket instanzen hochfahren.
+
+=== Technologien
+
+Das Projket wurde mit folgenden Technologien umgesetzt:
+ 
+* Frontend: https://vuejs.org/[Vue.js]
+* Backend: https://javalin.io/[Javalin]
+* Datenbank: https://github.com/dizitart/nitrite-database[Nitrite]
+
+=== Deployment
+
+Die applikation kann als Docker Container von https://hub.docker.com/repository/docker/nliechti/tbz_deployer[Dockerhub] heruntergeladen und deployt werden.
+
+Dies kann in dem zu managenden Kubernetes Cluster geschehen, oder auch Standalonw von aussen.
