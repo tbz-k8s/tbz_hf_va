@@ -22,8 +22,8 @@ Um die Applikation auf dockerhub pushen zu können, müssen diese beiden Env var
 | --- | --- |
 | `KUBERNETES_MASTER_URL` | Die Url unter der die Kubernetes API verfügbar ist |
 | `KUBERNETES_USERNAME` | Username mit dem auf die API connected wird |
-| `KUBERNETES_CLIENT_CERT_DATA` | Cert data zur authentifizierung |
-| `KUBERNETES_CLIENT_KEY_DATA` | Key data zur authentifizierung |
+| `KUBERNETES_CLIENT_CERT_DATA` | Cert data zur authentifizierung. Base64 encoded client.crt file |
+| `KUBERNETES_CLIENT_KEY_DATA` | Key data zur authentifizierung. Base64 encoded client.key file|
 
 ### Mail Config
 
