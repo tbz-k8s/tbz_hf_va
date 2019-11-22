@@ -6,9 +6,6 @@
             <b-table hover :items="repos" :fields="rows">
                 <template v-slot:cell(action)="data">
                     <div class="float-right">
-                        <b-button :href="'/settings/repo/' + data.item.id" variant="outline-primary">
-                            Edit {{ data.item.name }}
-                        </b-button>
                         <b-button @click="deleteRepo(data.item.id)" variant="outline-danger">
                             X
                         </b-button>
