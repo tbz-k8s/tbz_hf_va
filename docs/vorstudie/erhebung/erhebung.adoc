@@ -43,15 +43,15 @@ Diese möglichkeit wäre womöglich mit leicht weniger Aufwand umzusetzen als Va
 
 <<<
 
-=== Bewertung
-
-<<<
-
 === Präferenzmatrix
+
+image::erhebung/praeferenz_matrix.png[]
 
 <<<
 
 === Nutzwertanalyse
+
+image::erhebung/nutzwert_analyse.png[]
 
 <<<
 
