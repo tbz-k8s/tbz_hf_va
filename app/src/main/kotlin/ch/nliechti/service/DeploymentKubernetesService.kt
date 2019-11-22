@@ -91,7 +91,7 @@ object DeploymentKubernetesService {
                 .forEach { config ->
                     config.spec.template.spec.containers.forEach { container ->
                         container.volumeMounts.forEach { volumeMount ->
-                            volumeMount.subPath = namespaceName + "/" + volumeMount.subPath
+                            volumeMount.subPath = namespaceName + "_" + volumeMount.subPath
                         }
                     }
                 }
