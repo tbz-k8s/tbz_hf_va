@@ -2,7 +2,9 @@
 
 === Kubernetes Cluster
 
-Um die Applikation zu deployen müssen Persistent Volumes mit der storage class `local-storage`
+Um die Applikation zu deployen müssen Persistent Volumes mit der storage class `local-storage` vorhanden sein.
+
+Von diesen müssen genug vorhanden sein, damit jede Instanz ein volume claimen kann. Das heisst `Anzahl Deployments x Anzahl VolumeClaims pro deployment`
 
 ```
 kind: PersistentVolume
