@@ -45,8 +45,14 @@ spec:
               value: toReplace
 ```
 
+## Services
+
+Um von aussen auf den Cluster zugreiffen zu können, muss ein LoadBalancer service vorhanden sein.
+Dieser ist meist zusätzlich zu einem internen Service nötig. Dieser ist nur für die Cluster interne kommunikation zuständig.
+
 ## Example
 
 Vollständige Examples sind hier zu finden:
 
 * [OS Ticket](https://raw.githubusercontent.com/nliechti/tbz_hf_va/master/app/os_ticket_deployment.yaml)
+* [DB Modul](https://github.com/zoink1989/vertiefungsarbeit/blob/master/dbCluster.yml)
