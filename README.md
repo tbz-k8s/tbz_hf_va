@@ -16,6 +16,13 @@ Der rest ist alles auf github in Markdown dokumentiert.
 
 Die Applikation selber ist in [javalin](https://javalin.io) und [vue.js](https://vuejs.org) geschrieben.
 
+
+### Deployment der Applikation
+
+Die möglichen Deployment Parameter sind [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/deploy/deployment.md) beschrieben.
+
+Grundsätzlich kann die Applikation mit diesem [kubernetes yaml](https://github.com/nliechti/tbz_hf_va/blob/master/app/tbz-deployer.yaml) und den oben beschriebenen Parametern deployt werden.
+
 ## Benutzung der Applikation
 
 Wie die Applikation zu benutzen ist, ist [hier](https://github.com/nliechti/tbz_hf_va/blob/master/docs/howto/howto_tbz_deployer.md) beschrieben
