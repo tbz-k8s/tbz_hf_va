@@ -8,8 +8,9 @@ Die offiziell geforderte Dokumentation findet in Asciidoc statt, da dies besser 
 
 Der rest ist alles auf github in Markdown dokumentiert.
 
-* [Antrag](docs/antrag)
-* [Vorstudie](docs/vorstudie)
+* [Antrag](docs/antrag/projektAntrag.pdf)
+* [Vorstudie](docs/vorstudie/vorstudie.pdf)
+* [Hauptstudie](docs/hauptstudie/hauptstudie.pdf)
 
 ## [Applikation](app)
 
