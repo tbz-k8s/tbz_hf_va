@@ -57,7 +57,14 @@ spec:
               value: osticket
           ports:
             - containerPort: 3306
-              name: mysql
+          volumeMounts:
+            - mountPath: /var/lib/mysql #Rootverzeichniss
+              subPath: mariadb
+              name: mariadb-data
+      volumes:
+        - name: mariadb-data
+          persistentVolumeClaim:
+            claimName: data-claim #Verweis auf den PersistentVolume
 ---
 apiVersion: v1
 kind: Service
@@ -109,3 +116,11 @@ spec:
           ports:
             - containerPort: 80
               name: osticket
+          volumeMounts:
+            - mountPath: /var/lib/mysql #Rootverzeichniss
+              subPath: mariadb
+              name: mariadb-data
+      volumes:
+        - name: os-ticket-data
+          persistentVolumeClaim:
+            claimName: data-claim #Verweis auf den PersistentVolume
