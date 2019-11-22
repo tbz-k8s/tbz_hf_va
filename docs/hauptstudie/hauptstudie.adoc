@@ -31,3 +31,7 @@ include::difficulties.adoc[]
 <<<
 
 include::technical_prerequisites.adoc[]
+
+<<<
+
+include::controlling.adoc[]

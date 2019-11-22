@@ -18,7 +18,9 @@ WICHTIG: Es kann einige Minuten dauern, bis das Raw file von github aktualisiert
 
 Damit nicht alle Schüler das gleiche Passwort bei der Applikation haben, können "markierte" Env variablen durch einen random 20 Zeichen langen String ersetzt werden.
 
-Damit eine Variabel ersetzt wird, muss einfach bei dem Service ein Label gesetzt werden, welches mit `tbz-replace-env` beginnt. Danach wird es automatisch vom TBZ Deployer ersetzt.
+Damit eine Variabel ersetzt wird, muss einfach bei dem Service eine Annotation gesetzt werden, welches mit `tbz-replace-env` beginnt. Danach wird es automatisch vom TBZ Deployer ersetzt.
+
+Dieser mechanismus wurde so gebaut, damit das file ohne den deployer mit einem sinnvollen Passwort deployt werden kann.
 
 ```
 metadata:

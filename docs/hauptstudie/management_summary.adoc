@@ -1,2 +1,4 @@
 == Management summary
 
+Das Projekt soll Lehrpersonen das benützen der vorhandenen Kubernetes Cluster vereinfachen.
+Dieses Ziel wurde 
