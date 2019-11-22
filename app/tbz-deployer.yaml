@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: tbz-deployer
-          image: nliechti/tbz_deployer:0.1
+          image: nliechti/tbz_deployer:1
           ports:
             - containerPort: 7000
               name: tbz-deployer
