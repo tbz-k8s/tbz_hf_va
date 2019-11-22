@@ -35,4 +35,8 @@ Auch konnte diese Variante nicht 100% ausgespielt werden, da ich komplett allein
 | Deployment auf Kubernetes
 | Deployt auf einem Minikube lokal
 | Deployment funktioniert mit den Zugangsdaten über ENV gesetzt
+
+| Deployment von DB Jupyter Modul 
+| https://github.com/zoink1989/vertiefungsarbeit/blob/master/dbCluster.yml[Repo] auf cluster Deployt
+| Deployment funktioniert und zugriff ist möglich
 |===
