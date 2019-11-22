@@ -1,0 +1,28 @@
+== Controlling
+
+=== Zeitplan
+
+Grundsätzlich konnte der Zeitplan relativ gut eingehalten werden. Aufgrund von feedback vom Auftraggeber habe ich die Vorstudie und Hauptstudie immer wieder leicht angepasst.
+
+Die Dokumentation wurde im ininitalen Zeitplan nicht wirklich berücksichtigt, erfolgete aber währen der gesammten umsetzungszeit fortlaufend.
+
+image::zeitplan.png[]
+
+=== Applikationstest
+
+.Testfälle
+|===
+| Testfall | Test Konfiguration | Ausgang
+
+| Mails verschicken
+| Gmail smtp mit privatem account verwendet.
+| Funktioniert mit der über die ENV mitgegebene config für einen SMTP Server
+
+| CSV Von klasse hochladen
+| Testfile mit anonymisierten daten getestet. Direkt von ecolm.com
+| Verschickt Mail einwandfrei
+
+| Deployment auf Kubernetes
+| Deployt auf einem Minikube lokal
+| Deployment funktioniert mit den Zugangsdaten über ENV gesetzt
+|===

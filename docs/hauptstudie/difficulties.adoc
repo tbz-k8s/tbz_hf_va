@@ -1,1 +1,84 @@
 == Schwierigkeiten bei der Umsetzung
+
+=== Travis CI
+
+Die Dokumentation, wie Credential hochgeladen werden können hat micht doch eine gute Stunde gekostet.
+Gut versteckt im UI können diese z.B. zum pushen von images hinterlegt werden.
+
+=== Deployment von Javalin in Docker
+
+Aus bisher immer noch unerklärlichen gründen, hat Javalin im Container die resourcen im Classpath an einem anderen Ort als auf einem Mac oder einem normalen Linux.
+
+Dies konnte ich aber mit einem https://github.com/nliechti/tbz_hf_va/commit/ee8403af0c47e8f23b7686f3268b11faea8062ec#diff-7bfa124914e2e8affd23055295839cb8[workaround] fixen.
+
+```
+[main] INFO io.javalin.Javalin - Starting Javalin ...
+[main] INFO io.javalin.Javalin - Listening on http://localhost:7000/
+[main] INFO io.javalin.Javalin - Javalin started in 193ms \o/
+[qtp715521683-36] WARN io.javalin.Javalin - Uncaught exception
+java.nio.file.NoSuchFileException: src/main/resources/vue
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileAttributeViews$Basic.readAttributes(UnixFileAttributeViews.java:55)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.readAttributes(UnixFileSystemProvider.java:145)
+	at java.base/sun.nio.fs.LinuxFileSystemProvider.readAttributes(LinuxFileSystemProvider.java:99)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1763)
+	at java.base/java.nio.file.FileTreeWalker.getAttributes(FileTreeWalker.java:219)
+	at java.base/java.nio.file.FileTreeWalker.visit(FileTreeWalker.java:276)
+	at java.base/java.nio.file.FileTreeWalker.walk(FileTreeWalker.java:322)
+	at java.base/java.nio.file.FileTreeIterator.<init>(FileTreeIterator.java:71)
+	at java.base/java.nio.file.Files.walk(Files.java:3820)
+	at io.javalin.plugin.rendering.vue.JavalinVue.walkPaths$javalin(JavalinVue.kt:33)
+	at io.javalin.plugin.rendering.vue.VueComponent.handle(JavalinVue.kt:63)
+	at io.javalin.core.security.SecurityUtil.noopAccessManager(SecurityUtil.kt:22)
+	at io.javalin.http.JavalinServlet$addHandler$protectedHandler$1.handle(JavalinServlet.kt:116)
+	at io.javalin.http.JavalinServlet$service$2$1.invoke(JavalinServlet.kt:45)
+	at io.javalin.http.JavalinServlet$service$2$1.invoke(JavalinServlet.kt:24)
+	at io.javalin.http.JavalinServlet$service$1.invoke(JavalinServlet.kt:123)
+	at io.javalin.http.JavalinServlet$service$2.invoke(JavalinServlet.kt:40)
+	at io.javalin.http.JavalinServlet.service(JavalinServlet.kt:75)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790)
+	at org.eclipse.jetty.servlet.ServletHolder.handle(ServletHolder.java:852)
+	at org.eclipse.jetty.servlet.ServletHandler.doHandle(ServletHandler.java:544)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at org.eclipse.jetty.server.session.SessionHandler.doHandle(SessionHandler.java:1581)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextHandle(ScopedHandler.java:233)
+	at io.javalin.core.JavalinServer$start$httpHandler$1.doHandle(JavalinServer.kt:53)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:188)
+	at org.eclipse.jetty.servlet.ServletHandler.doScope(ServletHandler.java:482)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:1549)
+	at org.eclipse.jetty.server.handler.ScopedHandler.nextScope(ScopedHandler.java:186)
+	at org.eclipse.jetty.server.handler.ContextHandler.doScope(ContextHandler.java:1204)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:141)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:59)
+	at org.eclipse.jetty.server.handler.StatisticsHandler.handle(StatisticsHandler.java:173)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:127)
+	at org.eclipse.jetty.server.Server.handle(Server.java:494)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:374)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:268)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.succeeded(AbstractConnection.java:311)
+	at org.eclipse.jetty.io.FillInterest.fillable(FillInterest.java:103)
+	at org.eclipse.jetty.io.ChannelEndPoint$2.run(ChannelEndPoint.java:117)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:782)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$Runner.run(QueuedThreadPool.java:918)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+```
+
+=== Libraries
+
+Initial hatte ich einige Version konflikte, was ich mit Gradle noch nie hatte.
+Auch dies hat mich mindestens 1-2 Stunden gekostet, bis ich jede library zufriedenstellen konnte.
+
+```
+Yaml parsing without reflection with `https://github.com/charleskorn/kaml` `https://github.com/Kotlin/kotlinx.serialization/`
+Did not work in combination with `io.fabric8:kubernetes-model:4.6.0`
+```
+
+Gelöst mit https://github.com/nliechti/tbz_hf_va/commit/084beba6eb2419169f765d30aa40eb5035383eae#diff-863e98cb3c8f40e0692c9d27cd349e29[commit] und dem `constraints` block gleich darunter.
+
+=== Kubernetes models
+Das Typensichere laden eines Kubernetes configfiles war schwerer als gedacht, da die Offiziellen
+models kein wirklich generisches Parsen zulassen.
+
+Dafür ist der https://github.com/fabric8io/kubernetes-client[fabric8io] client mit models um so besser, wenn man das konstrukt mal verstanden hat.
